@@ -5,12 +5,16 @@
 \maketitle
 \tableofcontents
 
-\chapter{Introduction}
+\newpage
 
-\section{Motivation}
+\section{Introduction}
 
-\section{Project Aim}
+\subsection{Motivation}
 
-\section{Dissertation Outline}
+This project is "REPLACE WITH NAME OF APPLICATION", a revision tool for computing science students. My client is Dr Jeremy Singer, a lecturer within the School of Computing Science at the University of Glasgow. Dr Singer believes that an alternative revision tool will benefit students who are currently taking the Java Programming 2 course. As this is the first time students are introduced to the java programming language, Dr Singer found that some students struggled to grasp the basic concepts and syntax, and become confident with the language. Having an alternative revision tool will provide the students with another means of revision or learning, outwith the material provided within lectures and laboratories.
+
+\subsection{Project Aim}
+
+\subsection{Dissertation Outline}
 
 \end{document}

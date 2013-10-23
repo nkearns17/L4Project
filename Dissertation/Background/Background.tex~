@@ -1,4 +1,4 @@
-\documentclass{l3proj}
+\documentclass{article}
 \begin{document}
 \title{Java Programming Revision Tool}
 \author{Nicole Keaarns}
@@ -25,6 +25,10 @@ There are many methods of learning how to program in a new language and there ar
 \item Oracle
 \end{itemize}
 
+Java Puzzler, written by Joshua Block and Neal Gafter, is a book containing various puzzles to test the readers ability to identify the correct behaviour of a program. The book provides many puzzles which do not necessarily behave the way they would appear, so the purpose of the book is to look at the snippets of code and try to successfully identify how the code will run. There are very detailed solutions to each problem, which allows the reader to see if they got the correct answer, and if not, provides an in-depth explaination as to why it behaves the way it does. This book is good, in that, it allows the readers to improve their ability to identify problems within code, without having to run it through a compiler. However, it does not necessarily improve on the readers ability to write Java code, as they are simply looking at small snippets of code in order to identify it's behaviour. 
+
+Oracle, an online website, provides static, online tutorials for learning Java. Oracle provides many different topics in which the reader can work their way through at their own speed. It provides a very simple interface, using simple 'Next' and 'Back' buttons to navigate through the different tutorials. There is also a simple menu displayed down the left-hand side of the page, which will allow the user to change to another tutorial at any time. This is udeful as it allows users to work at their own pace and means that they don't have to work through the tutorials from start to finish. The only disadvantage of using static, online tutorials is that it provides no way for users to practice writing Java code, they cannot put into practice directly within Oracle the concepts and syntax they are learning.
+
 \subsubsection{Interactive Tools}
 
 \textbf{\underline{Guided Walkthroughs:}}\\
@@ -35,6 +39,8 @@ There are many methods of learning how to program in a new language and there ar
 \item Learn Java Online
 \item TryRuby
 \end{itemize}
+
+Code Avengers, an online resource for learning how to program games, application and websites using HTML, CSS and Javascript. Although this resource does not suitable for Java, it provides effective means of teaching and learning other programming languages. Code Avengers provides a lot of visual feedback which is useful to the user as it allows them to see exactly what is happening. When a user selects the first tutorial which they want to do, a pop-up box is displayed, highlighting all important areas and buttons within the tutorial, for example, the 'Run' button.  The interface is very clear and simple. As shown above, the page is split into three sections: the task instructions are provided at the top of the page, the middle section is the code editor in which the user will edit and write their code, and the third is the results box which will display the output of the program. There is a small toolbar along the bottom of the page which indicates the the user which lesson they are on and how far they are through that lesson, and allows the user to jump to different lessons. This could be very useful as it will allow the user to work through the lessons at their own pace and not have to work through every single lesson and task. However, I don't think it is very visible, it doesn't stand out. I think if this was to be made more bold, or even displayed as a menu down the left or right hand side would be more obvious to the users.
 
 \textbf{\underline{Free-Form Tools:}}\\
 

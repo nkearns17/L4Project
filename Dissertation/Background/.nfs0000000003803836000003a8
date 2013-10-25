@@ -1,0 +1,79 @@
+\documentclass{article}
+\begin{document}
+\title{Java Programming Revision Tool}
+\author{Nicole Keaarns}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Background}
+
+This section discusses several different existing artifacts, most relating to Java programming or another programming language. These tools were selected to provide design ideas for my own Java revision application, focusing on how each tool provides the user with the material to learn.
+
+\subsection{Investigation of Exisiting Artifacts}
+
+There are many methods of learning how to program in a new language and there are a huge number of applications available to teach users how to do so. I have broken down the exisiting artefacts into several categories, as shown in the image below.\\
+\\
+\textbf{INSERT DIAGRAM!!!!!!!!}
+
+
+\subsubsection{Static Learning Tools}
+
+\begin{itemize}
+\item Java Puzzler
+\item Oracle
+\end{itemize}
+
+Java Puzzler, written by Joshua Block and Neal Gafter, is a book containing various puzzles to test the readers ability to identify the correct behaviour of a program. The book provides many puzzles which do not necessarily behave the way they would appear, so the purpose of the book is to look at the snippets of code and try to successfully identify how the code will run. There are very detailed solutions to each problem, which allows the reader to see if they got the correct answer, and if not, provides an in-depth explaination as to why it behaves the way it does. This book is good, in that, it allows the readers to improve their ability to identify problems within code, without having to run it through a compiler. However, it does not necessarily improve on the readers ability to write Java code, as they are simply looking at small snippets of code in order to identify it's behaviour. 
+
+Oracle, an online website, provides static, online tutorials for learning Java. Oracle provides many different topics in which the reader can work their way through at their own speed. It provides a very simple interface, using simple 'Next' and 'Back' buttons to navigate through the different tutorials. There is also a simple menu displayed down the left-hand side of the page, which will allow the user to change to another tutorial at any time. This is udeful as it allows users to work at their own pace and means that they don't have to work through the tutorials from start to finish. The only disadvantage of using static, online tutorials is that it provides no way for users to practice writing Java code, they cannot put into practice directly within Oracle the concepts and syntax they are learning.
+
+\subsubsection{Interactive Tools}
+
+\textbf{\underline{Guided Walkthroughs:}}\\
+
+\begin{itemize}
+\item Code Avengers
+\item CodeCademy
+\item Learn Java Online
+\item TryRuby
+\end{itemize}
+
+\textbt{INSERT IMAGES HERES!!!!!}\\
+
+Code Avengers is an online resource for learning how to program games, application and websites using HTML, CSS and Javascript. Although this resource is not suitable for Java, it provides effective means of teaching and learning other programming languages. Code Avengers provides a lot of visual feedback which is useful to the user as it allows them to see exactly what is happening. When a user selects a tutorial which they want to do, a pop-up box is displayed, highlighting all important areas and buttons within the tutorial, for example, the 'Run' button.  The interface is very clear and simple. As shown above, the page is split into three sections: the task instructions are provided at the top of the page, the middle section is the code editor in which the user will edit and write their code, and the third is the results box which will display the output of the program. There is a small toolbar along the bottom of the page which indicates to the the user which lesson they are on and how far they are through that lesson, and allows the user to jump to different lessons. This could be very useful as it will allow the user to work through the lessons at their own pace and not have to work through every single lesson and task. However, I don't think it is very visible, it blends in to the bottom of the screen. I think if this was to be made more bold, or even displayed as a menu down the left or right hand side would be more obvious to the users, and more useful.\\
+
+\textbf{INSERT IMAGES HERES!!!!!}\\
+
+Codecademy is an interactive, online tool for learning how to program using many jQuery, javaScript, PHP, Python and Ruby. Although this resource does not provide material for Java, the methods used for teaching are very effective. The interface is very clear and simple, making it easy for novice users to navigate through the webpage. When a user selects a language in which they want to learn, they are then provided with a list of all the topics available, which is useful as it allows the users to work at their own pace and start where they think necessary. Codecademy provides the user with visual feedback which is useful as it allows the user to see what is happening as they work, they can see how the application responds. For example, when the user is working through the tutorial, if they try to submit code which has errors, a red error message is displayed on the screen, stating where the error is and what type of error has been made. Within each topic, pop-up boxes are used in order to highlight important tasks and areas, allowing the user to become familiar with the interface. Within each topic, there is a small drop-down menu which allows the user to navigate between the different tutorials within that topic. This is useful is it allows the user to progress at their own pace, and prevents them from having to complete tutorials which they may find too easy. One disadvantage with the layout of the tutorials is that the information and instruction panel on the left is slightly small. This means that if a tutorial is quite lengthy, the user has to continually scroll through the panel in order to see all instructions.\\
+
+\textbf{INSERT IMAGES HERES!!!!!}\\
+
+Learn Java Online
+
+
+\textbf{\underline{Free-Form Tools:}}\\
+
+\begin{itemize}
+\item GroovyConsole
+\item Compile Online
+\end{itemize}
+
+\subsubsection{Quizzes}
+
+\begin{itemize}
+\item Bitesize
+\item ProProfs
+\item Indiabix
+\end{itemize}
+
+\subsubsection{Community-based Support}
+
+\begin{itemize}
+\item Java Programming Community
+\item StackOverflow
+\item Wikipedia
+\end{itemize}
+
+\end{document}

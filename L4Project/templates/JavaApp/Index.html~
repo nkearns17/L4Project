@@ -10,7 +10,7 @@ Welcome to JavaApp!
 <html>
 <head>
 <style type="text/css">
-#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+#div1 {width:350px;height:170px;padding:10px;border:1px solid #aaaaaa;}
 </style>
 <script>
 function allowDrop(ev)
@@ -41,6 +41,25 @@ I am just <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></di
 </body>
 </html>
 
+<br>
+<br>
+
+<div class="qheader">
+1) What shape is the moon?</div>
+<div class="qselections">
+<input type="radio" value="a" name="question1">a) circle.<br>
+<input type="radio" value="b" name="question1">b) triangle.<br>
+<input type="radio" value="c" name="question1">c) square.<br>
+<input type="submit" value="Submit">
+</div>
+
+<br>
+<br>
+
+<div class="tboxheader">Edit the following code:</div>
+<div class="tbox">
+<input type="text" name="code" value="This is the code to edit">
+</div>
 
 </BODY>
 </HTML>

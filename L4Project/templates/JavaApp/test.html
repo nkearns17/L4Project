@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>test</title>
+<script type="text/javascript">
+function valid() {
+cor = "0"
+incor = "0"
+test0 = document.myform.elements[0].value;
+test1 = document.myform.elements[1].value;
+if (test0.toLowerCase() == "codingforums.com") {
+++cor; }
+else {
+++incor }
+if (test1.toLowerCase() == "chrismiceli") {
+++cor; }
+else {
+++incor }
+document.cookie = escape(test0 + ";" + test1 + ";" + cor + ";" + incor)
+document.location.href = "results.html" //the results page
+}
+</script>
+<body>
+<form name="myform">
+1. what is the name of this site?
+<input type="text" name="q1">
+2.what is my name?
+<input type="text/javascript">
+<br>
+<input type="button" onClick="valid()" value="check answers">
+</form>
+</body>
+</html>
+
+the results page
+
+<html>
+<head>
+<title>test
+</title>
+<script type="text/javascript">
+function tst() {
+cook = unescape(document.cookie)
+vals = cook.split(";")
+document.write("You answered " + vals[0] + " for number 1.<br>You answered " + vals[1] + " for number 2.<br>You got " + vals[2] + " correct and " + vals[3] + "
+incorrect.<br>You got " + vals[2]/2 * 100 + "% correct.");
+}
+</script>
+</head>
+<body onLoad="tst()">
+<span id="spanname"></span>
+</body>
+</html>

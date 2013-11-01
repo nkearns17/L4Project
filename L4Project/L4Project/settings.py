@@ -1,5 +1,5 @@
 # Django settings for L4Project project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -114,7 +114,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 	#'/home/nicole/Documents/UniLevel4/L4Project/L4Project/templates',
-	'/users/level4/0902059k/Level4/Project/L4Project/L4Project/templates',
+	#'/users/level4/0902059k/Level4/Project/L4Project/L4Project/templates',
+	os.getcwd()+'/templates',
 )
 
 INSTALLED_APPS = (

@@ -3,5 +3,6 @@ from django.conf.urls import patterns,url
 from JavaApp import views
 
 urlpatterns = patterns('',
-	url(r'^$', views.indes, name='index')
+	url(r'^$', views.index, name='index'),
+	url(r'^$', views.test, name='test'),
 )

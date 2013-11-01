@@ -29,6 +29,25 @@ var data=ev.dataTransfer.getData("Text");
 ev.target.appendChild(document.getElementById(data));
 ev.preventDefault();
 }
+
+var text=["System.","out.","println","dog","(hello world);"];
+var words = ["out.", "System.", "println","class","void","static"];
+var match = [];
+
+var j = 0;
+for (var i =0; i < text.length; i++)
+    for (j = 0; j < words.length; j++)
+        if (text[i] == words[j])
+            match.push(words[j]);            
+
+for (var s = 0; s < match.length; s++)
+    document.write(match[s] + "<br>");
+
+var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
+
+document.write("<p>" + text + " " + "</p>" );
+document.write("<br>" + match[keyword]);
+
 </script>
 </head>
 <body>
@@ -38,6 +57,7 @@ I am just <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></di
 <p id="drag1" draggable="true" ondragstart="drag(event)">testing.</p>
 <p id="drag2" draggable="true" ondragstart="drag(event)">testing1.</p>
 <p id="drag3" draggable="true" ondragstart="drag(event)">testing2.</p>
+<p id="grad4" draggable="true" ondragstart="drag(event)">match[keyword]</p>
 </body>
 </html>
 
@@ -60,6 +80,32 @@ I am just <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></di
 <div class="tbox">
 <input type="text" name="code" value="This is the code to edit">
 </div>
+
+<br>
+<br>
+
+<!--
+<script>
+var text=["System.","out.","println","dog","(hello world);"];
+
+var words = ["out.", "System.", "println","class","void","static"];
+
+var match = [];
+
+var j = 0;
+for (var i =0; i < text.length; i++)
+    for (j = 0; j < words.length; j++)
+        if (text[i] == words[j])
+            match.push(words[j]);            
+
+for (var s = 0; s < match.length; s++)
+    document.write(match[s] + "<br>");
+
+var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
+
+document.write("<p>" + text + " " + "</p>" );
+document.write("<br>" + match[keyword]);
+</script> -->
 
 </BODY>
 </HTML>

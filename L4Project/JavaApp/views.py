@@ -6,3 +6,8 @@ def index(request):
 	template = loader.get_template('JavaApp/Index.html')
 	context = RequestContext(request, {})
 	return HttpResponse(template.render(context))
+
+def fib(request):
+        template = loader.get_template('JavaApp/fib.html')
+        context = RequestContext(request, {})
+        return HttpResponse(template.render(context))

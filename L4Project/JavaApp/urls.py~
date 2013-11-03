@@ -4,5 +4,5 @@ from JavaApp import views
 
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
-	url(r'^$', views.test, name='test'),
+	url(r'^fib', views.fib, nam'fib'),
 )

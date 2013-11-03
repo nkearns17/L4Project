@@ -30,24 +30,6 @@ ev.target.appendChild(document.getElementById(data));
 ev.preventDefault();
 }
 
-var text=["System.","out.","println","dog","(hello world);"];
-var words = ["out.", "System.", "println","class","void","static"];
-var match = [];
-
-var j = 0;
-for (var i =0; i < text.length; i++)
-    for (j = 0; j < words.length; j++)
-        if (text[i] == words[j])
-            match.push(words[j]);            
-
-for (var s = 0; s < match.length; s++)
-    document.write(match[s] + "<br>");
-
-var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
-
-document.write("<p>" + text + " " + "</p>" );
-document.write("<br>" + match[keyword]);
-
 </script>
 </head>
 <body>
@@ -84,7 +66,7 @@ I am just <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></di
 <br>
 <br>
 
-<!--
+
 <script>
 var text=["System.","out.","println","dog","(hello world);"];
 
@@ -105,7 +87,28 @@ var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____";
 
 document.write("<p>" + text + " " + "</p>" );
 document.write("<br>" + match[keyword]);
-</script> -->
+</script>
+
+<form>
+Answer: <input type="text" name="answer" id="answerbox"><br>
+<input type="button" value="Submit" onclick="printout()"()>
+</form>
+
+<script>
+
+var textbox = document.getElementById('answerbox');
+
+function printout(){
+	var answer = textbox.value;
+	if (answer == match[keyword]){
+		alert("correct");
+	}
+	else{
+		alert("wrong");
+	}
+}
+
+</script>
 
 </BODY>
 </HTML>

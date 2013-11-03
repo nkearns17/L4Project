@@ -89,5 +89,26 @@ document.write("<p>" + text + " " + "</p>" );
 document.write("<br>" + match[keyword]);
 </script>
 
+<form>
+Answer: <input type="text" name="answer" id="answerbox"><br>
+<input type="button" value="Submit" onclick="printout()"()>
+</form>
+
+<script>
+
+var textbox = document.getElementById('answerbox');
+
+function printout(){
+	var answer = textbox.value;
+	if (answer == match[keyword]){
+		alert("correct");
+	}
+	else{
+		alert("incorrect");
+	}
+}
+
+</script>
+
 </BODY>
 </HTML>

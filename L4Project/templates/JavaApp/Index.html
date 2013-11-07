@@ -5,17 +5,33 @@ Welcome to JavaApp!
 <IMG SRC=" {{ STATIC_URL }}img/java.png" />
 <br><br>
 
-
-<!DOCTYPE HTML>
-<html>
-<head>
 <style type="text/css">
-#div1 {width:350px;height:170px;padding:10px;border:1px solid #aaaaaa;}
+#div1 {width:70px;height:20px;border:1px solid #aaaaaa; padding:10px; text-align:center;}
+
+.box{
+	 display: inline-block;
+}
+
+.draggable{
+	border:1px;
+	border-style:dashed;
+	width:70px;
+	height:20px;
+	text-align: center;
+}
+
 </style>
+
+
 <script>
+
+var isFull = false;
+
 function allowDrop(ev)
 {
-ev.preventDefault();
+if (!isFull){
+	ev.preventDefault();
+}
 }
 
 function drag(ev)
@@ -28,18 +44,18 @@ function drop(ev)
 var data=ev.dataTransfer.getData("Text");
 ev.target.appendChild(document.getElementById(data));
 ev.preventDefault();
+isFull=true;
 }
 
 </script>
 </head>
 <body>
 
-I am just <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> this
+I am just <div id="div1" class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div> this
 <br>
-<p id="drag1" draggable="true" ondragstart="drag(event)">testing.</p>
-<p id="drag2" draggable="true" ondragstart="drag(event)">testing1.</p>
-<p id="drag3" draggable="true" ondragstart="drag(event)">testing2.</p>
-<p id="grad4" draggable="true" ondragstart="drag(event)">match[keyword]</p>
+<div class="draggable" id="drag1" draggable="true" ondragstart="drag(event)">testing.</div>
+<div class="draggable" id="drag2" draggable="true" ondragstart="drag(event)">testing1.</div>
+<div class="draggable" id="drag3" draggable="true" ondragstart="drag(event)">testing2.</div>
 </body>
 </html>
 
@@ -83,7 +99,8 @@ for (var i =0; i < text.length; i++)
 for (var s = 0; s < match.length; s++)
     document.write(match[s] + "<br>");
 
-var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
+var keyword = Math.floor((Math.random()*match.length));
+text[keyword] = "_____"; // replace for other word
 
 document.write("<p>" + text + " " + "</p>" );
 document.write("<br>" + match[keyword]);

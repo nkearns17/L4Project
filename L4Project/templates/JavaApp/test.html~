@@ -8,8 +8,6 @@
 .question{
 	border:2px solid;
 }
-.answer{
-	background-color:lime;
 </style>
 
 <div class="question">

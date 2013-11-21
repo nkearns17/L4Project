@@ -1,43 +1,66 @@
 <html>
-<head>
 <title>test</title>
 
-<script src="http://code.jquery.com/jquery.js"></script>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+</head>
 
 <style type="text/css">
 .question{
 	border:2px solid;
 }
+.answer{
+	background-color:lime;
 </style>
 
 <div class="question">
 <div class="qheader">
 1) What shape is the moon?</div>
 <div class="qselections">
-<input type="radio" value="a" name="question1">circle<br>
-<input type="radio" value="b" name="question1">triangle<br>
-<input type="radio" value="c" name="question1">square<br>
-<input type="submit" value="Check">
+<input type="radio" value="a" data-type="1" name="question1">circle<br>
+<input type="radio" value="b" data-type="0" name="question1">triangle<br>
+<input type="radio" value="c" data-type="0" name="question1">square<br>
+<input class="submit" type="submit" value="Check">
+
+<div class="answer"> <p>The answer is: a.) circle </p></div>
+
 </div>
 </div>
 <br><br>
 <div class="question">
 <div class="qheader">
-1) What colour is the moon?</div>
+2) What colour is the moon?</div>
 <div class="qselections">
-<input type="radio" value="a" name="question1">white<br>
-<input type="radio" value="b" name="question1">black<br>
-<input type="radio" value="c" name="question1">blue<br>
+<input type="radio" value="a" data-type="1" name="question1">white<br>
+<input type="radio" value="b" data-type="0" name="question1">black<br>
+<input type="radio" value="c" data-type="0" name="question1">blue<br>
 <input class="submit" type="submit" value="Check">
 
-<div class="answer"><p>The answer is: a.) white </p></div>
+<div class="answer"> <p>a</p></div>
 
 </div>
 </div>
 
 <script>
+
+$(".answer").hide();
+
+// $(".submit").click(function(){
+//	$(this).parent().find(".answer").toggle('slow');
+// });
+
 $(".submit").click(function(){
-	$(this).parent().find(".answer").toggle('slow');
+	var type = $(this).data("type");
+    	if (type === 1 ){
+		alert('Correct');}
+	else{	
+		alert('Wrong');}
+   	//if (type != 1 ){
+	//	alert("wrong");
+	//}else{
+	//	$(this).parent().find(".answer").toggle('slow');
+	//}
 });
 </script>
 

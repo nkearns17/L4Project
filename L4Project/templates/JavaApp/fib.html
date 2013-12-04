@@ -1,6 +1,10 @@
 <HTML>
-<BODY>
 
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block content %}
+
+<center>
 <script>
 var text=["System.","out.","println","dog","(hello world);"];
 
@@ -43,6 +47,7 @@ function printout(){
 }
 
 </script>
+</center>
 
-</BODY>
+{% endblock %}
 </HTML>

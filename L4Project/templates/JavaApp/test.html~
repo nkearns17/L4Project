@@ -1,6 +1,8 @@
 <html>
-<title>test</title>
 
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block content %}
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
@@ -65,4 +67,6 @@ $(".submit").click(function(){
 </script>
 
 </body>
+
+{% endblock %}
 </html>

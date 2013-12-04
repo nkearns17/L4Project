@@ -1,4 +1,8 @@
 <HTML>
+
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
 <HEADER><TITLE> JavaApp </TITLE></HEADER>
 <BODY>
 Welcome to JavaApp!
@@ -22,7 +26,9 @@ Welcome to JavaApp!
 
 </style>
 
+{% endblock %}
 
+{% block content %}
 <script>
 
 var isFull = false;
@@ -126,6 +132,8 @@ function printout(){
 }
 
 </script>
+
+{% endblock %}
 
 </BODY>
 </HTML>

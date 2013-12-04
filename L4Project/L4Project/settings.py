@@ -73,7 +73,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 	#'/home/nicole/Documents/UniLevel4/L4Project/L4Project/static',
-	'/users/level4/0902059k/Level4/Project/L4Project/L4Project/static',
+	#'/users/level4/0902059k/Level4/Project/L4Project/L4Project/static',
+	os.getcwd()+'/static',
 )
 
 # List of finder classes that know how to find static files in

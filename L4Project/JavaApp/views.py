@@ -21,3 +21,8 @@ def test(request):
         template = loader.get_template('JavaApp/test.html')
         context = RequestContext(request, {})
         return HttpResponse(template.render(context))
+
+def about(request):
+        template = loader.get_template('JavaApp/about.html')
+        context = RequestContext(request, {})
+        return HttpResponse(template.render(context))

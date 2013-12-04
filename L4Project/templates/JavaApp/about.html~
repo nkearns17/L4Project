@@ -1,0 +1,11 @@
+<html>
+
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
+
+<h1>About JavaApp!</h1>
+
+{% endblock %}
+
+</html>

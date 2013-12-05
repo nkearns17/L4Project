@@ -59,6 +59,16 @@
           <li><a href="#">One more separated link</a></li>
         </ul>
       </li>
+	 <ul class="dropdown-menu">
+                <li class="dropdown-submenu">
+                  <a href="#">More options</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Second level link</a></li>
+                    <li><a href="#">Second level link</a></li>
+                    <li><a href="#">Second level link</a></li>
+                    <li><a href="#">Second level link</a></li>
+                    <li><a href="#">Second level link</a></li>
+                  </ul>
     </ul>
     <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
@@ -78,9 +88,7 @@
     <div class="jumbotron">
       <div class="container">
 	{% block topbar %}
-        <h1>Hello, Java Programmers!</h1>
-        <p>This application provides simple activities to allow you to learn and practice Java programming.</p>
-        <p><a href='about/' class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        
 	{% endblock %}
       </div>
     </div>

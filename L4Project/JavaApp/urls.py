@@ -8,4 +8,7 @@ urlpatterns = patterns('',
 	url(r'^$', views.home, name='home'),
 	url(r'^test', views.test, name='test'),
 	url(r'^about', views.about, name='about'),
+	url(r'^mctest', views.mctest),
+	url(r'^validate_answer/(?P<question>\w+)/(?P<answer>\d+\.\d+)','JavaApp.views.validateAns'),
+	url(r'^validate_answer/(?P<question>\w+)/(?P<answer>\w+)', 'JavaApp.views.validateAns'),
 )

@@ -38,9 +38,9 @@
 <div class="qheader">
 2) What colour is the moon?</div>
 <div class="qselections">
-<input type="radio" value="a" data-type="1" name="question1">white<br>
-<input type="radio" value="b" data-type="0" name="question1">black<br>
-<input type="radio" value="c" data-type="0" name="question1">blue<br>
+<input type="radio" value="a" data-type="1" name="question2" value="white"><br>
+<input type="radio" value="b" data-type="0" name="question2">black<br>
+<input type="radio" value="c" data-type="0" name="question2">blue<br>
 <input class="submit" type="submit" value="Check">
 
 <div class="answer"> <p>a</p></div>

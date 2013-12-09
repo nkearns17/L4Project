@@ -4,7 +4,7 @@
 
 {% block topbar %}
 
-<h1> Fill in the Blanks </h1>
+<h1><center> Fill in the Blanks </center></h1>
 
 {% endblock %}
 
@@ -17,6 +17,7 @@ var text=["System.","out.","println","dog","(hello world);"];
 var words = ["out.", "System.", "println","class","void","static"];
 
 var match = [];
+var anwsers = [];
 
 var j = 0;
 for (var i =0; i < text.length; i++)
@@ -30,8 +31,16 @@ for (var s = 0; s < match.length; s++)
 var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
 
 document.write("<p>" + text + " " + "</p>" );
-document.write("<br>" + words);
+for (var p = 0; p < 4; i++)
+	var ans = words[Math.floor(Math.random()*things.length)];
+	answers.push(ans);
+
+for (var s = 0; s < answers.length; s++)
+    document.write(answers[s] + "<br>");
+
 </script>
+
+
 
 <form>
 Answer: <input type="text" name="answer" id="answerbox"><br>

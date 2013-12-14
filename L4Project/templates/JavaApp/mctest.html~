@@ -15,16 +15,21 @@
 		 <input style="width: 80%;" id="text{{question.id}}" type="text{{question.id}}" placeholder="Answer">
 		<button onclick="checkAns()" id="ans{{question.id}}" type="button">Click Me!</button>
 	</div>
-	<p id="answer" value="circle" >{{question.answer}}</p>
+	<p id="answer" value="{{question.answer}}" >{{question.answer}}</p>
 
 	<script>
 	function checkAns(){
 		var enteredText = document.getElementById('text{{question.id}}');
 		var ans = enteredText.value;
 		//alert(ans);
-
-		var realAns = document.getElementById("answer").value;
-		alert(realAns);
+		//var test = document.getElementById('answer').innerHTML;
+		//var test2 = test.value;
+		//alert(test2);
+		var test = "validate_answer/"+{{question.id}}+$("#text{{question.id}};
+		document.write(test);
+		//$.get('/validate_answer/{{question.id}}/'+$("#text{{question.id}}").val(), function(data){
+		//	alert(data);
+		//});
 	}	
 	</script>
 
@@ -38,5 +43,6 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 </html>

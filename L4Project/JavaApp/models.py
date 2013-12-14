@@ -5,6 +5,7 @@ class MCQuestions(models.Model):
 	posAns1 = models.CharField(max_length=300)
 	posAns2 = models.CharField(max_length=300)
 	posAns3 = models.CharField(max_length=300)
+	posAns4 = models.CharField(max_length=300)
 	answer = models.CharField(max_length=300)
 	level = models.CharField(max_length=100)
 

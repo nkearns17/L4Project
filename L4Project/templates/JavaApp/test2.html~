@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
+<h1> testing</h1>
+{% endblock %}
+
+{% block content %}
+
+{% for question in questions %}
+	<div class="well">
+		<label>{{question|linebreaks}}</label>
+		 <input style="width: 80%;" id="text{{question.id}}" type="text{{question.id}}" placeholder="Answer"> 
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<p id="answer" value="{{question.answer}}" >{{question.answer}}</p>
+
+	<script>
+	document.ready(function(){
+		$('#{{question.id}}ans').click(function){
+			$.get('validate_anser/{{question.id}}/'+$("#text{{queestion.id}}").val(), function(data){
+				$('#{{question.id}}ans').html(data);
+				var i = document.getElementById('{{question.id}}ans').innerHTML;
+				if (i=="Your answer is correct!"){
+					 $('#{{question.id}}ans').removeClass(".btn btn-inverse btn-small").addClass(".btn btn-success btn-small");
+                                }
+                                if (i=="Wrong Answer"){
+                                        $('#{{question.id}}ans').removeClass(".btn btn-inverse btn-small").addClass(".btn btn-primary btn-small");
+                                }
+			
+			});	
+		});
+	});
+	
+	</script>
+	
+	<a id="{{question.id}}ans" class="btn btn-inverse btn-small">Submit Answer</a> 
+
+{% endfor %}
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../../dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+</html>

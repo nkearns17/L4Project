@@ -1,7 +1,10 @@
-# Create your views here.
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from JavaApp.model import MCQuestions
+from JavaApp.models import MCQuestions
+from django.db import models
+from django.http import HttpResponseRedirect
+from django.utils import simplejson
+from django.shortcuts import render_to_response
 
 
 def index(request):
@@ -35,10 +38,22 @@ def mctest(request):
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
+def atest(request):
+	template=loader.get_template('JavaApp/atest.html')
+	questions = MCQuestions.objects.all()
+	context = RequestContext(request, {'questions':questions})
+	return HttpResponse(template.render(context))
+
+def multChoice(request):
+	template=loader.get_template('JavaApp/multChoice.html')
+	questions = MCQuestions.objects.all()
+	context = RequestContext(request, {'questions':questions})
+	return HttpResponse(template.render(context))
+
 def validateAns(request, question, answer):
 	dbquestion = MCQuestions.objects.get(id=question)
 	dbanswer = dbquestion.answer
-	if (answer == dbanswer):
+	if answer==dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect!")

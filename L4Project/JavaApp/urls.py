@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 	url(r'^mctest', views.mctest),
 	url(r'^validate_answer/(?P<question>\w+)/(?P<answer>\d+\.\d+)','JavaApp.views.validateAns'),
 	url(r'^validate_answer/(?P<question>\w+)/(?P<answer>\w+)', 'JavaApp.views.validateAns'),
+	url(r'^multChoice', views.multChoice),
 )

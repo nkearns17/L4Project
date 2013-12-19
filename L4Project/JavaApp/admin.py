@@ -1,4 +1,4 @@
 from django.contrib import admin
-from JavaApp.models import MCQuestions
+from JavaApp.models import Questions
 
-admin.site.register(MCQuestions)
+admin.site.register(Questions)

@@ -1,76 +1,110 @@
-<html>
+<HTML>
 
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-<center><h1> Multiple Choice </h1></center>
+<h1><center> Fill in the Blanks </center></h1>
 {% endblock %}
 
 {% block content %}
-<head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-</head>
 
-<style type="text/css">
-.question{
-	border:2px solid;
+<div id="wordList">
+{% for javaWord in javaWords %}
+<label> {{javaWord}} </label>
+{% endfor %}
+</div>
+
+<!-- Getting list of JavaWords-->
+<script>
+var test = document.getElementById("wordList").textContent;
+var test2 = test.split(" ");
+document.write(test2 + '<br>');
+var test3 = test2.split(",");
+document.write(test3);
+
+var javaWordList = [];
+for (var i = 0; i < test2.length; i++){
+	javaWordList.push(test2[i]);
 }
-.answer{
-	background-color:lime;
-</style>
+document.write("LIST: " + javaWordList);
+</script>
+<br>
 
-<div class="question">
-<div class="qheader">
-1) What shape is the moon?</div>
-<div class="qselections">
-<input type="radio" value="a" data-type="1" name="question1">circle<br>
-<input type="radio" value="b" data-type="0" name="question1">triangle<br>
-<input type="radio" value="c" data-type="0" name="question1">square<br>
-<input class="submit" type="submit" value="Check">
+{% for question in questions %}
 
-<div class="answer"> <p>The answer is: a.) circle </p></div>
+<label id="{{question.id}}statement">{{question|linebreaks}}</label><br>
 
-</div>
-</div>
-<br><br>
-<div class="question">
-<div class="qheader">
-2) What colour is the moon?</div>
-<div class="qselections">
-<input type="radio" value="a" data-type="1" name="question2" value="white"><br>
-<input type="radio" value="b" data-type="0" name="question2">black<br>
-<input type="radio" value="c" data-type="0" name="question2">blue<br>
-<input class="submit" type="submit" value="Check">
 
-<div class="answer"> <p>a</p></div>
-
-</div>
-</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
 
-$(".answer").hide();
+var labelText = $("#{{question.id}}statement").text();
+document.write(labelText+'<br>');
+var questionArray = labelText.split(" ");
+document.write(questionArray+'<br>');
 
-// $(".submit").click(function(){
-//	$(this).parent().find(".answer").toggle('slow');
-// });
+for (var j=0; j<questionArray.length; j++){
+	document.write("hello ");
+}
 
-$(".submit").click(function(){
-	var type = $(this).data("type");
-    	if (type === 1 ){
-		alert('Correct');}
-	else{	
-		alert('Wrong');}
-   	//if (type != 1 ){
-	//	alert("wrong");
-	//}else{
-	//	$(this).parent().find(".answer").toggle('slow');
-	//}
-});
 </script>
 
-</body>
+{% endfor %}
+
+
+<!--
+<center>
+<script>
+var text=["System.","out.","println","dog","(hello world);"];
+
+var words = ["out.", "System.", "println","class","void","static"];
+
+var match = [];
+
+var j = 0;
+for (var i =0; i < text.length; i++)
+    for (j = 0; j < words.length; j++)
+        if (text[i] == words[j])
+            match.push(words[j]);            
+
+for (var s = 0; s < match.length; s++)
+    document.write(match[s] + "<br>");
+
+var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
+
+document.write("<p>" + text + " " + "</p>" );
+document.write("<br>" + words);
+</script>
+
+<form>
+Answer: <input type="text" name="answer" id="answerbox"><br>
+<input type="button" value="Submit" onclick="printout()"()>
+</form>
+
+<script>
+
+var textbox = document.getElementById('answerbox');
+
+function printout(){
+	var answer = textbox.value;
+	if (answer == match[keyword]){
+		alert("correct");
+	}
+	else{
+		alert("incorrect");
+	}
+}
+
+</script>
+</center> -->
 
 {% endblock %}
-</html>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+</HTML>

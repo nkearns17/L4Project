@@ -10,6 +10,23 @@
 
 {% block content %}
 
+{% for question in questions %}
+
+<label id="{{question.id}}statement">{{question|linebreaks}}</label><br>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script>
+
+var labelText = $("#{{question.id}}statement").text();
+var test1 = "how are you today";
+var test = test1.split(" ");
+document.write(test);
+
+</script>
+
+{% endfor %}
+
 <center>
 <script>
 var text=["System.","out.","println","dog","(hello world);"];
@@ -17,7 +34,6 @@ var text=["System.","out.","println","dog","(hello world);"];
 var words = ["out.", "System.", "println","class","void","static"];
 
 var match = [];
-var anwsers = [];
 
 var j = 0;
 for (var i =0; i < text.length; i++)
@@ -31,16 +47,8 @@ for (var s = 0; s < match.length; s++)
 var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
 
 document.write("<p>" + text + " " + "</p>" );
-for (var p = 0; p < 4; i++)
-	var ans = words[Math.floor(Math.random()*things.length)];
-	answers.push(ans);
-
-for (var s = 0; s < answers.length; s++)
-    document.write(answers[s] + "<br>");
-
+document.write("<br>" + words);
 </script>
-
-
 
 <form>
 Answer: <input type="text" name="answer" id="answerbox"><br>
@@ -65,4 +73,11 @@ function printout(){
 </center>
 
 {% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
 </HTML>

@@ -3,74 +3,82 @@
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-
 <h1><center> Fill in the Blanks </center></h1>
-
 {% endblock %}
 
 {% block content %}
 
+ <!-- List of java words -->
+<div id="wordList">
+<label> {{javaWords}} </label>
+</div>
+
+<!-- get all fib questions -->
 {% for question in questions %}
 
-<label id="{{question.id}}statement">{{question|linebreaks}}</label><br>
-
+<!-- <label id="{{question.id}}statement">{{question|linebreaks}}</label><br> -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
 
+// Get the question from the html 
 var labelText = $("#{{question.id}}statement").text();
-var test1 = "how are you today";
-var test = test1.split(" ");
-document.write(test);
+//document.write(labelText+'<br>');
 
-</script>
+// Split the question to make list of words
+var questionList = labelText.split(" ");
+//document.write("questionList: " + questionList + questionList.length + "<br>");
 
-{% endfor %}
+// split the java words into a list to check against and get size
+var jwl = document.getElementById("wordList").textContent;
+var jwords = jwl.split(",");
+var size = jwords.length;
+//document.write("LIST: " + jwl + jwl.length + "<br>");
+//document.write("LIST2: " + jwords + size + "<br>");
 
-<center>
-<script>
-var text=["System.","out.","println","dog","(hello world);"];
+//make list of matched words
+var matches = [];
+for (var i = 0; i < questionList.length; i++){
+	for (var j=0; j < jwords.length; j++){
+		if (jwords[j].indexOf(questionList[i]) != -1)
+			matches.push(questionList[i]);
+	}
+}
+//document.write("matches: " + matches + matches.length +  "<br>");
 
-var words = ["out.", "System.", "println","class","void","static"];
+// generate the keyword
+var keyword = matches[Math.floor(Math.random()*matches.length)];
+//document.write("keyword " + keyword + "<br>");
+//document.write("keyword " + questionList[keyword] + "<br>");
 
-var match = [];
+// replace word for space 
+for (var n =0; n < questionList.length; n++){
+	if (keyword == questionList[n]){
+		questionList[n] = "_______";		
+	}
+}
 
-var j = 0;
-for (var i =0; i < text.length; i++)
-    for (j = 0; j < words.length; j++)
-        if (text[i] == words[j])
-            match.push(words[j]);            
+document.write("questionList: " + questionList);
 
-for (var s = 0; s < match.length; s++)
-    document.write(match[s] + "<br>");
-
-var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
-
-document.write("<p>" + text + " " + "</p>" );
-document.write("<br>" + words);
-</script>
-
-<form>
-Answer: <input type="text" name="answer" id="answerbox"><br>
-<input type="button" value="Submit" onclick="printout()"()>
-</form>
-
-<script>
-
-var textbox = document.getElementById('answerbox');
+var textbox = document.getElementById('answerbox{{question.id}}');
 
 function printout(){
 	var answer = textbox.value;
-	if (answer == match[keyword]){
+	if (answer == keyword){
 		alert("correct");
 	}
 	else{
 		alert("incorrect");
 	}
 }
-
 </script>
-</center>
+
+<form>
+Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
+<input type="button" value="Submit" onclick="printout()">
+</form>
+
+{% endfor %}
 
 {% endblock %}
 

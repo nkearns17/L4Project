@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 
-
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
 	context = RequestContext(request, {})
@@ -23,11 +22,20 @@ def fib(request):
         context = RequestContext(request, {'questions':questions})
         return HttpResponse(template.render(context))
 
-def test(request):
-        template = loader.get_template('JavaApp/test.html')
+#def test(request):
+#        template = loader.get_template('JavaApp/test.html')
+#	questions = Questions.objects.filter(Qtype="FIB")
+#	javaWords = ["month","first","third","tenth","year"]
+#	listLength = len(javaWords)
+#        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
+#        return HttpResponse(template.render(context))
+
+def test2(request):
+        template = loader.get_template('JavaApp/test2.html')
 	questions = Questions.objects.filter(Qtype="FIB")
 	javaWords = ["month","first","third","tenth","year"]
-        context = RequestContext(request, {'questions':questions},{'javaWords':javaWords})
+	listLength = len(javaWords)
+        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
         return HttpResponse(template.render(context))
 
 def about(request):
@@ -54,3 +62,21 @@ def validateAns(request, question, answer):
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect!")
+
+def validateFIB(request, question, userWord):
+	dbquestion = Questions.objects.get(id=question)
+	if dbquestion.find(userWord) == -1:
+		return HttpResponse("Your answer is incorrect!")
+	else:
+		return HttpResponse("Your answer is correct!")
+
+def generateKeyword(request, question, wordList):
+	dbquestion = Questions.objects.get(id=question)
+	questList = dbquestion.split()
+	matches = []
+	for q in questList:
+		for word in wordList:
+			if q == word
+				matches.append(word)
+	keyword = random.choice(matches)
+	return HttpResponse(keyword)

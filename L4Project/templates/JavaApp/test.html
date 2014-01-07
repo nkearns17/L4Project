@@ -8,14 +8,16 @@
 
 {% block content %}
 
+ 
 <div id="wordList">
 {% for javaWord in javaWords %}
 <label> {{javaWord}} </label>
 {% endfor %}
 </div>
+<label id="listSize">{{listLength}}</label>
 
-<!-- Getting list of JavaWords-->
-<script>
+<!-- Getting list of JavaWords, split by spaces-->
+<!-- <script>
 var test = document.getElementById("wordList").textContent;
 var test2 = test.split(" ");
 document.write(test2 + '<br>');
@@ -26,7 +28,7 @@ for (var i = 0; i < test2.length; i++){
 	javaWordList.push(test2[i]);
 }
 document.write("LIST: " + javaWordList);
-</script>
+</script> -->
 <br>
 
 {% for question in questions %}
@@ -40,12 +42,36 @@ document.write("LIST: " + javaWordList);
 
 var labelText = $("#{{question.id}}statement").text();
 document.write(labelText+'<br>');
-var questionArray = labelText.split(" ");
-document.write(questionArray+'<br>');
 
-for (var j=0; j<questionArray.length; j++){
-	document.write("hello ");
+var javaWordList = document.getElementById("wordList").textContent;
+var javaWordList2 = javaWordList.split(" ");
+var listSize = document.getElementById("listSize").textContent;
+document.write("SIZE: " + listSize + "<br>");
+document.write("JavaWordList2: " + javaWordList2 + "<br>");
+
+var keyword = Math.floor((Math.random()*listSize));
+document.write("keyword" + keyword + "<br>");
+
+var result;
+
+for (var i = 0; i < listSize; i++){
+	if (labelText[keyword].indexOf(javaWordList2))
+		result = "true";
+	else
+		result = "false";
 }
+document.write("result: " + result);
+
+
+var space = labelText.replace(keyword,"__________");
+document.getElementById("{{question.id}}statement").innerHTML=space;
+
+//var questionArray = labelText.split(" ");
+//document.write(questionArray+'<br>');
+
+//for (var j=0; j<questionArray.length; j++){
+//	document.write("hello ");
+//}
 
 </script>
 

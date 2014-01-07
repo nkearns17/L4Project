@@ -63,9 +63,8 @@ def validateAns(request, question, answer):
 	else:
 		return HttpResponse("Your answer is incorrect!")
 
-def validateFIB(request, question, userWord):
-	dbquestion = Questions.objects.get(id=question)
-	if dbquestion.find(userWord) == -1:
-		return HttpResponse("Your answer is incorrect!")
-	else:
+def validateFIB(request, keyword, userWord):
+	if keyword == userWord:
 		return HttpResponse("Your answer is correct!")
+	else:
+		return HttpResponse("Your answer is incorrect!")

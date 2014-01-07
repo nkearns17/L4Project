@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <HTML>
 {% extends 'JavaApp/base-bootstrap.html' %}
 
@@ -15,69 +16,71 @@
 <!-- get all fib questions -->
 {% for question in questions %}
 
-<!-- <label id="{{question.id}}statement">{{question|linebreaks}}</label><br> -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<label id="{{question.id}}statement">{{question|linebreaks}}</label><br> 
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<script>
-// Get the question from the html 
-var labelText = $("#{{question.id}}statement").text();
-//document.write(labelText+'<br>');
+	<script>
+	// Get the question from the html 
+	var labelText = $("#{{question.id}}statement").text();
+	//document.write(labelText+'<br>');
 
-// Split the question to make list of words
-var questionList = labelText.split(" ");
-document.write("questionList: " + questionList + questionList.length + "<br>");
+	// Split the question to make list of words
+	var questionList = labelText.split(" ");
+	document.write("questionList: " + questionList + questionList.length + "<br>");
 
-// split the java words into a list to check against and get size
-var jwl = document.getElementById("wordList").textContent;
-var jwords = jwl.split(",");
-var size = jwords.length;
-//document.write("LIST: " + jwl + jwl.length + "<br>");
-//document.write("LIST2: " + jwords + size + "<br>");
+	// split the java words into a list to check against and get size
+	var jwl = document.getElementById("wordList").textContent;
+	var jwords = jwl.split(",");
+	var size = jwords.length;
+	//document.write("LIST: " + jwl + jwl.length + "<br>");
+	document.write("LIST2: " + jwords + size + "<br>");
 
-//make list of matched words
-var matches = [];
-for (var i = 0; i < questionList.length; i++){
-	for (var j=0; j < jwords.length; j++){
-		if (jwords[j].indexOf(questionList[i]) != -1)
-			matches.push(questionList[i]);
+	//make list of matched words
+	var matches = [];
+	for (var i = 0; i < questionList.length; i++){
+		for (var j=0; j < jwords.length; j++){
+			if (jwords[j].indexOf(questionList[i]) != -1)
+				matches.push(questionList[i]);
+		}
 	}
-}
-//document.write("matches: " + matches + matches.length +  "<br>");
+	document.write("matches: " + matches + matches.length +  "<br>");
 
-// generate the keyword
-var keyword = matches[Math.floor(Math.random()*matches.length)];
-//document.write("keyword " + keyword + "<br>");
-//document.write("keyword " + questionList[keyword] + "<br>");
+	// generate the keyword
+	var keyword = "";
+	var keyword = matches[Math.floor(Math.random()*matches.length)];
+	document.write("keyword " + keyword + "<br>");
 
-// replace word for space 
-for (var n =0; n < questionList.length; n++){
-	if (keyword == questionList[n]){
-		questionList[n] = "_______";		
+	// replace word for space 
+	for (var n =0; n < questionList.length; n++){
+		if (keyword == questionList[n]){
+			questionList[n] = "_______";		
+		}
 	}
-}
+	document.write("questionList: " + questionList);
 
-document.write("questionList: " + questionList);
+	//check if the word entered by user is equal to keyword.
+	$(document).ready(function() {
+		var textbox = document.getElementById('answerbox{{question.id}}');
+		 $('#{{question.id}}submit').click(function(){
+			var answer = textbox.value;
+			if (answer == keyword){
+				alert(keyword);
+			}
+			else{
+				alert(keyword);
+			}
+		});
+	});
 
-var textbox = document.getElementById('answerbox{{question.id}}');
+	</script>
 
-function printout(){
-	var answer = textbox.value;
-	if (answer == keyword){
-		alert("correct");
-	}
-	else{
-		alert("incorrect");
-	}
-}
-</script>
-
-<form>
-Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
-<input type="button" value="Submit" onclick="printout()">
-</form>
+	<!-- input box for answer.-->
+	<form>
+	Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
+	<input type="button" value="Submit" id="{{question.id}}submit">
+	</form>
 
 {% endfor %}
-
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

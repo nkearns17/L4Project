@@ -69,14 +69,3 @@ def validateFIB(request, question, userWord):
 		return HttpResponse("Your answer is incorrect!")
 	else:
 		return HttpResponse("Your answer is correct!")
-
-def generateKeyword(request, question, wordList):
-	dbquestion = Questions.objects.get(id=question)
-	questList = dbquestion.split()
-	matches = []
-	for q in questList:
-		for word in wordList:
-			if q == word
-				matches.append(word)
-	keyword = random.choice(matches)
-	return HttpResponse(keyword)

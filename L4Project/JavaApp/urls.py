@@ -13,4 +13,6 @@ urlpatterns = patterns('',
 	url(r'^validate_answer/(?P<question>\w+)/(?P<answer>\w+)', 'JavaApp.views.validateAns'),
 	url(r'^multChoice', views.multChoice),
 	url(r'^test2', views.test2, name='test2'),
+	url(r'^validate_fib/(?P<keyword>\w+)/(?P<userWord>\d+\.\d+)','JavaApp.views.validateFIB'),
+	url(r'^validate_fib/(?P<keyword>\w+)/(?P<userWord>\w+)', 'JavaApp.views.validateFIB'),
 )

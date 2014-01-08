@@ -55,6 +55,12 @@ def multChoice(request):
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
+def multChoice2(request):
+	template=loader.get_template('JavaApp/multChoice2.html')
+	questions = Questions.objects.filter(Qtype="MC")
+	context = RequestContext(request, {'questions':questions})
+	return HttpResponse(template.render(context))
+
 def validateAns(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)
 	dbanswer = dbquestion.answer
@@ -63,9 +69,8 @@ def validateAns(request, question, answer):
 	else:
 		return HttpResponse("Your answer is incorrect!")
 
-def validateFIB(request, question, userWord):
-	dbquestion = Questions.objects.get(id=question)
-	if dbquestion.find(userWord) == -1:
-		return HttpResponse("Your answer is incorrect!")
-	else:
+def validateFIB(request, keyword, userWord):
+	if keyword == userWord:
 		return HttpResponse("Your answer is correct!")
+	else:
+		return HttpResponse("Your answer is incorrect!")

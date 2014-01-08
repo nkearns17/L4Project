@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
+<h1><center> Multiple Choice</center></h1>
+{% endblock %}
+
+{% block content %}
+
+<center>
+<div class="container">
+<!-- Example row of columns -->
+	<div class="row">
+		<div class="col-md-4">
+			<h3>Small Quiz</h3>
+			<p>Contains 5 multiple choice questions.</p>
+			<button type="button" id="small" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Select Your Own Number of Questions</h3>
+			<p>Decide how many questions you wish to complete. Simply enter the number below:</p>
+			<input type="text" name="questions" id="UserQuestionNum"><br>
+			<button type="button" id="submit" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Large Quiz</h3>
+			<p>Contains 20 multiple choice questions.</p>
+			<button type="button" id="large" class="btn btn-info">Go</button>
+		</div>
+	</div>
+</div>
+</center><br>
+
+<!--<center>
+<button type="button" id="small" class="btn btn-info btn-lg">Small</button>
+<button type="button" id="large" class="btn btn-info btn-lg">Large</button>
+
+<h4><form>
+How Many Questions Do you want? : <input type="text" name="questions" id="UserQuestionNum"><br>
+<input type="button" value="Submit" id="submit">
+</form></h4></center><br> -->
+
+<div id="noOfQs" class="ques">{{questions|length}}</div>
+<h3><p id="resultArea" align="right"></p></h3>
+<h3><p id="questionNum"></p></h3>
+
+{% for question in questions %}
+	<div class="well">
+		<label id="q{{question.id}}">{{question|linebreaks}}</label><br>
+		<!-- List the answers-->
+		<input type="radio" value="{{question.posAns1}}" name="ans">{{question.posAns1}}<br>
+		<input type="radio" value="{{question.posAns2}}" name="ans">{{question.posAns2}}<br>
+		<input type="radio" value="{{question.posAns3}}" name="ans">{{question.posAns3}}<br>
+		<input type="radio" value="{{question.posAns4}}" name="ans">{{question.posAns4}}<br>
+	<a id="{{question.id}}ans" class="btn btn-inverse btn-small">Submit Answer</a><br>
+	</div>
+	<center><h3><p id="result"></p></h3></center>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<script>
+	$(document).ready(function() {
+                $('#{{question.id}}ans').click(function(){
+			// send the answer to get checked
+			$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
+				$('#{{question.id}}ans').html(data);
+				var i = document.getElementById('{{question.id}}ans').innerHTML;
+				// if answer correct change background to green
+				if (i=="Your answer is correct!"){
+					$('#{{question.id}}ans').css("background-color","lime");
+					score = score + 10;
+					var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+					document.getElementById("resultArea").innerHTML=res;
+                               	}
+				// if answer incorrect change background to red
+                              	if (i=="Your answer is incorrect!"){
+                                        $('#{{question.id}}ans').css("background-color","red");
+
+                                }
+			
+			});	
+		});
+	});	
+	</script>
+	
+{% endfor %}
+
+<!-- Previous and Next buttons to nav between questions-->
+<input type="button" id='prev' value="Previous">
+<input type="button" id='next' value="Next">
+
+<script>
+$(document).ready(function() {
+	var textbox = document.getElementById('UserQuestionNum');
+	// set up quiz with number of questions the user wants.
+	$('#submit').click(function(){
+		var answer = textbox.value;
+		totalQuestions = answer;
+		$($questions.get(currentQuestion)).fadeIn();
+		$qNoArea.show();
+		$prev.show();
+		$next.show();
+		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+		document.getElementById("resultArea").innerHTML=res;
+		$quizSelector.hide();
+	});
+	// set up quiz with 5 questions.
+	$('#small').click(function(){
+		totalQuestions = 5;
+		$($questions.get(currentQuestion)).fadeIn();
+		$qNoArea.show();
+		$prev.show();
+		$next.show();
+		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+		document.getElementById("resultArea").innerHTML=res;
+		$quizSelector.hide();
+	});
+	//set up quiz with 20 questions.
+	$('#large').click(function(){
+		totalQuestions = 20;
+		$($questions.get(currentQuestion)).fadeIn();
+		$qNoArea.show();
+		$prev.show();
+		$next.show();
+		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+		document.getElementById("resultArea").innerHTML=res;
+		$quizSelector.hide();
+	});
+});
+
+</script>
+
+<script>
+
+$quizSelector = $('.container');
+$qNoArea = $('#questionNum').hide();
+$prev = $('#prev').hide();
+$next = $('#next').hide();
+$totalQs = $('.ques');
+$totalQs.hide();
+var score = 0;
+//var totalQuestions = document.getElementById("noOfQs").textContent;
+var totalQuestions = 0;
+var currentQuestion = 0;
+$questions = $('.well');
+$questions.hide();
+//$($questions.get(currentQuestion)).fadeIn();
+
+var questionNumber = currentQuestion+1;
+var qNum = "Question " + questionNumber;
+
+// display the results
+var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+document.getElementById("resultArea").innerHTML=res;
+
+// when next button clicked, go to next question.
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+        }
+    });
+});
+
+// when previous button clicked, go back a question.
+$('#prev').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        if(currentQuestion > 0){
+		currentQuestion = currentQuestion - 1;
+		questionNumber = questionNumber - 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		$($questions.get(currentQuestion)).fadeIn();
+        }
+    });
+
+});
+
+// function to display the results with appropriate message depending on score
+function result(){
+	var total = totalQuestions*10;
+	if ((score/total)*100 <= 50 )
+		var msg = "Looks like you need to revise some more";
+	if ((score/total)*100 >= 51)
+		msg = "Well Done, your on the right track!";
+	if (score == total)
+		msg = "Well Done, full marks!";
+	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+	document.getElementById("result").innerHTML=res;
+}
+
+document.getElementById("questionNum").innerHTML=qNum;
+</script>
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+
+
+</html>

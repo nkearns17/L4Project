@@ -49,8 +49,14 @@ def mctest(request):
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
-def multChoice(request):
-	template=loader.get_template('JavaApp/multChoice.html')
+#def multChoice(request):
+#	template=loader.get_template('JavaApp/multChoice.html')
+#	questions = Questions.objects.filter(Qtype="MC")
+#	context = RequestContext(request, {'questions':questions})
+#	return HttpResponse(template.render(context))
+
+def multChoice2(request):
+	template=loader.get_template('JavaApp/multChoice2.html')
 	questions = Questions.objects.filter(Qtype="MC")
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))

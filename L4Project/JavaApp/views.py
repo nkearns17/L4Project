@@ -30,10 +30,18 @@ def fib(request):
 #        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
 #        return HttpResponse(template.render(context))
 
-def test2(request):
-        template = loader.get_template('JavaApp/test2.html')
+#def test2(request):
+#        template = loader.get_template('JavaApp/test2.html')
+#	questions = Questions.objects.filter(Qtype="FIB")
+#	javaWords = ["month","first","third","tenth","year","System","out","println"]
+#	listLength = len(javaWords)
+#        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
+#        return HttpResponse(template.render(context))
+
+def test5(request):
+        template = loader.get_template('JavaApp/test5.html')
 	questions = Questions.objects.filter(Qtype="FIB")
-	javaWords = ["month","first","third","tenth","year"]
+	javaWords = ["month","first","third","tenth","year","System","out","println"]
 	listLength = len(javaWords)
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
         return HttpResponse(template.render(context))
@@ -69,8 +77,11 @@ def validateAns(request, question, answer):
 	else:
 		return HttpResponse("Your answer is incorrect!")
 
-def validateFIB(request, keyword, userWord):
-	if keyword == userWord:
+def validateFIB(request, question, answer):
+	dbquestion = Questions.objects.get(id=question)
+	dbanswer = dbanswer.answer
+	if answer == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect!")
+

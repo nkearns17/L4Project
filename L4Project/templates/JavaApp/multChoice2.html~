@@ -11,7 +11,7 @@
 
 <center>
 <div class="container">
-<!-- Example row of columns -->
+<!-- Choose which size of quiz -->
 	<div class="row">
 		<div class="col-md-4">
 			<h3>Small Quiz</h3>
@@ -63,6 +63,8 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 	$(document).ready(function() {
                 $('#{{question.id}}ans').click(function(){
 			// send the answer to get checked
+			var val = $('input[name=ans]:checked').val();
+			alert(val);
 			$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
 				$('#{{question.id}}ans').html(data);
 				var i = document.getElementById('{{question.id}}ans').innerHTML;

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<HTML>
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
+<h1><center> Fill in the Blanks </center></h1>
+{% endblock %}
+
+{% block content %}
+
+<div id="noOfQs" class="ques">{{questions|length}}</div>
+
+<!-- get all fib questions -->
+{% for question in questions %}
+
+	<div class="well">
+		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		<!-- dropdown containing the possible answers for missing word -->
+		<form>
+		<div class="answer1wrap">
+			<select id="{{question.id}}mySelect">
+				<option value="{{question.posAns1}}">{{question.posAns1}}</option>
+				<option value="{{question.posAns4}}">{{question.posAns4}}</option>
+				<option value="{{question.posAns2}}">{{question.posAns2}}</option>
+				<option value="{{question.posAns3}}">{{question.posAns3}}</option>
+			</select>
+		</div>
+		</form>
+		<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answers</button>
+	</div><br> 
+
+	<!-- Results will be displayed here-->
+	<p id="resultArea"></p>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<label id="{{question.id}}answer">{{question.answer}}</label>	
+
+	<script>
+	
+	var ansText = $("#{{question.id}}answer").text();
+	document.write(ansText+'<br>');
+
+	var questionText = $("#{{question.id}}statement").text();
+	var questionList = questionText.split(".");
+
+	for (var i = 0; i < questionList.length; i++){
+		//document.write(questionList[i] + "<br>");
+		if (ansText === questionList[i]){
+			questionList[i] = "_______";
+		}			
+	}
+	
+	var finalQuestion = questionList.join(".");
+
+	document.getElementById("{{question.id}}statement").innerHTML=finalQuestion;
+
+	// When the check answer button is clicked, check answer 
+	$('#{{question.id}}ans').click(function(){
+		// gets the value of the users selection.
+		var select = document.getElementById("{{question.id}}mySelect");
+		var answer = select.options[select.selectedIndex].value;
+		// check if value selected by user is correct.
+		$.get('validate_answer/{{question.id}}/'+answer, function(data){
+				$('#{{question.id}}ans').html(data);
+				var i = document.getElementById('{{question.id}}ans').innerHTML;
+				// if answer correct change background to green
+				if (i=="Your answer is correct!"){
+					$('#{{question.id}}ans').css("background-color","lime");
+					score = score + 10;
+					var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+					document.getElementById("resultArea").innerHTML=res;
+                               	}
+				// if answer incorrect change background to red
+                              	if (i=="Your answer is incorrect!"){
+                                        $('#{{question.id}}ans').css("background-color","red");
+
+                                }
+			
+			});
+	});
+</script>
+
+{% endfor %}
+
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+</HTML>

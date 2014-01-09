@@ -8,19 +8,30 @@
 
 {% block content %}
 
-{% if questions %}
-    Number of Questions in DB: {{ questions|length }}
-{% endif %}
+<div id="noOfQs" class="ques">{{questions|length}}</div>
 
  <!-- List of java words -->
 <div id="wordList">
 <label> {{javaWords}} </label>
 </div>
 
+<script>
+var keywordList = new Array();
+</script>
+
 <!-- get all fib questions -->
 {% for question in questions %}
 
-	<label id="{{question.id}}statement">{{question|linebreaks}}</label><br> 
+	<div class="well">
+		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		<!-- input box for answer.-->
+		<form>
+			Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
+			<input type="button" value="Submit" id="{{question.id}}submit">
+		</form>
+	</div><br> 
+
+	<p id="resultArea"></p>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 	<script>
@@ -29,15 +40,15 @@
 	//document.write(labelText+'<br>');
 
 	// Split the question to make list of words
-	var questionList = labelText.split(" ");
-	document.write("questionList: " + questionList + questionList.length + "<br>");
+	var questionList = labelText.split(".");
+	//document.write("questionList: " + questionList + questionList.length + "<br>");
 
 	// split the java words into a list to check against and get size
 	var jwl = document.getElementById("wordList").textContent;
 	var jwords = jwl.split(",");
 	var size = jwords.length;
 	//document.write("LIST: " + jwl + jwl.length + "<br>");
-	document.write("LIST2: " + jwords + size + "<br>");
+	//document.write("LIST2: " + jwords + size + "<br>");
 
 	//make list of matched words
 	var matches = [];
@@ -52,7 +63,9 @@
 	// generate the keyword
 	var keyword = "";
 	var keyword = matches[Math.floor(Math.random()*matches.length)];
-	document.write("keyword " + keyword + "<br>");
+	keywordList.push(keyword);
+	//document.write("keyword " + keyword + "<br>");
+	//document.write("keywordList " + keywordList + "<br>");
 
 	// replace word for space 
 	for (var n =0; n < questionList.length; n++){
@@ -60,31 +73,52 @@
 			questionList[n] = "_______";		
 		}
 	}
-	document.write("questionList: " + questionList);
+
+	var res = questionList.join(".");
+	document.getElementById("{{question.id}}statement").innerHTML=res;
+	//document.write("questionList: " + questionList);
 
 	//check if the word entered by user is equal to keyword.
 	$(document).ready(function() {
 		var textbox = document.getElementById('answerbox{{question.id}}');
 		 $('#{{question.id}}submit').click(function(){
 			var answer = textbox.value;
-			if (answer == keyword){
-				alert(keyword);
-			}
-			else{
-				alert(keyword);
+			for (var q = 0; q < keywordList.length;q++){
+				if (answer == keywordList[q]){
+					var result = "yes" + "<br>";
+					document.getElementById("resultArea").innerHTML=result;
+					break;
+				}
+				//else{
+				//	alert(keyword + "No");
+				//}
 			}
 		});
 	});
 
 	</script>
 
-	<!-- input box for answer.-->
-	<form>
-	Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
-	<input type="button" value="Submit" id="{{question.id}}submit">
-	</form>
-
 {% endfor %}
+
+<!-- Previous and Next buttons to nav between questions-->
+<input type="button" id='prev' value="Previous">
+<input type="button" id='next' value="Next">
+
+<!--
+<script>
+document.write(keywordList);
+var totalQuestions = document.getElementById("noOfQs").textContent;
+var currentQuestion = 0;
+$questions = $('.well');
+$questions.hide();
+$($questions.get(currentQuestion)).fadeIn();
+
+document.write(currentQuestion + " " + keywordList.length);
+
+
+</script> -->
+
+
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

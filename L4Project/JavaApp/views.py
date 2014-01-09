@@ -46,6 +46,12 @@ def test5(request):
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
         return HttpResponse(template.render(context))
 
+def simpleFib(request):
+        template = loader.get_template('JavaApp/simpleFib.html')
+	questions = Questions.objects.filter(Qtype="FIB")
+        context = RequestContext(request, {'questions':questions})
+        return HttpResponse(template.render(context))
+
 def about(request):
         template = loader.get_template('JavaApp/about.html')
         context = RequestContext(request, {})

@@ -38,16 +38,13 @@
 	<script>
 	
 	var ansText = $("#{{question.id}}answer").text();
-	document.write(ansText+'<br>');
-
 	var questionText = $("#{{question.id}}statement").text();
-	var questionList = questionText.split(".");
+	var questionList = questionText.split("[().]");
 
 	for (var i = 0; i < questionList.length; i++){
 		//document.write(questionList[i] + "<br>");
 		if (ansText === questionList[i]){
-			var drop = document.getElementById('#{{question.id}}ans');
-			questionList[i] = drop;
+			questionList[i] = "_______";
 		}			
 	}
 	
@@ -67,9 +64,9 @@
 				// if answer correct change background to green
 				if (i=="Your answer is correct!"){
 					$('#{{question.id}}ans').css("background-color","lime");
-					score = score + 10;
-					var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
-					document.getElementById("resultArea").innerHTML=res;
+					//score = score + 10;
+					//var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+					//document.getElementById("resultArea").innerHTML=res;
                                	}
 				// if answer incorrect change background to red
                               	if (i=="Your answer is incorrect!"){
@@ -83,6 +80,12 @@
 
 {% endfor %}
 
+<script>
+
+$totalQs = $('.ques');
+$totalQs.hide();
+
+</script>
 
 {% endblock %}
 

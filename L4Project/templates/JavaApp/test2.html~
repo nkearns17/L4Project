@@ -78,10 +78,10 @@ var keywordList = new Array();
 		var rslt = questionList[n].indexOf(keyword.trim());
 		document.write("comparing sentence word and keyword : " + questionList[n] + " " + keyword + " " + keyword.length + " " + rslt + "<br>");
 		if (rslt != -1){
-			questionList[n].replace(keyword.trim(), "_______");		
+			questionList[n] = questionList[n].replace(keyword.trim(), "_______");		
 		}
 	}
-	document.write(questionList[0].replace(keyword.trim(),"______"));
+	document.write(questionList[2].replace(keyword.trim(),"______"));
 
 	var res = questionList.join(".");
 	document.getElementById("{{question.id}}statement").innerHTML=res;

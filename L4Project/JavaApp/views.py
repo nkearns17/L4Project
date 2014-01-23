@@ -30,21 +30,21 @@ def fib(request):
 #        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
 #        return HttpResponse(template.render(context))
 
-def test2(request):
-        template = loader.get_template('JavaApp/test2.html')
+#def test2(request):
+ #       template = loader.get_template('JavaApp/test2.html')
+#	questions = Questions.objects.filter(Qtype="FIB")
+#	javaWords = "month,first,third,tenth,year,System,out,println"
+#	listLength = len(javaWords)
+ #       context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
+  #      return HttpResponse(template.render(context))
+
+def test5(request):
+        template = loader.get_template('JavaApp/test5.html')
 	questions = Questions.objects.filter(Qtype="FIB")
-	javaWords = "month,first,third,tenth,year,System,out,println"
+	javaWords = "month,first,third,tenth,year,System,out,println,for"
 	listLength = len(javaWords)
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
         return HttpResponse(template.render(context))
-
-#def test5(request):
-#        template = loader.get_template('JavaApp/test5.html')
-#	questions = Questions.objects.filter(Qtype="FIB")
-#	javaWords = ["month","first","third","tenth","year","System","out","println"]
-#	listLength = len(javaWords)
-#        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
- #       return HttpResponse(template.render(context))
 
 def simpleFib(request):
         template = loader.get_template('JavaApp/simpleFib.html')

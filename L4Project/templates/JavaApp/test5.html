@@ -1,101 +1,173 @@
-<!DOCTYPE html>
-<HTML>
+<html>
+
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-<h1><center> Fill in the Blanks </center></h1>
+<h1><center> Fill In The Blanks </center></h1>
 {% endblock %}
 
 {% block content %}
 
 <div id="noOfQs" class="ques">{{questions|length}}</div>
 
-<!-- get all fib questions -->
+<!-- List of java words -->
+<div id="wordList">
+<label> {{javaWords}} </label>
+</div>
+
+<script>
+var keywordList = [];
+var ansList = [];
+</script>
+
+<h3><p id="resultArea"></p></h3>
+
+<label id="questionstatement">{{question|question.id=1}}</label>
+
 {% for question in questions %}
 
 	<div class="well">
+		<!-- Questions from database-->
 		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
-		<!-- dropdown containing the possible answers for missing word -->
+		<!-- input box for answer.-->
 		<form>
-		<div class="answer1wrap">
-			<select id="{{question.id}}mySelect">
-				<option value="{{question.posAns1}}">{{question.posAns1}}</option>
-				<option value="{{question.posAns4}}">{{question.posAns4}}</option>
-				<option value="{{question.posAns2}}">{{question.posAns2}}</option>
-				<option value="{{question.posAns3}}">{{question.posAns3}}</option>
-			</select>
-		</div>
+			Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br>
+			<!-- <input type="button" value="Submit" id="{{question.id}}submit"> -->
+			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
 		</form>
-		<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answers</button>
-	</div><br> 
+	</div><br>
 
-	<!-- Results will be displayed here-->
-	<p id="resultArea"></p>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-	<label id="{{question.id}}answer">{{question.answer}}</label>	
-
 	<script>
-	
-	var ansText = $("#{{question.id}}answer").text();
-	document.write(ansText+'<br>');
+	// Get the question from the html 
+	var labelText = $("#{{question.id}}statement").text();
+	//document.write(labelText+'<br>');
 
-	var questionText = $("#{{question.id}}statement").text();
-	var questionList = questionText.split("[().]");
-	document.write(questionList);
+	//add all java words to a lsit.
+	var jwl = document.getElementById("wordList").textContent;
+	var jwords = jwl.split(",");	
+	var size = jwords.length;
+	//document.write("LIST2: " + jwords + size + "<br>");
 
-	for (var i = 0; i < questionList.length; i++){
-		//document.write(questionList[i] + "<br>");
-		if (ansText === questionList[i]){
-			questionList[i] = "_______";
-		}			
+	//check which words in the question match the java keyword and add to a list.
+	var matches = [];
+	for (var i=0; i < size; i++){
+		var text = labelText.indexOf(jwords[i].trim());
+		if (text != -1){
+			matches.push(jwords[i]);
+		}
+	}
+	//document.write(matches + "<br>");
+
+	//Generate random keyword.
+	var keyword = matches[Math.floor(Math.random()*matches.length)];
+	keywordList.push(keyword);
+	//document.write("KeywordList : " + keywordList + "<br>");	
+
+	// replace word for space 
+	var rslt = labelText.indexOf(keyword.trim());
+	//document.write(keyword.trim() + " " + rslt + "<br>");
+	if (rslt != -1){
+		labelText = labelText.replace(keyword.trim(), "_______");		
 	}
 	
-	var finalQuestion = questionList.join(".");
+	document.getElementById("{{question.id}}statement").innerHTML=labelText;
 
-	document.getElementById("{{question.id}}statement").innerHTML=finalQuestion;
-
-	// When the check answer button is clicked, check answer 
-	$('#{{question.id}}ans').click(function(){
-		// gets the value of the users selection.
-		var select = document.getElementById("{{question.id}}mySelect");
-		var answer = select.options[select.selectedIndex].value;
-		// check if value selected by user is correct.
-		$.get('validate_answer/{{question.id}}/'+answer, function(data){
-				$('#{{question.id}}ans').html(data);
-				var i = document.getElementById('{{question.id}}ans').innerHTML;
-				// if answer correct change background to green
-				if (i=="Your answer is correct!"){
-					$('#{{question.id}}ans').css("background-color","lime");
-					score = score + 10;
-					var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
-					document.getElementById("resultArea").innerHTML=res;
-                               	}
-				// if answer incorrect change background to red
-                              	if (i=="Your answer is incorrect!"){
-                                        $('#{{question.id}}ans').css("background-color","red");
-
-                                }
-			
-			});
+	$(document).ready(function() {
+		$('#{{question.id}}submit').click(function(){
+			var answer = "";
+			var textbox = document.getElementById('answerbox{{question.id}}');
+			answer = textbox.value;
+			ansList.push(answer);
+			for (var j = 0; j < keywordList.length; j++){
+				if (answer === keywordList[j].trim()){
+					alert(answer + " " + keywordList[j].trim());
+					$('#{{question.id}}submit').css("background-color","lime");
+					//document.getElementById("resultArea").innerHTML=result;
+				}
+				else{
+					$('#{{question.id}}submit').css("background-color","red");
+				}
+			}
+		});
 	});
-</script>
+
+	document.write("ansList : " + ansList + "<br>");
+	document.write("keywordList : " + keywordList + "<br>");
+	</script>
+
 
 {% endfor %}
 
+
+<!-- Previous and Next buttons to nav between questions-->
+<button type="button" id='prev' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+</button>
+
+<button type="button" id='next' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+</button>
+
 <script>
 
-$totalQs = $('.ques');
-$totalQs.hide();
+$NoOfQ = $('.ques');
+$NoOfQ.hide();
+var score = 0;
+var totalQuestions = document.getElementById("noOfQs").textContent;
+//var totalQuestions = 0;
+var currentQuestion = 0;
+$questions = $('.well');
+$questions.hide();
+$($questions.get(currentQuestion)).fadeIn();
+
+// when next button clicked, go to next question.
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+        }
+    });
+});
+
+// when previous button clicked, go back a question.
+$('#prev').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        if(currentQuestion > 0){
+		currentQuestion = currentQuestion - 1;
+		questionNumber = questionNumber - 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		$($questions.get(currentQuestion)).fadeIn();
+        }
+    });
+
+});
+
+// function to display the results with appropriate message depending on score
+function result(){
+	var total = totalQuestions*10;
+	if ((score/total)*100 <= 50 )
+		var msg = "Looks like you need to revise some more";
+	if ((score/total)*100 >= 51)
+		msg = "Well Done, your on the right track!";
+	if (score == total)
+		msg = "Well Done, full marks!";
+	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+	document.getElementById("result").innerHTML=res;
+}
+
 
 </script>
 
 {% endblock %}
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
-</HTML>
+</html>

@@ -31,7 +31,7 @@ var keywordList = new Array();
 		</form>
 	</div><br> 
 
-	<p id="resultArea"></p>
+	<p id="resultArea">Here</p>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 	<script>
@@ -40,13 +40,17 @@ var keywordList = new Array();
 	//document.write(labelText+'<br>');
 
 	// Split the question to make list of words
+	//var questionList = new Array();
 	var questionList = labelText.split(".");
-	//document.write("questionList: " + questionList + questionList.length + "<br>");
+	for (var t = 0; t < questionList.length; t++){
+		document.write(questionList[t] + "<br>");
+	}
+	document.write("questionList: " + questionList + questionList.length + "<br>");
 
 	// split the java words into a list to check against and get size
 	var jwl = document.getElementById("wordList").textContent;
-	var jwords = jwl.split(",");
-	var size = jwords.length;
+	var jwords = jwl.split(",");	
+	var size = jwords.length;	
 	//document.write("LIST: " + jwl + jwl.length + "<br>");
 	//document.write("LIST2: " + jwords + size + "<br>");
 
@@ -54,8 +58,9 @@ var keywordList = new Array();
 	var matches = [];
 	for (var i = 0; i < questionList.length; i++){
 		for (var j=0; j < jwords.length; j++){
-			if (jwords[j].indexOf(questionList[i]) != -1)
-				matches.push(questionList[i]);
+			var mat = questionList[i].indexOf(jwords[j].trim());
+			if (mat != -1)
+				matches.push(jwords[j]);
 		}
 	}
 	document.write("matches: " + matches + matches.length +  "<br>");
@@ -64,15 +69,19 @@ var keywordList = new Array();
 	var keyword = "";
 	var keyword = matches[Math.floor(Math.random()*matches.length)];
 	keywordList.push(keyword);
-	//document.write("keyword " + keyword + "<br>");
+	document.write("keyword " + keyword + "<br>");
 	//document.write("keywordList " + keywordList + "<br>");
 
 	// replace word for space 
 	for (var n =0; n < questionList.length; n++){
-		if (keyword == questionList[n]){
-			questionList[n] = "_______";		
+		var ksize = keyword.length;
+		var rslt = questionList[n].indexOf(keyword.trim());
+		document.write("comparing sentence word and keyword : " + questionList[n] + " " + keyword + " " + keyword.length + " " + rslt + "<br>");
+		if (rslt != -1){
+			questionList[n].replace(keyword.trim(), "_______");		
 		}
 	}
+	document.write(questionList[0].replace(keyword.trim(),"______"));
 
 	var res = questionList.join(".");
 	document.getElementById("{{question.id}}statement").innerHTML=res;

@@ -18,15 +18,17 @@
 <script>
 var keywordList = [];
 var ansList = [];
+var quesList = [];
 </script>
 
 <h3><p id="resultArea"></p></h3>
 
-<label id="questionstatement">{{question|question.id=1}}</label>
+<h3><p id="testArea"></p></h3>
 
 {% for question in questions %}
 
-	<div class="well">
+	<div class="well" class="testing">
+		<label>{{question.id}}</label>
 		<!-- Questions from database-->
 		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
 		<!-- input box for answer.-->
@@ -43,7 +45,7 @@ var ansList = [];
 	// Get the question from the html 
 	var labelText = $("#{{question.id}}statement").text();
 	//document.write(labelText+'<br>');
-
+	
 	//add all java words to a lsit.
 	var jwl = document.getElementById("wordList").textContent;
 	var jwords = jwl.split(",");	
@@ -73,6 +75,7 @@ var ansList = [];
 	}
 	
 	document.getElementById("{{question.id}}statement").innerHTML=labelText;
+	quesList.push(labelText);
 
 	$(document).ready(function() {
 		$('#{{question.id}}submit').click(function(){
@@ -80,40 +83,44 @@ var ansList = [];
 			var textbox = document.getElementById('answerbox{{question.id}}');
 			answer = textbox.value;
 			ansList.push(answer);
-			for (var j = 0; j < keywordList.length; j++){
-				if (answer === keywordList[j].trim()){
-					alert(answer + " " + keywordList[j].trim());
-					$('#{{question.id}}submit').css("background-color","lime");
-					//document.getElementById("resultArea").innerHTML=result;
-				}
-				else{
-					$('#{{question.id}}submit').css("background-color","red");
-				}
+			//for (var j = 0; j < keywordList.length; j++){
+			if (answer === keywordList[currentQuestion].trim()){
+				//alert(answer + " " + keywordList[currentQuestion].trim());
+				$('#{{question.id}}submit').css("background-color","lime");
+				//document.getElementById("resultArea").innerHTML=result;
 			}
+			else{
+				$('#{{question.id}}submit').css("background-color","red");
+			}
+			//}
 		});
 	});
-
-	document.write("ansList : " + ansList + "<br>");
-	document.write("keywordList : " + keywordList + "<br>");
 	</script>
 
 
 {% endfor %}
 
 
-<!-- Previous and Next buttons to nav between questions-->
+<!-- Previous and Next buttons to nav between questions
 <button type="button" id='prev' class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
 </button>
 
 <button type="button" id='next' class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-</button>
+</button> -->
+
+<!-- Previous and Next buttons to nav between questions-->
+<input type="button" id='prev' value="Previous">
+<input type="button" id='next' value="Next">
 
 <script>
 
 $NoOfQ = $('.ques');
-$NoOfQ.hide();
+//$NoOfQ.hide();
+$quesList = $('#wordList');
+$testArea = $('#testArea');
+$quesList.hide();
 var score = 0;
 var totalQuestions = document.getElementById("noOfQs").textContent;
 //var totalQuestions = 0;
@@ -121,53 +128,71 @@ var currentQuestion = 0;
 $questions = $('.well');
 $questions.hide();
 $($questions.get(currentQuestion)).fadeIn();
+var curQues = quesList[currentQuestion];
+
+
+document.getElementById("testArea").innerHTML=currentQuestion;
 
 // when next button clicked, go to next question.
 $('#next').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         currentQuestion = currentQuestion + 1;
+	document.getElementById("testArea").innerHTML=currentQuestion;
         if(currentQuestion == totalQuestions){
-                result();
+                //result();
 		$qNoArea.hide();
         }else{
+		//alert(currentQuestion);
         	$($questions.get(currentQuestion)).fadeIn();
 		questionNumber = questionNumber + 1;
 		var qNum = "Question " + questionNumber;
-		document.getElementById("questionNum").innerHTML=qNum;
+		//document.getElementById("questionNum").innerHTML=qNum;
         }
     });
+});
+
+
+$('#next').click(function(){
+	
 });
 
 // when previous button clicked, go back a question.
 $('#prev').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         if(currentQuestion > 0){
-		currentQuestion = currentQuestion - 1;
-		questionNumber = questionNumber - 1;
-		var qNum = "Question " + questionNumber;
-		document.getElementById("questionNum").innerHTML=qNum;
-		$($questions.get(currentQuestion)).fadeIn();
+		currentQuestion = currentQuestion - 1;		
+		//questionNumber = questionNumber - 1;
+		//var qNum = "Question " + questionNumber;
+		//document.getElementById("questionNum").innerHTML=qNum;
+		$($questions).fadeIn();
+		document.getElementById("testing").innerHTML=curQues;
         }
     });
 
 });
 
 // function to display the results with appropriate message depending on score
-function result(){
-	var total = totalQuestions*10;
-	if ((score/total)*100 <= 50 )
-		var msg = "Looks like you need to revise some more";
-	if ((score/total)*100 >= 51)
-		msg = "Well Done, your on the right track!";
-	if (score == total)
-		msg = "Well Done, full marks!";
-	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
-	document.getElementById("result").innerHTML=res;
-}
+//function result(){
+//	var total = totalQuestions*10;
+//	if ((score/total)*100 <= 50 )
+//		var msg = "Looks like you need to revise some more";
+//	if ((score/total)*100 >= 51)
+//		msg = "Well Done, your on the right track!";
+//	if (score == total)
+//		msg = "Well Done, full marks!";
+//	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+//	document.getElementById("result").innerHTML=res;
+//}
 
 
 </script>
 
 {% endblock %}
 
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
 </html>

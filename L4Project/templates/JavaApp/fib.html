@@ -1,76 +1,182 @@
-<HTML>
+<html>
 
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-
-<h1><center> Fill in the Blanks </center></h1>
-
+<h1><center> Fill In The Blanks </center></h1>
 {% endblock %}
 
 {% block content %}
 
-{% for question in questions %}
+<div id="noOfQs" class="ques">{{questions|length}}</div>
 
-<label id="{{question.id}}statement">{{question|linebreaks}}</label><br>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!-- List of java words -->
+<div id="wordList">
+<label> {{javaWords}} </label>
+</div>
 
 <script>
-
-var labelText = $("#{{question.id}}statement").text();
-var test1 = "how are you today";
-var test = test1.split(" ");
-document.write(test);
-
+var keywordList = [];
+var ansList = [];
 </script>
+
+<h3><p id="resultArea" align="right"></p></h3>
+<h3><p id="questionNum"></p></h3>
+
+<!-- to display results of test-->
+<center><h3><p id="result"></p></h3></center>
+
+{% for question in questions %}
+
+	<div class="well">
+		<!-- Questions from database-->
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<pre class="prettyprint">
+		<p id="{{question.id}}statement">{{question|linebreaks|safe}}</p>
+		</pre>
+		<!-- input box for answer.-->
+		<form>
+			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>
+			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
+		</form>
+	</div><br>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<script>
+	// Get the question from the html 
+	var labelText = $("#{{question.id}}statement").text();
+
+	
+	//add all java words to a lsit.
+	var jwl = document.getElementById("wordList").textContent;
+	var jwords = jwl.split(",");	
+	var size = jwords.length;
+
+	//check which words in the question match the java keyword and add to a list.
+	var matches = [];
+	for (var i=0; i < size; i++){
+		var text = labelText.indexOf(jwords[i].trim());
+		if (text != -1){
+			matches.push(jwords[i]);
+		}
+	}
+
+	//Generate random keyword.
+	var keyword = matches[Math.floor(Math.random()*matches.length)];
+	keywordList.push(keyword);
+
+	// replace word for space 
+	var rslt = labelText.indexOf(keyword.trim());
+	//document.write(keyword.trim() + " " + rslt + "<br>");
+	if (rslt != -1){
+		labelText = labelText.replace(keyword.trim(), "_______");		
+	}
+	
+	document.getElementById("{{question.id}}statement").innerHTML=labelText;
+
+	$(document).ready(function() {
+		$('#{{question.id}}submit').click(function(){
+			var answer = "";
+			var textbox = document.getElementById('answerbox{{question.id}}');
+			answer = textbox.value;
+			ansList.push(answer);
+			if (answer === keywordList[currentQuestion].trim()){
+				score = score + 10;
+				$('#{{question.id}}submit').css("background-color","lime");
+				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+				document.getElementById("resultArea").innerHTML=res;
+			}
+			else{
+				$('#{{question.id}}submit').css("background-color","red");
+			}
+		});
+	});
+	</script>
+
 
 {% endfor %}
 
-<center>
-<script>
-var text=["System.","out.","println","dog","(hello world);"];
 
-var words = ["out.", "System.", "println","class","void","static"];
+<!-- Previous and Next buttons to nav between questions -->
+<button type="button" id='prev' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+</button>
 
-var match = [];
+<button type="button" id='next' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+</button> 
 
-var j = 0;
-for (var i =0; i < text.length; i++)
-    for (j = 0; j < words.length; j++)
-        if (text[i] == words[j])
-            match.push(words[j]);            
-
-for (var s = 0; s < match.length; s++)
-    document.write(match[s] + "<br>");
-
-var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
-var text2 = text.join("");
-document.write("<p>" + text2 + " " + "</p>" );
-document.write("<br>" + words);
-</script>
-
-<form>
-Answer: <input type="text" name="answer" id="answerbox"><br>
-<input type="button" value="Submit" onclick="printout()">
-</form>
+<!-- Previous and Next buttons to nav between questions
+<input type="button" id='prev' value="Previous">
+<input type="button" id='next' value="Next"> -->
 
 <script>
 
-var textbox = document.getElementById('answerbox');
+$NoOfQ = $('.ques');
+$NoOfQ.hide();
+$wordList = $('#wordList');
+$wordList.hide();
+var score = 0;
+var totalQuestions = document.getElementById("noOfQs").textContent;
+//var totalQuestions = 0;
+var currentQuestion = 0;
+$questions = $('.well');
+$questions.hide();
+$($questions.get(currentQuestion)).fadeIn();
 
-function printout(){
-	var answer = textbox.value;
-	if (answer == match[keyword]){
-		alert("correct");
-	}
-	else{
-		alert("incorrect");
-	}
+var questionNumber = 1;
+var qNum = "Question " + questionNumber;
+
+// display the results
+var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+document.getElementById("resultArea").innerHTML=res;
+
+// when next button clicked, go to next question.
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+        }
+    });
+});
+
+// when previous button clicked, go back a question.
+$('#prev').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        if(currentQuestion > 0){
+		currentQuestion = currentQuestion-1;
+		questionNumber = questionNumber - 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		$($questions.get(currentQuestion)).fadeIn();
+        }
+    });
+
+});
+
+// function to display the results with appropriate message depending on score
+function result(){
+	var total = totalQuestions*10;
+	if ((score/total)*100 <= 50 )
+		var msg = "Looks like you need to revise some more";
+	if ((score/total)*100 >= 51)
+		msg = "Well Done, your on the right track!";
+	if (score == total)
+		msg = "Well Done, full marks!";
+	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+	document.getElementById("result").innerHTML=res;
 }
 
+document.getElementById("questionNum").innerHTML=qNum;
 </script>
-</center>
 
 {% endblock %}
 
@@ -80,4 +186,4 @@ function printout(){
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
-</HTML>
+</html>

@@ -19,7 +19,8 @@ def home(request):
 def fib(request):
         template = loader.get_template('JavaApp/fib.html')
 	questions = Questions.objects.filter(Qtype="FIB")
-        context = RequestContext(request, {'questions':questions})
+	javaWords = "month,first,third,tenth,year,System,out,println,for"
+        context = RequestContext(request, {'questions':questions,'javaWords':javaWords})
         return HttpResponse(template.render(context))
 
 #def test(request):

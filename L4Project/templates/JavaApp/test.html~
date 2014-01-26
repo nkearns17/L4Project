@@ -1,128 +1,62 @@
-<HTML>
+<!DOCTYPE html>
+<html>
 
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-<h1><center> Fill in the Blanks </center></h1>
+<center><h1>Can You Find The Errors?</h1></center>
 {% endblock %}
 
 {% block content %}
 
- 
-<div id="wordList">
-{% for javaWord in javaWords %}
-<label> {{javaWord}} </label>
-{% endfor %}
-</div>
-<label id="listSize">{{listLength}}</label>
-
-<!-- Getting list of JavaWords, split by spaces-->
-<!-- <script>
-var test = document.getElementById("wordList").textContent;
-var test2 = test.split(" ");
-document.write(test2 + '<br>');
-
-
-var javaWordList = [];
-for (var i = 0; i < test2.length; i++){
-	javaWordList.push(test2[i]);
-}
-document.write("LIST: " + javaWordList);
-</script> -->
-<br>
+<style>
+#questionArea { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 1px solid; }
+  [contenteditable="true"]:hover { outline: 1px; }
+</style>
 
 {% for question in questions %}
 
-<label id="{{question.id}}statement">{{question|linebreaks}}</label><br>
+	<div id="questionArea" contenteditable="true">
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<pre class="prettyprint">
+	<p id="{{question.id}}text">{{question}}</p></pre><br>	
+	</div>
+	<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button><br><br>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<script>
+
+	$(document).ready(function() {
+		$('#{{question.id}}submit').click(function(){
+			var textbox = document.getElementById('{{question.id}}text');
+			var ans = textbox.innerHTML;
+			document.write(ans);
+		});
+	});
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<script>
-
-var labelText = $("#{{question.id}}statement").text();
-document.write(labelText+'<br>');
-
-var javaWordList = document.getElementById("wordList").textContent;
-var javaWordList2 = javaWordList.split(" ");
-var listSize = document.getElementById("listSize").textContent;
-document.write("SIZE: " + listSize + "<br>");
-document.write("JavaWordList2: " + javaWordList2 + "<br>");
-
-var keyword = Math.floor((Math.random()*listSize));
-document.write("keyword" + keyword + "<br>");
-
-var result;
-
-for (var i = 0; i < listSize; i++){
-	if (keyword.indexOf(javaWordList2))
-		result = "true";
-	else
-		result = "false";
-}
-document.write("result: " + result);
-
-
-var space = labelText.replace(keyword,"__________");
-document.getElementById("{{question.id}}statement").innerHTML=space;
-
-//var questionArray = labelText.split(" ");
-//document.write(questionArray+'<br>');
-
-//for (var j=0; j<questionArray.length; j++){
-//	document.write("hello ");
-//}
-
-</script>
+	</script>
 
 {% endfor %}
 
 
-<!--
-<center>
-<script>
-var text=["System.","out.","println","dog","(hello world);"];
-
-var words = ["out.", "System.", "println","class","void","static"];
-
-var match = [];
-
-var j = 0;
-for (var i =0; i < text.length; i++)
-    for (j = 0; j < words.length; j++)
-        if (text[i] == words[j])
-            match.push(words[j]);            
-
-for (var s = 0; s < match.length; s++)
-    document.write(match[s] + "<br>");
-
-var keyword = Math.floor((Math.random()*match.length)); text[keyword] = "_____"; // replace for other word
-
-document.write("<p>" + text + " " + "</p>" );
-document.write("<br>" + words);
+<body>
+<script type="text/javascript">
+  document.createElement('video');document.createElement('audio');
 </script>
+</body>
 
-<form>
-Answer: <input type="text" name="answer" id="answerbox"><br>
-<input type="button" value="Submit" onclick="printout()"()>
-</form>
-
-<script>
-
-var textbox = document.getElementById('answerbox');
-
-function printout(){
-	var answer = textbox.value;
-	if (answer == match[keyword]){
-		alert("correct");
-	}
-	else{
-		alert("incorrect");
-	}
-}
-
-</script>
-</center> -->
+<video id="example_video_1" class="video-js vjs-default-skin"
+  controls preload="auto" width="640" height="264"
+  poster="http://video-js.zencoder.com/oceans-clip.png"
+  data-setup='{"example_option":true}'>
+ <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+ <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+ <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+</video>
 
 {% endblock %}
 
@@ -132,4 +66,4 @@ function printout(){
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
-</HTML>
+</html>

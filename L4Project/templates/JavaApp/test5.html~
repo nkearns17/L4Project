@@ -23,15 +23,23 @@ var ansList = [];
 <h3><p id="resultArea" align="right"></p></h3>
 <h3><p id="questionNum"></p></h3>
 
+<style>
+label{
+	border-style:none;
+}
+</style>
+
 <!-- to display results of test-->
 <center><h3><p id="result"></p></h3></center>
 
 {% for question in questions %}
 
 	<div class="well">
-		<label>{{question.id}}</label>
 		<!-- Questions from database-->
-		<label id="{{question.id}}statement">{{question}}</label>
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<pre class="prettyprint">
+		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		</pre>
 		<!-- input box for answer.-->
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>

@@ -29,9 +29,11 @@ var ansList = [];
 {% for question in questions %}
 
 	<div class="well">
-		<label>{{question.id}}</label>
 		<!-- Questions from database-->
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<pre class="prettyprint">
 		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		</pre>
 		<!-- input box for answer.-->
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>

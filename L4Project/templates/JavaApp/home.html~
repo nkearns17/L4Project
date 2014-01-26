@@ -23,19 +23,19 @@
         <div class="col-md-4">
           <h2>Multiple Choice</h2>
           <p>Given a small snippet of code, predict the behaviour and/or output of the code correctly.</p>
-          <p><a class="btn btn-default" href="multChoice" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="multChoice2" role="button">Go &raquo;</a></p>
        </div>
         <div class="col-md-4">
           <h2>Code your Own</h2>
           <p> Given a simple task description, write some Java code in order to complete the task.</p>
-          <p><a class="btn btn-default" href="index/" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="tutorial/" role="button">Go &raquo;</a></p>
         </div>
 	</div>
 	<div class="row">
         <div class="col-md-4">
           <h2>Videos</h2>
           <p>Some useful video tutorials which may help you.</p>
-          <p><a class="btn btn-default" href="#" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="vtutorial/" role="button">Go &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Tutorials</h2>
@@ -45,7 +45,7 @@
 	<div class="col-md-4">
           <h2>Fix the errors</h2>
           <p> Given a piece of code containing errors, amend the code to remove and fix the errors.</p>
-          <p><a class="btn btn-default" href="#" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="test/" role="button">Go &raquo;</a></p>
        </div>
 	</div>
 

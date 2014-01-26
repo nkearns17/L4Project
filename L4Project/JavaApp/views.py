@@ -23,22 +23,6 @@ def fib(request):
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords})
         return HttpResponse(template.render(context))
 
-#def test(request):
-#        template = loader.get_template('JavaApp/test.html')
-#	questions = Questions.objects.filter(Qtype="FIB")
-#	javaWords = ["month","first","third","tenth","year"]
-#	listLength = len(javaWords)
-#        context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
-#        return HttpResponse(template.render(context))
-
-#def test2(request):
- #       template = loader.get_template('JavaApp/test2.html')
-#	questions = Questions.objects.filter(Qtype="FIB")
-#	javaWords = "month,first,third,tenth,year,System,out,println"
-#	listLength = len(javaWords)
- #       context = RequestContext(request, {'questions':questions,'javaWords':javaWords,'listLength':listLength})
-  #      return HttpResponse(template.render(context))
-
 def test5(request):
         template = loader.get_template('JavaApp/test5.html')
 	questions = Questions.objects.filter(Qtype="FIB")
@@ -58,11 +42,21 @@ def about(request):
         context = RequestContext(request, {})
         return HttpResponse(template.render(context))
 
-def mctest(request):
-	template=loader.get_template('JavaApp/mctest.html')
+def test(request):
+        template = loader.get_template('JavaApp/test.html')
 	questions = Questions.objects.filter(Qtype="MC")
-	context = RequestContext(request, {'questions':questions})
-	return HttpResponse(template.render(context))
+        context = RequestContext(request, {'questions':questions})
+        return HttpResponse(template.render(context))
+
+def vtutorial(request):
+        template = loader.get_template('JavaApp/vtutorials.html')
+        context = RequestContext(request, {})
+        return HttpResponse(template.render(context))
+
+def tutorial(request):
+        template = loader.get_template('JavaApp/tutorial.html')
+        context = RequestContext(request, {})
+        return HttpResponse(template.render(context))
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

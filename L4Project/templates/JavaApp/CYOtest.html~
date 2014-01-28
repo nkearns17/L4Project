@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'JavaApp/base-bootstrap.html' %}
+
+{% block topbar %}
+<center><h1>Can You Find The Errors?</h1></center>
+{% endblock %}
+
+{% block content %}
+
+<style>
+#questionArea { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 1px solid; }
+  [contenteditable="true"]:hover { outline: 1px; }
+</style>
+
+
+
+	<div id="questionArea" contenteditable="true">
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<pre class="prettyprint">
+	<p id="jtext">public class HelloWorldApp class Testing</p></pre><br>	
+	</div>
+	<button class="btn btn-default" id="submit" type="button">Check answers</button><br><br>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	<script>
+
+	var cname = "test";
+
+	$(document).ready(function() {
+		$('#submit').click(function(){
+			var textbox = document.getElementById('jtext');
+			var ans = textbox.innerHTML;
+			var words = ans.split(" ");
+			var cname = "";
+			//document.write(words);
+			for (var i = 0; i < words.length; i++){
+				if (words[i] == "class"){
+					cname = words[i+1];
+					break;
+				}
+			}
+		});
+	});
+	document.write(cname);
+	</script>
+
+
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+</html>

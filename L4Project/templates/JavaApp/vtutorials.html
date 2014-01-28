@@ -9,19 +9,35 @@
 
 {% block content %}
 
-<body>
+<head>
 <script type="text/javascript">
   document.createElement('video');document.createElement('audio');
 </script>
-</body>
+</head>
 
-<center>
+<center><h3>Video.js</h3>
 <video id="example_video_1" class="video-js vjs-default-skin"
   controls preload="auto" width="640" height="264"
+  poster="http://video-js.zencoder.com/oceans-clip.png"
   data-setup='{"example_option":true}'>
  <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
 </video>
+</center><br>
+
+<center>
+<h3>Youtube tutorials</h3>
+<iframe width="420" height="345"
+src="http://www.youtube.com/embed/XGSy3_Czz8k">
+</iframe>
 </center>
+
+
+  <h1>A Java applet example</h1>
+  <p>Here it is: <applet code="HelloWorld.class" height="140" width="200">
+    This is where HelloWorld.class runs.
+  </applet></p>
+
+
 
 {% endblock %}
 

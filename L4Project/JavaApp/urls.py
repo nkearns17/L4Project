@@ -18,4 +18,5 @@ urlpatterns = patterns('',
 	url(r'^test', views.test,name='test'),
 	url(r'^vtutorial', views.vtutorial),
 	url(r'^tutorial', views.tutorial),
+	url(r'^CYOtest', views.CYOtest),
 )

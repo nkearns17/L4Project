@@ -58,6 +58,11 @@ def tutorial(request):
         context = RequestContext(request, {})
         return HttpResponse(template.render(context))
 
+def CYOtest(request):
+        template = loader.get_template('JavaApp/CYOtest.html')
+        context = RequestContext(request, {})
+        return HttpResponse(template.render(context))
+
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')
 #	questions = Questions.objects.filter(Qtype="MC")

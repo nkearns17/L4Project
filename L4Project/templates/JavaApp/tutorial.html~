@@ -9,7 +9,39 @@
 
 {% block content %}
 
+<style type="text/css">
+<!--
 
+#pdf {
+	width: 500px;
+	height: 300px;
+	margin: 2em auto;
+	border: 10px solid #6699FF;
+}
+
+#pdf p {
+   padding: 1em;
+}
+
+#pdf object {
+   display: block;
+   border: solid 1px #666;
+}
+
+-->
+</style>
+
+<script type="text/javascript" src="/scripts/pdfobject.js"></script>
+
+<script type="text/javascript">
+
+window.onload = function (){
+
+	var success = new PDFObject({ url: "../../lecture-02.pdf" }).embed("pdf");
+	
+};
+
+</script>
 
 {% endblock %}
 

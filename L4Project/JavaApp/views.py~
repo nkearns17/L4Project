@@ -5,6 +5,9 @@ from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson
 from django.shortcuts import render_to_response
+import subprocess
+from subprocess import Popen, CalledProcessError, check_output, PIPE
+
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -57,6 +60,20 @@ def tutorial(request):
         template = loader.get_template('JavaApp/tutorial.html')
         context = RequestContext(request, {})
         return HttpResponse(template.render(context))
+
+def CYOtest(request):
+        template = loader.get_template('JavaApp/CYOtest.html')
+	java_file = '/users/level4/0902059k/Level4/HelloWorldApp'
+	cmpfile = java_file + '.java'
+	cmd = 'javac ' + cmpfile
+
+	# context = RequestContext(request, {})
+	#proc = subprocess.Popen(cmd, shell=True)
+	try:
+		out = subprocess.check_output(["java ",java_file])
+		return HttpResponse(out)
+	except CalledProcessError as e:
+    		return HttpResponse(e.returncode)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

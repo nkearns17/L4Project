@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from JavaApp.models import Questions
+from JavaApp.models import tutorial
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 import subprocess
 from subprocess import Popen, CalledProcessError, check_output, PIPE
-
+import string
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -90,7 +91,7 @@ def multChoice2(request):
 def validateAns(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)
 	dbanswer = dbquestion.answer
-	if answer==dbanswer:
+	if answer == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect!")

@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from JavaApp.models import Questions
+from JavaApp.models import tutorial
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 import subprocess
 from subprocess import Popen, CalledProcessError, check_output, PIPE
-
+import string
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -70,7 +71,7 @@ def CYOtest(request):
 	# context = RequestContext(request, {})
 	#proc = subprocess.Popen(cmd, shell=True)
 	try:
-		out = subprocess.check_output(["java ",java_file])
+		out = subprocess.check_output(["java",java_file])
 		return HttpResponse(out)
 	except CalledProcessError as e:
     		return HttpResponse(e.returncode)
@@ -90,7 +91,9 @@ def multChoice2(request):
 def validateAns(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)
 	dbanswer = dbquestion.answer
-	if answer==dbanswer:
+	dbans = dbanswer.replace(' ','_')
+	ans = answer.replace(' ','_')
+	if ans == dbans:
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect!")

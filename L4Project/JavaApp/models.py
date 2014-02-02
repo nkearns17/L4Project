@@ -13,3 +13,11 @@ class Questions(models.Model):
 
 	def __unicode__(self):
        		return self.question
+
+class tutorial(models.Model):
+	tutTopic = models.CharField(max_length=100)
+	tutName = models.CharField(max_length=100)	
+	tutFile = models.FileField(upload_to='tutorials', max_length=500)
+
+	def __unicode__(self):
+       		return self.tutName

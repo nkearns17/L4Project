@@ -65,13 +65,10 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 	<script>
 	$(document).ready(function() {
                 $('#{{question.id}}ans').click(function(){
-			var test = $('input[name=ans]:checked').val();
-			alert(test);
 			// send the answer to get checked
 			$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
 				$('#{{question.id}}ans').html(data);
 				var i = document.getElementById('{{question.id}}ans').innerHTML;
-				alert(i);
 				// if answer correct change background to green
 				if (i=="Your answer is correct!"){
 					$('#{{question.id}}ans').css("background-color","lime");

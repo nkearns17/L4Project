@@ -92,12 +92,10 @@ def multChoice2(request):
 def validateAns(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)
 	dbanswer = dbquestion.answer
-	ans = answer.replace(' ', '')
-	if ans == dbanswer:
+	if answer == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
-		#return HttpResponse("Your answer is incorrect!")
-		return HttpResponse(ans + " - " + dbanswer)
+		return HttpResponse("Your answer is incorrect!")
 
 def validateFIB(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)

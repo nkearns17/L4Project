@@ -95,7 +95,7 @@ def validateAns(request, question, answer):
 	if answer == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
-		return HttpResponse("Your answer is incorrect!")
+		return HttpResponse("Your answer is incorrect! Please try again.")
 
 def validateFIB(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)

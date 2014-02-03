@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response
 import subprocess
 from subprocess import Popen, CalledProcessError, check_output, PIPE
 import string
+import urllib
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -91,12 +92,12 @@ def multChoice2(request):
 def validateAns(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)
 	dbanswer = dbquestion.answer
-	dbans = dbanswer.replace(' ','_')
-	ans = answer.replace(' ','_')
-	if ans == dbans:
+	ans = answer.replace(' ', '')
+	if ans == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
-		return HttpResponse("Your answer is incorrect!")
+		#return HttpResponse("Your answer is incorrect!")
+		return HttpResponse(ans + " - " + dbanswer)
 
 def validateFIB(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)

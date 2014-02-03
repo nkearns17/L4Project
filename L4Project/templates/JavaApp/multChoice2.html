@@ -53,10 +53,10 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 		<p id="q{{question.id}}">{{question|linebreaks|safe}}</p><br>
 		</pre>
 		<!-- List the answers-->
-		<input type="radio" value="{{question.posAns1}}" name="ans">{{question.posAns1}}<br>
-		<input type="radio" value="{{question.posAns2}}" name="ans">{{question.posAns2}}<br>
-		<input type="radio" value="{{question.posAns3}}" name="ans">{{question.posAns3}}<br>
-		<input type="radio" value="{{question.posAns4}}" name="ans">{{question.posAns4}}<br>
+		<input type="radio" value="A" name="ans">{{question.posAns1}}<br>
+		<input type="radio" value="B" name="ans">{{question.posAns2}}<br>
+		<input type="radio" value="C" name="ans">{{question.posAns3}}<br>
+		<input type="radio" value="D" name="ans">{{question.posAns4}}<br>
 	<a id="{{question.id}}ans" class="btn btn-inverse btn-small">Submit Answer</a><br>
 	</div>
 	<center><h3><p id="result"></p></h3></center>

@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response
 import subprocess
 from subprocess import Popen, CalledProcessError, check_output, PIPE
 import string
+import urllib
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')

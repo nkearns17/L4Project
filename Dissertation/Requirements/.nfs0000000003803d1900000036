@@ -1,0 +1,69 @@
+\documentclass{article}
+\begin{document}
+\title{Java Programming Revision Tool}
+\author{Nicole Kearns}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Requirements}
+
+\subsection{Student Surveys}
+
+\subsubsection{Level 4 Student Survey}
+
+In order to gain a better understanding of what students thought of the Java Programming 2 course and to see what features would be beneficial for students learning Java, I spoke to Level 4 Computing Science students to find out what they thought about the course when they took it 2 years previously. I asked a group of 10 students the following 3 questions:
+
+\begin{enumerate}
+\item How useful did you find the material provided for JP2? 
+\item What other tools did you use to complete the lab exercises or to learn Java, if any?
+\item If you could do the course again, what would you do different? What other tools would you like to be available?
+\end{enumerate}
+
+Having recorded the answers from the survey, I have analysed them and have arrived at the following conclusions:\\
+
+From the answers given to question 1 it would seem that, overall, the students thought the material was quite useful, however some improvements could be made. Some students thought that the lecture notes were useful for introducing the basic concepts and syntax of Java. However, when the material became more difficult, the lecture notes lacked detailed information and examples to show how they are used.\\
+
+Most students found that the lab exercises were more beneficial than the lectures as they were able to practice writing Java code, instead of merely reading it. All participants, with one exception, also used extra resources when completing the lab exercises. An example of such is if they came across a problem they were unable to solve. The following resources were the more common ones which were discussed; general internet searching, StackOverflow, and online tutorial videos.\\
+
+When question 3 asked what they would have liked to have been made available, most participants suggested that it would be useful for more examples or snippets of code to be provided within the lectures. This would allow students to understand more fully how the concepts are used in practice. From the feedback given during the survey, consideration could be given to make the lectures more interactive to help the students to stay interested and allow them to practice and improve hand-writing code. Another suggestion was to provide the students with short video tutorials to talk students through more complicated concepts and provide a step-by-step walk-through of how it works and how it its used.\\
+
+Overall, it would seem that the students thought the lectures were adequate, they provided enough information to be useful for exam revision, however they didn't provide enough examples to demonstrate how the concepts are used. From the results collected, I believe that students find interactive tools more useful when learning a programming language as it allows them to practice and improve on writing correct Java code.\\
+
+\subsubsection{Level 2 Student Survey}
+
+To further my understanding of what the second year students think about the current teaching methods of Java within the Java Programming 2 (JP2) course, I asked them to fill out a survey with the following questions:
+
+\begin{enumerate}
+\item The material provided for the JP2 course is useful. ( On a scale of strongly agree to strongly disagree)
+\item What do you find more useful, the lectures or the lab exercises?
+\item What other resources have you used to understand Java concepts and syntax?
+\item What resources do you use when you have a specific problem?
+\item Is there any other resources you would like to be available within this course to help you learn and revise Java?
+\end{enumerate}
+
+#####INSERT IMAGE!########\\
+
+From the graph above, you can clearly see that majority of students think that the material provided for the course is very useful, with very few people thinking that it is not.\\
+
+#####INSERT IMAGE!########\\
+
+For question 2, when asked what they found more useful, lecture notes or lab exercises, it can be said that a vast majority of students find that the lab exercises are more useful, assuming that this is because this allows them to practice writing code.\\
+
+#####INSERT IMAGE!########\\
+
+For questions 3 and 4, it would seem that students use the same resources for both learning Java and for referring to when they encounter a problem. The resources which are most popular with the students are community-based support and static webpages/books. Community-based support allows the user to ask questions or post problems that they are struggling with, answer questions from other people, and simply view problems and solutions from other users.\\
+
+A few suggestions were given for what they would like to be available are:\\
+
+\begin{itemize}
+\item Video tutorials
+\item Mini exercises to create fun mini projects
+\item The code provided in class to be provided in the notes or on moodle
+\item Plenty of exercises and examples, especially to emphasise OO programming
+\item A more simplified explanation of the basics
+\end(itemize}
+
+
+\end{document}

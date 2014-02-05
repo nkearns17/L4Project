@@ -1,6 +1,4 @@
 \documentclass{article}
-\usepackage{graphicx}
-\usepackage{caption}
 \begin{document}
 \title{Java Programming Revision Tool}
 \author{Nicole Kearns}
@@ -49,33 +47,22 @@ To further my understanding of what the second year students think about the cur
 \item Is there any other resources you would like to be available within this course to help you learn and revise Java?
 \end{enumerate}
 
+INSERT IMAGE HERE!!\\
+
 \begin{center}
 \includegraphics
-[scale=0.6]
+[scale=0.5]
 {/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q1Pie.png}
 \end{center}
-\begin{center} Question 1 Results \end{center}
+\begin{center} Student \end{center}
 
 From the graph above, you can clearly see that majority of students think that the material provided for the course is very useful, with very few people thinking that it is not.\\
 
-\begin{center}
-\includegraphics
-[scale=0.6]
-{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q2Pie.png}
-\end{center}
-\begin{center} Question 2 Results \end{center}
+INSERT IMAGE HERE!!\\
 
 For question 2, when asked what they found more useful, lecture notes or lab exercises, it can be said that a vast majority of students find that the lab exercises are more useful, assuming that this is because this allows them to practice writing code.\\
 
-\begin{figure}[!htb]
-\minipage{0.6\textwidth}
-  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q3Bar.png}
-\endminipage\hfill
-\minipage{0.6\textwidth}
-  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q4Bar.png}
-\endminipage\hfill
-\end{figure}
-
+INSERT IMAGE HERE!!\\
 
 For questions 3 and 4, it would seem that students use the same resources for both learning Java and for referring to when they encounter a problem. The resources which are most popular with the students are community-based support and static webpages/books. Community-based support allows the user to ask questions or post problems that they are struggling with, answer questions from other people, and simply view problems and solutions from other users.\\
 

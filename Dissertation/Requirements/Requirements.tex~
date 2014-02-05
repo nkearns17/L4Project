@@ -1,4 +1,6 @@
 \documentclass{article}
+\usepackage{graphicx}
+\usepackage{caption}
 \begin{document}
 \title{Java Programming Revision Tool}
 \author{Nicole Kearns}
@@ -9,7 +11,11 @@
 
 \section{Requirements}
 
+This section discusses the requirements elicitation process for our project. As I have an client, this process is important to ensure that all requirements are identified in order to produce the application that fully meets the clients needs.
+
 \subsection{Student Surveys}
+
+To better my understanding of what would be the most effective tools and features for learning and revising Java programming, I asked a sample of Level 2 and Level 4 students to carry out a survey. The summarised results from both surveys are discussed below.
 
 \subsubsection{Level 4 Student Survey}
 
@@ -43,15 +49,33 @@ To further my understanding of what the second year students think about the cur
 \item Is there any other resources you would like to be available within this course to help you learn and revise Java?
 \end{enumerate}
 
-INSERT IMAGE HERE!!\\
+\begin{center}
+\includegraphics
+[scale=0.6]
+{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q1Pie.png}
+\end{center}
+\begin{center} Question 1 Results \end{center}
 
 From the graph above, you can clearly see that majority of students think that the material provided for the course is very useful, with very few people thinking that it is not.\\
 
-INSERT IMAGE HERE!!\\
+\begin{center}
+\includegraphics
+[scale=0.6]
+{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q2Pie.png}
+\end{center}
+\begin{center} Question 2 Results \end{center}
 
 For question 2, when asked what they found more useful, lecture notes or lab exercises, it can be said that a vast majority of students find that the lab exercises are more useful, assuming that this is because this allows them to practice writing code.\\
 
-INSERT IMAGE HERE!!\\
+\begin{figure}[!htb]
+\minipage{0.6\textwidth}
+  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q3Bar.png}
+\endminipage\hfill
+\minipage{0.6\textwidth}
+  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q4Bar.png}
+\endminipage\hfill
+\end{figure}
+
 
 For questions 3 and 4, it would seem that students use the same resources for both learning Java and for referring to when they encounter a problem. The resources which are most popular with the students are community-based support and static webpages/books. Community-based support allows the user to ask questions or post problems that they are struggling with, answer questions from other people, and simply view problems and solutions from other users.\\
 
@@ -73,7 +97,7 @@ From the information and suggestions provided by both the Level 2 and Level 4 Co
 \item Provide the students with multiple activities which will allow them to practice and learn Java.
 \item Provide the students with tutorials which go through the basic syntax and Java concepts.
 \item Provide video tutorial to allow the students to revise and learn.
-\item Allow lecturer to add and update content - questions and quizzes
+\item Allow lecturer/admin to add and update content - questions and quizzes
 \end{itemize}
 
 \end{document}

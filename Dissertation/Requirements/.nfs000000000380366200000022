@@ -67,15 +67,32 @@ From the graph above, you can clearly see that majority of students think that t
 
 For question 2, when asked what they found more useful, lecture notes or lab exercises, it can be said that a vast majority of students find that the lab exercises are more useful, assuming that this is because this allows them to practice writing code.\\
 
-\begin{figure}[!htb]
-\minipage{0.6\textwidth}
-  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q3Bar.png}
-\endminipage\hfill
-\minipage{0.6\textwidth}
-  \includegraphics[width=\linewidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q4Bar.png}
-\endminipage\hfill
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q3Bar.png}
+                \caption{A gull}
+                \label{fig:gull}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q4Bar.png}
+                \caption{A tiger}
+                \label{fig:tiger}
+        \end{subfigure}
 \end{figure}
 
+
+\includegraphics
+[scale=0.6]
+{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q3Bar.png}
+Question 3 Results
+
+\includegraphics
+[scale=0.6]
+{/users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q4Bar.png}
+Question 4 Results
 
 For questions 3 and 4, it would seem that students use the same resources for both learning Java and for referring to when they encounter a problem. The resources which are most popular with the students are community-based support and static webpages/books. Community-based support allows the user to ask questions or post problems that they are struggling with, answer questions from other people, and simply view problems and solutions from other users.\\
 

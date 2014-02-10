@@ -60,7 +60,8 @@ def vtutorial(request):
 
 def tutorial(request):
         template = loader.get_template('JavaApp/tutorial.html')
-        context = RequestContext(request, {})
+	tuts = tutorial.objects.all()
+        context = RequestContext(request, {'tuts':tuts})
         return HttpResponse(template.render(context))
 
 def CYOtest(request):
@@ -95,7 +96,7 @@ def validateAns(request, question, answer):
 	if answer == dbanswer:
 		return HttpResponse("Your answer is correct!")
 	else:
-		return HttpResponse("Your answer is incorrect!")
+		return HttpResponse("Your answer is incorrect! Please try again.")
 
 def validateFIB(request, question, answer):
 	dbquestion = Questions.objects.get(id=question)

@@ -17,6 +17,6 @@ urlpatterns = patterns('',
 	url(r'^simpleFib', views.simpleFib),
 	url(r'^test', views.test,name='test'),
 	url(r'^vtutorial', views.vtutorial),
-	url(r'^tutorial', views.tutorial),
+	url(r'^tutorials', views.tutorials),
 	url(r'^CYOtest', views.CYOtest),
 )

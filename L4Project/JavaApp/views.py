@@ -58,9 +58,10 @@ def vtutorial(request):
         context = RequestContext(request, {})
         return HttpResponse(template.render(context))
 
-def tutorial(request):
+def tutorials(request):
         template = loader.get_template('JavaApp/tutorial.html')
-        context = RequestContext(request, {})
+	tuts = tutorial.objects.all()
+        context = RequestContext(request, {'tuts':tuts})
         return HttpResponse(template.render(context))
 
 def CYOtest(request):

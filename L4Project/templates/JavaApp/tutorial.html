@@ -3,19 +3,45 @@
 
 {% extends 'JavaApp/base-bootstrap.html' %}
 
+<head>
+<script type="text/javascript" src="pdfobject.js"></script>
+    <script type="text/javascript">
+      window.onload = function (){
+        var success = new PDFObject({ url: "/static/{{tut.tutFile}}" }).embed();
+      };
+    </script>
+</head>
+
 {% block topbar %}
 <center><h1>Tutorials</h1></center>
 {% endblock %}
 
 {% block content %}
 
-<script>$('a.media').media({width:500, height:400});</script>
+{% for tut in tuts %}
+	<a id="fname" href="/static/{{tut.tutFile}}">{{tut.tutName}}</a>
 
-<script type="text/javascript" src="http://github.com/malsup/media/raw/master/jquery.media.js?v0.92"></script> 
-<script type="text/javascript" src="jquery.metadata.js"></script> 
+<!-- <body>
+<embed src="http://moodle2.gla.ac.uk/mod/resource/view.php?id=110771" width="800" height="1000" />
+</body> -->
 
-<a class="media" href="guice.pdf">PDF File</a> 
-<a class="media {type: 'html'}" href="../">HTML File</a> 
+<!-- <iframe src="http://moodle2.gla.ac.uk/mod/resource/view.php?id=110771" style="width:600px; height:500px;">
+  <p>Your browser does not support iframes.</p>
+</iframe> -->
+
+<body>
+    <p>It appears you don't have Adobe Reader or PDF support in this web
+    browser. <a href="/static/{{tut.tutFile}}">Click here to download the PDF</a> </p>
+</body>
+
+{% endfor %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+
+var link = $("#fname").attr("href");
+
+</script>
 
 {% endblock %}
 

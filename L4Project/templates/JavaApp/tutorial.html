@@ -3,43 +3,49 @@
 
 {% extends 'JavaApp/base-bootstrap.html' %}
 
-<head>
-<script type="text/javascript" src="pdfobject.js"></script>
-    <script type="text/javascript">
-      window.onload = function (){
-        var success = new PDFObject({ url: "/static/{{tut.tutFile}}" }).embed();
-      };
-    </script>
-</head>
-
 {% block topbar %}
 <center><h1>Tutorials</h1></center>
 {% endblock %}
 
 {% block content %}
 
-{% for tut in tuts %}
-	<a id="fname" href="/static/{{tut.tutFile}}">{{tut.tutName}}</a>
+<div style="padding:0 15px;"><!-- offset row negative padding -->
+	<div class="row">
+		<div class="col-md-2"">
+		<div class="list-group" style="width:200px">
+			<h4 style="color:#3333FF"><i><u>Tutorials</u></i></h4>
+			{% for tut in tuts %}
+			<!-- <a id="topicName" class="list-group-item list-group-item-success">{{tut.tutTopic}}<span class="glyphicon glyphicon-chevron-right"></span></a>-->
+			<a id="tutorial" value="{{tut.tutName}}" onclick="go('/static/{{tut.tutFile}}')" class="list-group-item list-group-item-info">{{tut.tutName}}</a>
+			{% endfor %}
+		</div>
 
-<!-- <body>
-<embed src="http://moodle2.gla.ac.uk/mod/resource/view.php?id=110771" width="800" height="1000" />
-</body> -->
+		</div>
+		<div class="col-md-9">
+			<center>
+			<h1 id="title" style="color:#505050"><i>Please select a tutorial to view.</i></h1>
+			<iframe id="viewer" src="#" style="width:600px; height:500px;">
+			<p>Your browser does not support iframes.</p>
+			</iframe>
+			</center>
+		</div>
+	</div>
+</div>
 
-<!-- <iframe src="http://moodle2.gla.ac.uk/mod/resource/view.php?id=110771" style="width:600px; height:500px;">
-  <p>Your browser does not support iframes.</p>
-</iframe> -->
 
-<body>
-    <p>It appears you don't have Adobe Reader or PDF support in this web
-    browser. <a href="/static/{{tut.tutFile}}">Click here to download the PDF</a> </p>
-</body>
 
-{% endfor %}
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
-var link = $("#fname").attr("href");
+$viewer = $('#viewer').hide();
+$tutNames = $('.list-group-item');
+var tutorialTitle = document.getElementById('tutorial').textContent;
+
+function go(link){
+	document.getElementById('viewer').src = link;
+	$viewer.show();
+	document.getElementById("title").innerHTML=tutorialTitle;
+}
 
 </script>
 

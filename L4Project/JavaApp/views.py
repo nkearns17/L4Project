@@ -66,7 +66,7 @@ def tutorials(request):
 
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	java_file = '/users/level4/0902059k/Level4/HelloWorldApp'
+	java_file = 'static/HelloWorldApp'
 	cmpfile = java_file + '.java'
 	cmd = 'javac ' + cmpfile
 

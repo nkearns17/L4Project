@@ -32,7 +32,7 @@ var ansList = [];
 		<!-- Questions from database-->
 		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 		<pre class="prettyprint">
-		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		<label id="{{question.id}}statement">{{question|safe}}</label>
 		</pre>
 		<!-- input box for answer.-->
 		<form>

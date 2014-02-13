@@ -10,6 +10,7 @@ import subprocess
 from subprocess import Popen, CalledProcessError, check_output, PIPE
 import string
 import urllib
+import os
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -66,17 +67,23 @@ def tutorials(request):
 
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	java_file = '/users/level4/0902059k/Level4/HelloWorldApp'
-	cmpfile = java_file + '.java'
-	cmd = 'javac ' + cmpfile
+	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
+	proc = subprocess.Popen(['javac ', java_file], stdout=subprocess.PIPE, shell=True)
+	cmd = ['java',  os.getcwd()+'/static/programs/HelloWorld']
+        out = subprocess.Popen(cmd, stdout=subprocess.PIPE,shell=True)
+	stddata = out.communicate()
+	return HttpResponse(stddata);
+	#java_file = '/static/programs/HelloWorld.java'
+	#cmpfile = java_file + '.java'
+	#cmd = 'javac ' + java_file
 
 	# context = RequestContext(request, {})
 	#proc = subprocess.Popen(cmd, shell=True)
-	try:
-		out = subprocess.check_output(["java",java_file])
-		return HttpResponse(out)
-	except CalledProcessError as e:
-    		return HttpResponse(e.returncode)
+	#try:
+	#	out = subprocess.check_output(['java', '/static/programs/HelloWorld'])
+	#	return HttpResponse(out)
+	#except CalledProcessError as e:
+    	#	return HttpResponse(e.returncode)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

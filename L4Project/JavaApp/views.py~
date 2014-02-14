@@ -7,10 +7,10 @@ from django.http import HttpResponseRedirect
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 import subprocess
-from subprocess import Popen, CalledProcessError, check_output, PIPE
+from subprocess import Popen, CalledProcessError, check_output, PIPE, STDOUT
 import string
 import urllib
-import os
+import os, sys
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -66,13 +66,21 @@ def tutorials(request):
         return HttpResponse(template.render(context))
 
 def CYOtest(request):
+	sys.path.append(os.getcwd()+'/static/programs/')
         template = loader.get_template('JavaApp/CYOtest.html')
 	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
 	proc = subprocess.Popen(['javac ', java_file], stdout=subprocess.PIPE, shell=True)
-	cmd = ['java',  os.getcwd()+'/static/programs/HelloWorld']
-        out = subprocess.Popen(cmd, stdout=subprocess.PIPE,shell=True)
-	stddata = out.communicate()
-	return HttpResponse(stddata);
+	out = subprocess.check_call(['javac', java_file])
+	jfile = os.getcwd()+'/static/programs/HelloWorld'
+	cmd = ['java', jfile]
+    	proc2 = subprocess.Popen(['java', jfile], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	stdout,stderr = proc2.communicate()
+	test = os.getcwd()
+	#cmd = ['java',  os.getcwd()+'/static/programs/HelloWorld']
+        #out = subprocess.Popen(cmd, stdout=subprocess.PIPE,shell=True)
+	#stddata = proc.communicate()
+	context = RequestContext(request, {})
+	return HttpResponse(test)
 	#java_file = '/static/programs/HelloWorld.java'
 	#cmpfile = java_file + '.java'
 	#cmd = 'javac ' + java_file

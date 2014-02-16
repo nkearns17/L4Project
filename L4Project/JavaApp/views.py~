@@ -65,33 +65,27 @@ def tutorials(request):
         context = RequestContext(request, {'tuts':tuts})
         return HttpResponse(template.render(context))
 
+def compile_java(java_file):
+	subprocess.check_call(['javac', java_file])
+
+def execute_java(java_file):
+	java_class,ext = os.path.splitext(java_file)
+	cmd = ['java', java_class]
+	proc = subprocess.check_output(cmd)
+	return HttpResponse(proc)
+
 def CYOtest(request):
 	sys.path.append(os.getcwd()+'/static/programs/')
+	sys.path.append('/usr/lib/jvm/java-7-openjdk-i386/jre/bin/java')
         template = loader.get_template('JavaApp/CYOtest.html')
 	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
-	proc = subprocess.Popen(['javac ', java_file], stdout=subprocess.PIPE, shell=True)
+	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
 	out = subprocess.check_call(['javac', java_file])
 	jfile = os.getcwd()+'/static/programs/HelloWorld'
-	cmd = ['java', jfile]
-    	proc2 = subprocess.Popen(['java', jfile], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    	stdout,stderr = proc2.communicate()
-	test = os.getcwd()
-	#cmd = ['java',  os.getcwd()+'/static/programs/HelloWorld']
-        #out = subprocess.Popen(cmd, stdout=subprocess.PIPE,shell=True)
-	#stddata = proc.communicate()
+    	proc2 = subprocess.Popen(['/usr/lib/jvm/java-7-openjdk-i386/jre/bin/java', jfile], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	test = proc2.communicate()
 	context = RequestContext(request, {})
 	return HttpResponse(test)
-	#java_file = '/static/programs/HelloWorld.java'
-	#cmpfile = java_file + '.java'
-	#cmd = 'javac ' + java_file
-
-	# context = RequestContext(request, {})
-	#proc = subprocess.Popen(cmd, shell=True)
-	#try:
-	#	out = subprocess.check_output(['java', '/static/programs/HelloWorld'])
-	#	return HttpResponse(out)
-	#except CalledProcessError as e:
-    	#	return HttpResponse(e.returncode)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

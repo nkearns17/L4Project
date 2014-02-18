@@ -76,16 +76,17 @@ def execute_java(java_file):
 
 def CYOtest(request):
 	sys.path.append(os.getcwd()+'/static/programs/')
-	sys.path.append('/usr/lib/jvm/java-7-openjdk-i386/jre/bin/java')
+	javapath = '/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.51.x86_64/jre/bin/java'
+	os.environ['CLASSPATH'] = javapath
         template = loader.get_template('JavaApp/CYOtest.html')
 	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
 	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
 	out = subprocess.check_call(['javac', java_file])
 	jfile = os.getcwd()+'/static/programs/HelloWorld'
-    	proc2 = subprocess.Popen(['/usr/lib/jvm/java-7-openjdk-i386/jre/bin/java', jfile], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    	proc2.communicate()
+    	proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	ans = proc2.communicate()
 	context = RequestContext(request, {})
-	return HttpResponse(proc2)
+	return HttpResponse(ans)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

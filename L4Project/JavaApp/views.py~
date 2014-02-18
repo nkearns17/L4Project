@@ -65,19 +65,22 @@ def tutorials(request):
         context = RequestContext(request, {'tuts':tuts})
         return HttpResponse(template.render(context))
 
-def compile_java(java_file):
-	subprocess.check_call(['javac', java_file])
+def save_file(text):
+	f = open(os.getcwd()+'/static/programs/Test.java', 'w')
+	f.write(text)
+	HttpResponse("File created")
+	return f
 
-def execute_java(java_file):
-	java_class,ext = os.path.splitext(java_file)
-	cmd = ['java', java_class]
-	proc = subprocess.check_output(cmd)
-	return HttpResponse(proc)
+def run_prog(request, programText):
+	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
+	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
+	out = subprocess.check_call(['javac', java_file])
+	jfile = os.getcwd()+'/static/programs/HelloWorld'
+    	proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	ans = proc2.communicate()
+	return HttpResponse(ans)
 
 def CYOtest(request):
-	sys.path.append(os.getcwd()+'/static/programs/')
-	javapath = '/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.51.x86_64/jre/bin/java'
-	os.environ['CLASSPATH'] = javapath
         template = loader.get_template('JavaApp/CYOtest.html')
 	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
 	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
@@ -86,7 +89,7 @@ def CYOtest(request):
     	proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     	ans = proc2.communicate()
 	context = RequestContext(request, {})
-	return HttpResponse(ans)
+	return HttpResponse(template.render(context))
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')
@@ -107,12 +110,4 @@ def validateAns(request, question, answer):
 		return HttpResponse("Your answer is correct!")
 	else:
 		return HttpResponse("Your answer is incorrect! Please try again.")
-
-def validateFIB(request, question, answer):
-	dbquestion = Questions.objects.get(id=question)
-	dbanswer = dbanswer.answer
-	if answer == dbanswer:
-		return HttpResponse("Your answer is correct!")
-	else:
-		return HttpResponse("Your answer is incorrect!")
 

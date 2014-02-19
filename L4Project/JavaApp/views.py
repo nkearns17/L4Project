@@ -65,31 +65,22 @@ def tutorials(request):
         context = RequestContext(request, {'tuts':tuts})
         return HttpResponse(template.render(context))
 
-def save_file(text):
-	f = open(os.getcwd()+'/static/programs/Test.java', 'w')
-	f.write(text)
-	HttpResponse("File created")
-	return f
-
-def run_prog(request, programText):
-	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
-	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
-	out = subprocess.check_call(['javac', java_file])
-	jfile = os.getcwd()+'/static/programs/HelloWorld'
-    	proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    	ans = proc2.communicate()
-	return HttpResponse(ans)
-
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	java_file = os.getcwd()+'/static/programs/HelloWorld.java'
-	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
-	out = subprocess.check_call(['javac', java_file])
-	jfile = os.getcwd()+'/static/programs/HelloWorld'
-    	proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    	ans = proc2.communicate()
+	#java_file = os.getcwd()+'/static/programs/HelloWorld.java'
+	#proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
+	#out = subprocess.check_call(['javac', java_file])
+	#jfile = os.getcwd()+'/static/programs/HelloWorld'
+    	#proc2 = subprocess.Popen(['java','-cp','./static/programs/', 'HelloWorld'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	#ans = proc2.communicate()
 	context = RequestContext(request, {})
 	return HttpResponse(template.render(context))
+
+def runProg(request,programText):
+	if (programText == "hello"):
+		return HttpResponse("True")
+	else:
+		return HttpResponse("False")
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

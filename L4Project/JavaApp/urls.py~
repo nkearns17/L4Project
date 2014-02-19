@@ -16,6 +16,6 @@ urlpatterns = patterns('',
 	url(r'^test', views.test,name='test'),
 	url(r'^vtutorial', views.vtutorial),
 	url(r'^tutorials', views.tutorials),
-	url(r'^CYOtest', views.CYOtest),
-	url(r'^run_prog/(?P<programText>\d+\.\d+','JavaApp.views.run_prog'),
+	url(r'^CYOtest', views.CYOtest, name='CYOtest'),
+	url(r'^run_program/(?P<answer>\w+)', views.runProg),
 )

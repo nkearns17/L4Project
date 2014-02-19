@@ -11,6 +11,8 @@ from subprocess import Popen, CalledProcessError, check_output, PIPE, STDOUT
 import string
 import urllib
 import os, sys
+from bs4 import BeautifulSoup
+import re
 
 def index(request):
 	template = loader.get_template('JavaApp/Index.html')
@@ -76,11 +78,18 @@ def CYOtest(request):
 	context = RequestContext(request, {})
 	return HttpResponse(template.render(context))
 
-def runProg(request,programText):
-	if (programText == "hello"):
-		return HttpResponse("True")
-	else:
-		return HttpResponse("False")
+def runProg(request):
+	url = urllib.urlopen("http://127.0.0.1:8000/JavaApp/CYOtest")
+	soup = BeautifulSoup(url)
+	tarea = soup.find(text=re.compile("Test"))
+	java_file = os.getcwd()+'/static/programs/Test.java'
+	f = open(java_file, 'w')
+	f.write(tarea)
+	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
+	#out = subprocess.check_call(['javac', java_file])
+	proc2 = subprocess.Popen(['java','-cp','./static/programs/','Test'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	ans = proc2.communicate()
+	return HttpResponse(ans)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

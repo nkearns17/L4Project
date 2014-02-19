@@ -18,19 +18,18 @@
 
 	<script>
 	$(document).ready(function(){
-		var text = "hello";
 		$('#save').click(function(){
-			$.get('run_program/'+text, function(data){
+			$.get('run_program', function(data){				
 				$('#resultArea').html(data);
-				var i = document.getElementById('resultArea').innerHTML;
-				if (i == "True"){
-					var answer = "yes it has worked";
-					document.getElementById('resultArea').innerHTML = answer;
-				}
-				if (i=="False"){
-					answer = "no its not working";
-					document.getElementById('resultArea').innerHTML = answer;
-				}
+				//var i = document.getElementById('resultArea').innerHTML;
+				//if (i == "True"){
+				//	var answer = "yes it has worked";
+				//	document.getElementById('resultArea').innerHTML = answer;
+				//}
+				//if (i=="False"){
+				//	answer = "no its not working";
+				//	document.getElementById('resultArea').innerHTML = answer;
+				//}
 			});
 		});
 	});

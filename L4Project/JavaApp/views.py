@@ -84,7 +84,8 @@ def runProg(request):
 	tarea = soup.find(text=re.compile("Test"))
 	java_file = os.getcwd()+'/static/programs/Test.java'
 	f = open(java_file, 'w')
-	f.write(tarea)
+	prog = str(tarea)
+	f.write(prog)
 	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])
 	proc2 = subprocess.Popen(['java','-cp','./static/programs/','Test'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)

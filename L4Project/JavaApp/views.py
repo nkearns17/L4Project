@@ -79,13 +79,17 @@ def CYOtest(request):
 	return HttpResponse(template.render(context))
 
 def runProg(request):
-	url = urllib.urlopen("http://127.0.0.1:8000/JavaApp/CYOtest")
-	soup = BeautifulSoup(url)
-	tarea = soup.find(text=re.compile("Test"))
+	if request.method == 'POST':
+		text = request.POST['post']
+		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+	#url = urllib.urlopen("http://127.0.0.1:8000/JavaApp/CYOtest")
+	#soup = BeautifulSoup(url)
+	#tarea = soup.find(text=re.compile("Test"))
+	#test1 = soup.p.text
 	java_file = os.getcwd()+'/static/programs/Test.java'
 	f = open(java_file, 'w')
-	prog = str(tarea)
-	f.write(prog)
+	#prog = str(tarea)
+	f.write(text)
 	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])
 	proc2 = subprocess.Popen(['java','-cp','./static/programs/','Test'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)

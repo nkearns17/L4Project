@@ -26,7 +26,7 @@ def home(request):
 
 def fib(request):
         template = loader.get_template('JavaApp/fib.html')
-	questions = Questions.objects.filter(Qtype="FIB")
+	questions = Questions.objects.filter(Qtype="FIB").order_by('?')
 	javaWords = "month,first,third,tenth,year,System,out,println,for"
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords})
         return HttpResponse(template.render(context))
@@ -94,7 +94,7 @@ def runProg(request):
 
 def multChoice2(request):
 	template=loader.get_template('JavaApp/multChoice2.html')
-	questions = Questions.objects.filter(Qtype="MC")
+	questions = Questions.objects.filter(Qtype="MC").order_by('?')
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 

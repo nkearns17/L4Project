@@ -44,6 +44,9 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 
 <div id="noOfQs" class="ques">{{questions|length}}</div>
 <h3><p id="resultArea" align="right"></p></h3>
+<form action="/JavaApp/multChoice2">
+    <input type="submit" value="Take another Quiz!">
+</form>
 <h3><p id="questionNum"></p></h3>
 
 {% for question in questions %}
@@ -77,7 +80,7 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 					document.getElementById("resultArea").innerHTML=res;
                                	}
 				// if answer incorrect change background to red
-                              	if (i=="Your answer is incorrect!"){
+                              	if (i=="Your answer is incorrect! Please try again."){
                                         $('#{{question.id}}ans').css("background-color","red");
 
                                 }
@@ -153,7 +156,7 @@ $next = $('#next').hide();
 $totalQs = $('.ques');
 $totalQs.hide();
 var score = 0;
-//var totalQuestions = document.getElementById("noOfQs").textContent;
+var MaxQuestions = document.getElementById("noOfQs").textContent;
 var totalQuestions = 0;
 var currentQuestion = 0;
 $questions = $('.well');

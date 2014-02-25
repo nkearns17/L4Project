@@ -75,7 +75,7 @@ def CYOtest(request):
 
 def runProg(request):
 	if request.method == 'POST':
-		text = request.POST['name']
+		text = request.POST['post']
 		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
 	java_file = 'Test.java'
 	f = open(java_file, 'w')
@@ -94,7 +94,7 @@ def runProg(request):
 
 def multChoice2(request):
 	template=loader.get_template('JavaApp/multChoice2.html')
-	questions = Questions.objects.filter(Qtype="MC")
+	questions = Questions.objects.filter(Qtype="MC").order_by('?')
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 

@@ -9,54 +9,28 @@
 
 {% block content %}
 
-<style>
-#questionArea { margin-bottom: 10px; }
-  [contenteditable="true"] { padding: 10px; outline: 1px solid; }
-  [contenteditable="true"]:hover { outline: 1px; }
-</style>
+	<meta charset="utf-8">
+	<style>
+	#editor{
+		float:center;
+	}
+	</style>
 
-{% for question in questions %}
 
-	<div id="questionArea" contenteditable="true">
-	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-	<pre class="prettyprint">
-	<p id="{{question.id}}text">{{question}}</p></pre><br>	
+	<div id="editor" style="width:600px;height:550px">
+		public class HelloWorld { 
+   			public static void main(String[] args) { 
+      				System.out.println("Hello, World");
+   			}
+		}
 	</div>
-	<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button><br><br>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+	<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
-
-	$(document).ready(function() {
-		$('#{{question.id}}submit').click(function(){
-			var textbox = document.getElementById('{{question.id}}text');
-			var ans = textbox.innerHTML;
-			document.write(ans);
-		});
-	});
-
-
-
+		var editor = ace.edit("editor");
+		editor.setTheme("ace/theme/monokai");
+		editor.getSession().setMode("ace/mode/java");
 	</script>
-
-{% endfor %}
-
-
-<body>
-<script type="text/javascript">
-  document.createElement('video');document.createElement('audio');
-</script>
-</body>
-
-<video id="example_video_1" class="video-js vjs-default-skin"
-  controls preload="auto" width="640" height="264"
-  poster="http://video-js.zencoder.com/oceans-clip.png"
-  data-setup='{"example_option":true}'>
- <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
- <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
- <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-</video>
 
 {% endblock %}
 

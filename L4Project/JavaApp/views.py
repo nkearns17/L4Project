@@ -75,7 +75,7 @@ def CYOtest(request):
 
 def runProg(request):
 	if request.method == 'POST':
-		text = request.POST['post']
+		text = request.POST['editor']
 		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
 	java_file = 'Test.java'
 	f = open(java_file, 'w')

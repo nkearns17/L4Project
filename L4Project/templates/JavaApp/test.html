@@ -18,13 +18,31 @@
 	</style>
 
 
-	<div id="editor" style="width:600px;height:550px">
+	<p id="editor" style="width:600px;height:550px">
 		public class HelloWorld { 
    			public static void main(String[] args) { 
       				System.out.println("Hello, World");
    			}
 		}
-	</div>
+	</p>
+
+
+	<!--<div id="container">
+		<form id="myForm" method="post" action="/JavaApp/run_program/" target="results">
+			{% csrf_token %}
+			<div id="box1">
+			<p id="editor" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:256px"></p>
+			<br/><br/>	
+			<input id="submit" value="Run it !" name="submit" type="submit"/></div>	
+		</form>
+
+		<div id="box2">
+		<h3> Results </h3>
+		<iframe id="box2" class="frame" name="results" width="512px" height="100px">
+		<p>Your browser does not support iframes.</p>
+		</iframe> </div>
+	</div> -->
+
 
 	<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
@@ -32,6 +50,11 @@
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
 	</script>
+
+	<!-- <script>
+		var code = editor.getSession().getValue();
+		alert(code);
+	</script> -->
 
 {% endblock %}
 

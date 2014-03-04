@@ -84,7 +84,7 @@ def runProg(request, question):
 		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
 	# get the java files - code and junit test
 	java_file = os.getcwd()+'/static/cyoTests/cTest.java'
-	test_file = os.getcwd()+'/static/cyoTests/codeTest'+question+'.java'
+	test_file ='codeTest'+question+'.java'
 	# write to file
 	f = open(java_file, 'w')
 	f.write(text)

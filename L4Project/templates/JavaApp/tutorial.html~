@@ -12,7 +12,7 @@
 <div style="padding:0 15px;"><!-- offset row negative padding -->
 	<div class="row">
 		<div class="col-md-2"">
-		<div class="list-group" style="width:200px">
+		<div class="list-group" style="width:350px">
 			<h4 style="color:#3333FF"><i><u>Tutorials</u></i></h4>
 			{% for tut in tuts %}
 			<!-- <a id="topicName" class="list-group-item list-group-item-success">{{tut.tutTopic}}<span class="glyphicon glyphicon-chevron-right"></span></a>-->
@@ -23,8 +23,8 @@
 		</div>
 		<div class="col-md-9">
 			<center>
-			<h1 id="title" style="color:#C0C0C0"><i>Please select a tutorial to view.</i></h1>
-			<iframe id="viewer" src="#" style="width:600px; height:500px;">
+			<h1 id="title" style="color:#505050"><i>Please select a tutorial to view.</i></h1>
+			<iframe id="viewer" src="#" style="width:800px; height:700px;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 			</center>

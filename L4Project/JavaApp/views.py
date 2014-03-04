@@ -82,12 +82,16 @@ def runProg(request):
 	test_file = 'HelloWorldTest.java'
 	f = open(java_file, 'w')
 	f.write(text)
-	#JAR_CLASSPATH = ':/home/nicole/Documents/UniLevel4/L4Project/L4Project//hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project//junit.jar'
-	proc = subprocess.Popen(['javac','-cp','/home/nicole/Documents/UniLevel4/L4Project/L4Project/hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project/junit.jar', java_file, test_file], stdout=subprocess.PIPE)
+	jar_path = ':/home/nicole/Documents/UniLevel4/L4Project/L4Project//hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project//junit.jar'
+	os.environ['CLASSPATH'] = jar_path
+	proc = subprocess.Popen(['javac','-cp',os.environ['CLASSPATH'], java_file, test_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])
-	proc2 = subprocess.Popen(['java', '-cp','/home/nicole/Documents/UniLevel4/L4Project/L4Project/hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project/junit.jar','org.junit.runner.JUnitCore','HelloWorldTest'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+	proc2 = subprocess.Popen(['java', '-cp',os.environ['CLASSPATH'],'org.junit.runner.JUnitCore','HelloWorldTest'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     	ans = proc2.communicate()
-	return HttpResponse(ans)
+	if (ans == "JUnit version 4.11 .. Time: 0.016 OK (2 tests) None"):
+		return HttpResponse("Correct")
+	else:
+		return HttpResponse(ans)
 
 #def multChoice(request):
 #	template=loader.get_template('JavaApp/multChoice.html')

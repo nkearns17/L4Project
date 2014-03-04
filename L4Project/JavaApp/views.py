@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from JavaApp.models import Questions
 from JavaApp.models import tutorial
+from JavaApp.models import cyoQuestions
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson

@@ -21,3 +21,12 @@ class tutorial(models.Model):
 
 	def __unicode__(self):
        		return self.tutName
+
+class cyoQuestions(models.Model):
+	qType = models.CharField(max_length=100)
+	question = models.TextField(max_length=1000)
+	providedCode = models.TextField(max_length=1000)
+	junitTest = models.FileField(upload_to='cyoTests', max_length=500)
+
+	def __unicode__(self):
+       		return self.tutName

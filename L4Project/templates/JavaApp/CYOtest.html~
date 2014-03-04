@@ -12,17 +12,17 @@
 {% for question in questions %}
 	<div id="container" align="center">
 	<h4><b>Question:<b> {{question}} </h4>
-		<form id="myForm" method="post" action="/JavaApp/run_program/" target="results">
+		<form id="myForm" method="post" action="/JavaApp/run_program/{{question.id}}" target="results{{question.id}}">
 			{% csrf_token %}
 			<div id="box1">
-			<textarea id="t1" name="post" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:256px"></textarea>
+			<textarea id="t1" name="post" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:256px">{{question.providedCode}}</textarea>
 			<br/><br/>	
 			<input id="submit" value="Run it !" name="submit" type="submit"/></div>	
 		</form>
 
 		<div id="box2">
 		<h3> Results </h3>
-		<iframe id="box2" class="frame" name="results" width="512px" height="100px">
+		<iframe id="box2" class="frame" name="results{{question.id}}" width="512px" height="100px">
 		<p>Your browser does not support iframes.</p>
 		</iframe> </div>
 	</div>

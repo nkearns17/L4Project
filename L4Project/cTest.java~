@@ -1,4 +1,4 @@
-public class cTest 
+public class Test 
 {
 	
    private String name = "";

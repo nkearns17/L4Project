@@ -12,11 +12,11 @@
 <div style="padding:0 15px;"><!-- offset row negative padding -->
 	<div class="row">
 		<div class="col-md-2"">
-		<div class="list-group" style="width:350px">
+		<div class="list-group" style="width:300px">
 			<h4 style="color:#3333FF"><i><u>Tutorials</u></i></h4>
 			{% for tut in tuts %}
 			<!-- <a id="topicName" class="list-group-item list-group-item-success">{{tut.tutTopic}}<span class="glyphicon glyphicon-chevron-right"></span></a>-->
-			<a id="tutorial" value="{{tut.tutName}}" onclick="go('/static/{{tut.tutFile}}')" class="list-group-item list-group-item-info">{{tut.tutName}}</a>
+			<a id="tutorial" value="{{tut.id}}" onclick="go('/static/{{tut.tutFile}}')" class="list-group-item list-group-item-info">{{tut.tutName}}</a>
 			{% endfor %}
 		</div>
 
@@ -24,7 +24,7 @@
 		<div class="col-md-9">
 			<center>
 			<h1 id="title" style="color:#505050"><i>Please select a tutorial to view.</i></h1>
-			<iframe id="viewer" src="#" style="width:800px; height:700px;">
+			<iframe id="viewer" src="#" style="width:600px; height:700px;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 			</center>
@@ -32,18 +32,29 @@
 	</div>
 </div>
 
+{% for tut in tuts %}
+	<p id="tutName" value="{{tut..tutName}}">{{tut.tutName}}</p>
+	<script>
+		var names = new Array();
+		var tutNames = document.getElementById('tutName').textContent;
+		tutNames.next();
+		document.write(tutNames);
+	</script>
+{% endfor %}
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
 $viewer = $('#viewer').hide();
-$tutNames = $('.list-group-item');
-var tutorialTitle = document.getElementById('tutorial').textContent;
+$tutName = $('#tutName').hide();
+//var tutorialTitle = document.getElementById('tutorial').textContent;
 
 function go(link){
 	document.getElementById('viewer').src = link;
 	$viewer.show();
+	var tutorialTitle = document.getElementById("tutorial").val();
+	alert(tutorialTitle);
 	document.getElementById("title").innerHTML=tutorialTitle;
 }
 

@@ -64,7 +64,8 @@ def vtutorial(request):
 def tutorials(request):
         template = loader.get_template('JavaApp/tutorial.html')
 	tuts = tutorial.objects.all()
-        context = RequestContext(request, {'tuts':tuts})
+	nameList = tutorial.objects.all().values_list('tutName')
+        context = RequestContext(request, {'tuts':tuts, 'nameList':nameList})
         return HttpResponse(template.render(context))
 
 def CYOtest(request):
@@ -77,12 +78,14 @@ def runProg(request):
 	if request.method == 'POST':
 		text = request.POST['post']
 		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
-	java_file = 'Test.java'
+	java_file = 'HelloWorld.java'
+	test_file = 'HelloWorldTest.java'
 	f = open(java_file, 'w')
 	f.write(text)
-	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
+	#JAR_CLASSPATH = ':/home/nicole/Documents/UniLevel4/L4Project/L4Project//hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project//junit.jar'
+	proc = subprocess.Popen(['javac','-cp','/home/nicole/Documents/UniLevel4/L4Project/L4Project/hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project/junit.jar', java_file, test_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])
-	proc2 = subprocess.Popen(['java','Test'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+	proc2 = subprocess.Popen(['java', '-cp','/home/nicole/Documents/UniLevel4/L4Project/L4Project/hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project/junit.jar','org.junit.runner.JUnitCore','HelloWorldTest'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     	ans = proc2.communicate()
 	return HttpResponse(ans)
 

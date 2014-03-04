@@ -82,7 +82,9 @@ def runProg(request):
 	test_file = 'HelloWorldTest.java'
 	f = open(java_file, 'w')
 	f.write(text)
-	jar_path = ':/home/nicole/Documents/UniLevel4/L4Project/L4Project//hamcrest-core-1.3.jar:/home/nicole/Documents/UniLevel4/L4Project/L4Project//junit.jar'
+	ham = os.getcwd()+'/hamcrest-core-1.3.jar'
+	jjar = os.getcwd()+'/junit.jar'
+	jar_path = ':'+ham+":"+jjar
 	os.environ['CLASSPATH'] = jar_path
 	proc = subprocess.Popen(['javac','-cp',os.environ['CLASSPATH'], java_file, test_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])

@@ -30,6 +30,11 @@
 			<button type="button" id="large" class="btn btn-info">Go</button>
 		</div>
 	</div>
+	<br>
+	<div class="alert alert-danger" id="erMsg" style="width:400px">
+      		<h4>Not enough questions!</h4>
+      		Your too keen There is only {{questions|length}} questions available. Please select another number.
+    	</div>
 </div>
 </center><br>
 
@@ -79,15 +84,16 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 				// if answer incorrect change background to red
                               	if (i=="Your answer is incorrect! Please try again."){
                                         $('#{{question.id}}ans').css("background-color","red");
+					$('#{{question.id}}ans').css("color","white");
 
-                                }
-			
+                                }			
 			});	
 		});
 	});	
 	</script>
 	
 {% endfor %}
+<center><a href="/JavaApp/multChoice2" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
 
 <!-- Previous and Next buttons to nav between questions-->
 
@@ -105,18 +111,24 @@ How Many Questions Do you want? : <input type="text" name="questions" id="UserQu
 
 <script>
 $(document).ready(function() {
+	var questionsAvail = document.getElementById('noOfQs').innerHTML;
 	var textbox = document.getElementById('UserQuestionNum');
 	// set up quiz with number of questions the user wants.
 	$('#submit').click(function(){
 		var answer = textbox.value;
 		totalQuestions = answer;
-		$($questions.get(currentQuestion)).fadeIn();
-		$qNoArea.show();
-		$prev.show();
-		$next.show();
-		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
-		document.getElementById("resultArea").innerHTML=res;
-		$quizSelector.hide();
+		//alert(totalQuestions);
+		if (Number(totalQuestions) < Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+		}else{
+			$erMessage.show();
+		}
 	});
 	// set up quiz with 5 questions.
 	$('#small').click(function(){
@@ -145,8 +157,11 @@ $(document).ready(function() {
 </script>
 
 <script>
-
+$erMessage = $('#erMsg');
+$erMessage.hide();
 $quizSelector = $('.container');
+$tryAgainButton = $('#tryAgain');
+$tryAgainButton.hide();
 $qNoArea = $('#questionNum').hide();
 $prev = $('#prev').hide();
 $next = $('#next').hide();
@@ -170,6 +185,7 @@ document.getElementById("resultArea").innerHTML=res;
 // when next button clicked, go to next question.
 $('#next').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
+	//var t = document.getElementById(currentQuestion+'ans').innerHTML;
         currentQuestion = currentQuestion + 1;
         if(currentQuestion == totalQuestions){
                 result();
@@ -208,6 +224,8 @@ function result(){
 		msg = "Well Done, full marks!";
 	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
 	document.getElementById("result").innerHTML=res;
+	$tryAgainButton.show();
+	
 }
 
 document.getElementById("questionNum").innerHTML=qNum;
@@ -221,6 +239,4 @@ document.getElementById("questionNum").innerHTML=qNum;
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
-
-
 </html>

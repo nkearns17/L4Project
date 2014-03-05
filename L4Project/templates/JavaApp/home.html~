@@ -15,11 +15,11 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4"><div class="well">
           <h2>Fill in the Blanks</h2>
           <p>Given a small snippet of code, try complete the code by using the syntax and code words to fill in the blank spaces.</p>
           <p><a class="btn btn-default" href="fib/" role="button">Go &raquo;</a></p>
-        </div>
+        </div></div>
         <div class="col-md-4">
           <h2>Multiple Choice</h2>
           <p>Given a small snippet of code, predict the behaviour and/or output of the code correctly.</p>
@@ -40,7 +40,7 @@
         <div class="col-md-4">
           <h2>Tutorials</h2>
           <p> Go over the basic concepts and syntax.</p>
-          <p><a class="btn btn-default" href="tutorial/" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="tutorials/" role="button">Go &raquo;</a></p>
        </div>
 	<div class="col-md-4">
           <h2>Fix the errors</h2>

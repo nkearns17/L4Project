@@ -31,3 +31,8 @@ class cyoQuestions(models.Model):
 
 	def __unicode__(self):
        		return self.question
+
+class videoTutorials(models.Model):
+	topic = models.CharField(max_length=100)
+	videoName = models.CharField(max_length=100)
+	videoLink = models.CharField(max_length=300)

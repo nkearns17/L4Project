@@ -9,12 +9,51 @@
 
 {% block content %}
 
-<center>
+<!-- <script type="text/javascript" href="{{STATIC_URL}}bootstrap/css/jquery.slimscroll.min.js"></script> -->
+<div style="padding:0 15px;"><!-- offset row negative padding -->
+	<div class="row">
+		<div class="col-md-2"">
+		<h4 style="color:#3333FF"><i><u>Video Tutorials</u></i></h4>
+		<div class="list-group" id="vtutList" style="height:500px;width:400px;overflow:scroll;overflow-x:hidden;overflow-y:scroll;">
+			{% for vtut in vTuts %}
+			<!-- <a id="topicName" class="list-group-item list-group-item-success">{{tut.tutTopic}}<span class="glyphicon glyphicon-chevron-right"></span></a>-->
+			<a id="vidTut" value="{{vtut.id}}" onclick="go('{{vtut.videoLink}}')" class="list-group-item list-group-item-info"><a href="#">{{vtut.videoName}}</a></a>
+			{% endfor %}
+		</div>
+
+		</div>
+		<div class="col-md-9">
+			<center>
+			<h1 id="title" style="color:#505050"><i>Please select a tutorial to view.</i></h1>
+			<iframe id="vidViewer" width="600px" height="400px"
+			src="http://www.youtube.com/embed/7WiPGP_0AUA"+ "&output=embed">
+			</iframe>
+			</center>
+		</div>
+	</div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+$viewer = $('#vidViewer').hide();
+$tutName = $('#tutName').hide();
+//var tutorialTitle = document.getElementById('tutorial').textContent;
+
+function go(link){
+	document.getElementById('vidViewer').src = link;
+	$viewer.show();
+	//document.getElementById("title").innerHTML=tutorialTitle;
+}
+
+</script>
+
+<!--<center>
 <h3>Youtube tutorials</h3>
-<iframe width="420" height="345"
-src="http://www.youtube.com/watch?v=7WiPGP_0AUA"+ "&output=embed">
+<iframe id="vidViewer" width="600px" height="400px"
+src="http://www.youtube.com/embed/7WiPGP_0AUA"+ "&output=embed">
 </iframe>
-</center>
+</center>-->
 
 {% endblock %}
 

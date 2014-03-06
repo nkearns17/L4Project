@@ -3,6 +3,7 @@ from django.template import RequestContext, loader
 from JavaApp.models import Questions
 from JavaApp.models import tutorial
 from JavaApp.models import cyoQuestions
+from JavaApp.models import videoTutorials
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson
@@ -59,7 +60,8 @@ def test(request):
 
 def vtutorial(request):
         template = loader.get_template('JavaApp/vtutorials.html')
-        context = RequestContext(request, {})
+	vTuts = videoTutorials.objects.all()
+        context = RequestContext(request, {'vTuts':vTuts})
         return HttpResponse(template.render(context))
 
 def tutorials(request):

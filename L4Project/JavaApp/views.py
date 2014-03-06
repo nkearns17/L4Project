@@ -60,7 +60,8 @@ def test(request):
 
 def vtutorial(request):
         template = loader.get_template('JavaApp/vtutorials.html')
-        context = RequestContext(request, {})
+	vTuts = videoTutorials.objects.all()
+        context = RequestContext(request, {'vTuts':vTuts})
         return HttpResponse(template.render(context))
 
 def tutorials(request):

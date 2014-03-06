@@ -49,7 +49,7 @@
         <ul class="dropdown-menu">
           <li><a href="/JavaApp/fib">Fill in the blanks</a></li>
           <li><a href="/JavaApp/multChoice2">Multiple Choice</a></li>
-          <li><a href="/JavaApp/test">Fix broken code</a></li>
+          <li><a href="/JavaApp/Fbc">Fix broken code</a></li>
 	  <li><a href="/JavaApp/CYOtest">Code your own</a></li>
 	  <li><a href="/JavaApp/vtutorials">Video Tutorials</a></li>
 	  <li><a href="/JavaApp/tutorials">The Basics</a></li>
@@ -71,7 +71,9 @@
 
 	
 	{% block content %}
-
+	<style>
+	body {background-color:#b0c4de;}
+	</style>
 	{% endblock %}	
 
       <hr>

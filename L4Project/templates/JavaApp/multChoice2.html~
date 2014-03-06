@@ -99,10 +99,6 @@
   <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
 </button> 
 
-<!--
-<input type="button" id='prev' value="Previous">
-<input type="button" id='next' value="Next"> -->
-
 <script>
 $(document).ready(function() {
 	var questionsAvail = document.getElementById('noOfQs').innerHTML;
@@ -128,14 +124,18 @@ $(document).ready(function() {
 	// set up quiz with 5 questions.
 	$('#small').click(function(){
 		totalQuestions = 5;
-		$($questions.get(currentQuestion)).fadeIn();
-		$qNoArea.show();
-		$prev.show();
-		$next.show();
-		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
-		document.getElementById("resultArea").innerHTML=res;
-		$quizSelector.hide();
-		$qMsg.hide();
+		if (Number(totalQuestions) < Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+		}else{
+			$erMessage.show();
+		}
 	});
 	//set up quiz with 20 questions.
 	$('#large').click(function(){

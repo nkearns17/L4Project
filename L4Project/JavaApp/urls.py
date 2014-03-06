@@ -18,4 +18,5 @@ urlpatterns = patterns('',
 	url(r'^tutorials', views.tutorials),
 	url(r'^CYOtest', views.CYOtest, name='CYOtest'),
 	url(r'^run_program/(?P<question>\w+)', views.runProg),
+	url(r'^Fbc', views.Fbc),
 )

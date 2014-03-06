@@ -11,6 +11,9 @@
 
 <center>
 <div class="container">
+	<div class="alert alert-info" id="QMsg" style="width:600px">
+      	There are {{questions|length}} questions available. Please select how many you want to complete.
+    	</div>
 <!-- Choose which size of quiz -->
 	<div class="row">
 		<div class="col-md-4">
@@ -38,21 +41,12 @@
 </div>
 </center><br>
 
-<!--<center>
-<button type="button" id="small" class="btn btn-info btn-lg">Small</button>
-<button type="button" id="large" class="btn btn-info btn-lg">Large</button>
-
-<h4><form>
-How Many Questions Do you want? : <input type="text" name="questions" id="UserQuestionNum"><br>
-<input type="button" value="Submit" id="submit">
-</form></h4></center><br> -->
-
 <div id="noOfQs" class="ques">{{questions|length}}</div>
 <h3><p id="resultArea" align="right"></p></h3>
 <h3><p id="questionNum"></p></h3>
 
 {% for question in questions %}
-	<div class="well" style="background-color:#F0FFFF">
+	<div class="well">
 		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 		<pre class="prettyprint">
 		<p id="q{{question.id}}">{{question|linebreaks|safe}}</p><br>
@@ -126,6 +120,7 @@ $(document).ready(function() {
 			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
+			$qMsg.hide();
 		}else{
 			$erMessage.show();
 		}
@@ -140,6 +135,7 @@ $(document).ready(function() {
 		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 		document.getElementById("resultArea").innerHTML=res;
 		$quizSelector.hide();
+		$qMsg.hide();
 	});
 	//set up quiz with 20 questions.
 	$('#large').click(function(){
@@ -151,6 +147,7 @@ $(document).ready(function() {
 		var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 		document.getElementById("resultArea").innerHTML=res;
 		$quizSelector.hide();
+		$qMsg.hide();
 	});
 });
 
@@ -159,6 +156,7 @@ $(document).ready(function() {
 <script>
 $erMessage = $('#erMsg');
 $erMessage.hide();
+$qMsg = $('#QMsg');
 $quizSelector = $('.container');
 $tryAgainButton = $('#tryAgain');
 $tryAgainButton.hide();

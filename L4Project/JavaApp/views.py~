@@ -77,6 +77,13 @@ def CYOtest(request):
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
+def Fbc(request):
+        template = loader.get_template('JavaApp/Fbc.html')
+	questions = cyoQuestions.objects.filter(qType="CYO")
+	context = RequestContext(request, {'questions':questions})
+	return HttpResponse(template.render(context))
+
+
 def runProg(request, question):
 	# gets the question from the db
 	dbquestion = cyoQuestions.objects.get(id=question)

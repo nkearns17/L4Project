@@ -17,7 +17,8 @@
 		<div class="list-group" id="vtutList" style="height:500px;width:400px;overflow:scroll;overflow-x:hidden;overflow-y:scroll;">
 			{% for vtut in vTuts %}
 			<!-- <a id="topicName" class="list-group-item list-group-item-success">{{tut.tutTopic}}<span class="glyphicon glyphicon-chevron-right"></span></a>-->
-			<a id="vidTut" value="{{vtut.id}}" onclick="go('{{vtut.videoLink}}')" class="list-group-item list-group-item-info"><a href="#">{{vtut.videoName}}</a></a>
+			<a href='#' id="vidTut" value="{{vtut.id}}" onclick="go('{{vtut.videoLink}}')" class="list-group-item list-group-item-info">{{vtut.videoName}}</a>
+			<h1 id="vtitle" style="color:#505050"><i>{{vtut.videoName}}</i></h1>
 			{% endfor %}
 		</div>
 
@@ -38,6 +39,7 @@
 
 $viewer = $('#vidViewer').hide();
 $tutName = $('#tutName').hide();
+$tutTitle = $('#vtitle');
 //var tutorialTitle = document.getElementById('tutorial').textContent;
 
 function go(link){

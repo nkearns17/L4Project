@@ -18,16 +18,17 @@
 	</style>
 
 
-	<!-- <p id="editor" style="width:600px;height:550px">
+	<p id="editor" style="width:600px;height:550px">
 		public class HelloWorld { 
    			public static void main(String[] args) { 
       				System.out.println("Hello, World");
    			}
 		}
-	</p> -->
+	</p>
 
 
-	<!--<div id="container">
+	<div id="container">
+		{% 
 		<form id="myForm" method="post" action="/JavaApp/run_program/" target="results">
 			{% csrf_token %}
 			<div id="box1">
@@ -41,46 +42,21 @@
 		<iframe id="box2" class="frame" name="results" width="512px" height="100px">
 		<p>Your browser does not support iframes.</p>
 		</iframe> </div>
-	</div> -->
+	</div>
+ 
 	 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 	  <script src="/resources/demos/external/jquery.mousewheel.js"></script>
 	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-	<p>
-  		<label for="spinner">Select a value:</label>
-  		<input id="spinner" name="value">
-	</p>
-	<button id="getvalue">Get value</button>
-  	<button id="setvalue5">Set value to 5</button>
-	<button id="setvalue20">Set value to 20</button>
 
 	<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
 		editor.getSession().setMode("ace/mode/java");
-	</script>
 
-	<!-- <script>
-		var code = editor.getSession().getValue();
-		alert(code);
-	</script> -->
-
-
-	<script>
-	var spinner = $( "#spinner" ).spinner();
-	spinner.spinner({ max: 50 });
-	spinner.spinner({ min: 0});
-	$( "#getvalue" ).click(function() {
-      		alert( spinner.spinner( "value" ) );
-    	});
-	$( "#setvalue5" ).click(function() {
-      		spinner.spinner( "value", 5 );
-   	});
-	$( "#setvalue20" ).click(function() {
-      		spinner.spinner( "value", 5 );
-   	});
+		var test = editor.getSession().getValue();
+		alert(test);
 	</script>
 
 {% endblock %}

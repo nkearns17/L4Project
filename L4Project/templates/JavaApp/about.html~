@@ -7,49 +7,31 @@
 {% endblock %}
 
 {% block content %}
-<center>
+
+<center><div class="alert alert-info" style="width:900px;">
+<h2><b>Evaluation Aim</b></h2><br>The aim of this experiment is to investigate the suitability of this web application for the use of learning and revising Java programming. We cannot tell how good web applications are unless we ask those people who are likely to be using them, which is why I need to run experiments like these to see just how effective using interactive activities are when learning and revising a programming language. I will give you some time to browse the pages and try out the activities, before asking you to fill out a short questionnaire about the usability and effectiveness of this web application. Please feel free to email me or Jeremy Singer if you have any questions or problems.<br><br>
+
+Once you have browsed the pages and tried out the activities, please could you take a few minutes to complete this <a href="#"><b>questionnaire</b></a>.
+</div></center>
+
+<center><div class="well" style="width:900px;">
+<center><h2><b>About JavaApp</b></h2></center><br>
 The aim of this application is to allow users to learn and practice the basic Java concepts and syntax. In order to do this, I have created the following activities:<br><br>
 
-<li> Fill in the blanks</li>
-<li> Multiple choice to predict the behaviour of the code</li>
-<li> Write your own code</li>
-<li> Fix the broken code</li>
-<li> Video tutorials</li>
-<li> Tutorials to go over the basics</li><br>
-
-Through these interactive activities, we hope that this will enhance the students ability to program using Java.<br>
-
-Any issues or questions, please contact <a href="mailto:0902059k@student.gla.ac.uk" target="_top">Nicole Kearns</a> or  <a href="mailto:jeremy.singer@glasgow.ac.uk" target="_top">Jeremy Singer</a>
-
-
-<ul id="multicol-menu" class="nav pull-right">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">MultiCol Menu <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <div class="row-fluid" style="width: 400px;">
-                    <ul class="unstyled span4">
-                        <li><a href="#">test1-1</a></li>
-                        <li><a href="#">test1-2</a></li>
-                        <li><a href="#">test1-3</a></li>
-                    </ul>
-                    <ul class="unstyled span4">
-                        <li><a href="#">test2-1</a></li>
-                        <li><a href="#">test2-2</a></li>
-                        <li><a href="#">test2-3</a></li>
-                    </ul>
-                    <ul class="unstyled span4">
-                        <li><a href="#">test3-1</a></li>
-                        <li><a href="#">test3-2</a></li>
-                        <li><a href="#">test3-3</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </li>
+<ul class="list-group" style="width:400px">
+<li class="list-group-item"> Fill in the blanks</li>
+<li class="list-group-item"> Multiple choice to predict the behaviour of the code</li>
+<li class="list-group-item"> Write your own code</li>
+<li class="list-group-item"> Fix the broken code</li>
+<li class="list-group-item"> Video tutorials</li>
+<li class="list-group-item"> Tutorials to go over the basics</li><br>
 </ul>
 
-</center>
+Through these interactive activities, we hope that students will enhance the their ability to program using Java.<br>
+
+Any issues or questions, please contact <a href="mailto:0902059k@student.gla.ac.uk" target="_top">Nicole Kearns</a> or  <a href="mailto:jeremy.singer@glasgow.ac.uk" target="_top">Jeremy Singer</a>
+</div></center>
+
 {% endblock %}
 
 </html>

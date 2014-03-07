@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from JavaApp.models import Questions
 from JavaApp.models import tutorial
+from JavaApp.models import cyoQuestions
+from JavaApp.models import videoTutorials
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import simplejson
@@ -58,32 +60,60 @@ def test(request):
 
 def vtutorial(request):
         template = loader.get_template('JavaApp/vtutorials.html')
-        context = RequestContext(request, {})
+	vTuts = videoTutorials.objects.all()
+        context = RequestContext(request, {'vTuts':vTuts})
         return HttpResponse(template.render(context))
 
 def tutorials(request):
         template = loader.get_template('JavaApp/tutorial.html')
 	tuts = tutorial.objects.all()
-        context = RequestContext(request, {'tuts':tuts})
+	nameList = tutorial.objects.all().values_list('tutName')
+        context = RequestContext(request, {'tuts':tuts, 'nameList':nameList})
         return HttpResponse(template.render(context))
 
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	questions = Questions.objects.filter(Qtype="CYO")
+	questions = cyoQuestions.objects.filter(qType="CYO")
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
-def runProg(request):
+def Fbc(request):
+        template = loader.get_template('JavaApp/Fbc.html')
+	questions = cyoQuestions.objects.filter(qType="FBC")
+	context = RequestContext(request, {'questions':questions})
+	return HttpResponse(template.render(context))
+
+
+def runProg(request, question):
+	# gets the question from the db
+	dbquestion = cyoQuestions.objects.get(id=question)
+	# get the entered code
 	if request.method == 'POST':
 		text = request.POST['post']
 		urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
-	java_file = 'Test.java'
+	# get the java files - code and junit test
+	java_file = os.getcwd()+'/static/cyoTests/cTest.java'
+	test_file ='codeTest'+question+'.java'
+	# write to file
 	f = open(java_file, 'w')
 	f.write(text)
-	proc = subprocess.Popen(['javac', java_file], stdout=subprocess.PIPE)
+	# paths for the .jar files
+	ham = os.getcwd()+'/hamcrest-core-1.3.jar'
+	jjar = os.getcwd()+'/junit.jar'
+	jar_path = ':'+ham+":"+jjar
+	# set the classpath to include both .jar's
+	os.environ['CLASSPATH'] = jar_path
+	# compile both the users code and the junit test
+	proc = subprocess.Popen(['javac','-cp',os.environ['CLASSPATH'], java_file], stdout=subprocess.PIPE)
+	# change to cyoTests directory
+	os.chdir('./static/cyoTests/')
+	proc2 = subprocess.Popen(['javac','-cp',os.environ['CLASSPATH'], test_file], stdout=subprocess.PIPE)
 	#out = subprocess.check_call(['javac', java_file])
-	proc2 = subprocess.Popen(['java','Test'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    	ans = proc2.communicate()
+	jTest = 'codeTest'+question
+	# run the junit test
+	proc3 = subprocess.Popen(['java', '-cp',os.environ['CLASSPATH'],'org.junit.runner.JUnitCore',jTest], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    	ans = proc3.communicate()
+	os.chdir('../../')
 	return HttpResponse(ans)
 
 #def multChoice(request):

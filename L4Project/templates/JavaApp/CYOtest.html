@@ -4,30 +4,36 @@
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-<center><h1>Can You Find The Errors?</h1></center>
+<center><h1>Write your own Code</h1></center>
 {% endblock %}
 
 {% block content %}
 
+<center><div class="alert alert-danger" id="QMsg" style="width:700px">
+      	You must click <b>'Run It !'</b> twice for the results to show.<br> The first time, even if you code is correct, it will give you an error.
+    	</div></center>
+
 {% for question in questions %}
-	<div id="container" align="center">
-	<h4><b>Question:<b> {{question}} </h4>
-		<form id="myForm" method="post" action="/JavaApp/run_program/" target="results">
+	<div id="container" align="center" class="well" style="border-style:solid;border-width:1px;margin-left:auto;margin-right:auto;width:80%;">
+	<h4 align="left"><b>Question {{question.id}}:<br></h4><h5 align="left"></b> {{question}}</h5>
+		<form id="myForm" method="post" action="/JavaApp/run_program/{{question.id}}" target="results{{question.id}}">
 			{% csrf_token %}
 			<div id="box1">
-			<textarea id="t1" name="post" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:256px"></textarea>
+			<textarea id="t1" name="post" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:450px">{{question.providedCode}}</textarea>
 			<br/><br/>	
 			<input id="submit" value="Run it !" name="submit" type="submit"/></div>	
 		</form>
 
 		<div id="box2">
 		<h3> Results </h3>
-		<iframe id="box2" class="frame" name="results" width="512px" height="100px">
+		<iframe id="box2" class="frame" name="results{{question.id}}" style="background-color:white;" width="512px" height="100px">
 		<p>Your browser does not support iframes.</p>
 		</iframe> </div>
 	</div>
+	<br>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
 {% endfor %}
 
 {% endblock %}

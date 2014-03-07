@@ -9,34 +9,41 @@
 
 {% block content %}
 
-<head>
-<script type="text/javascript">
-  document.createElement('video');document.createElement('audio');
+<!-- <script type="text/javascript" href="{{STATIC_URL}}bootstrap/css/jquery.slimscroll.min.js"></script> -->
+<div style="padding:0 15px;"><!-- offset row negative padding -->
+	<div class="row">
+		<div class="col-md-2"">
+		<h4 style="color:#3333FF"><i><u>Video Tutorials</u></i></h4>
+		<div class="list-group" id="vtutList" style="height:500px;width:300px;overflow:scroll;overflow-x:hidden;overflow-y:scroll;">
+			{% for vtut in vTuts %}
+			<a href='#' id="vidTut" value="{{vtut.id}}" onclick="go('{{vtut.videoLink}}')" class="list-group-item list-group-item-info">{{vtut.videoName}}</a>
+			{% endfor %}
+		</div>
+
+		</div>
+		<div class="col-md-9">
+			<center>
+			<h1 id="title" style="color:#505050"><i>Please select a tutorial to view.</i></h1>
+			<iframe id="vidViewer" width="600px" height="400px" align="center" src="#"+ "&output=embed">
+			</iframe>
+			</center>
+		</div>
+	</div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+$viewer = $('#vidViewer').hide();
+$title = $('#title');
+
+function go(link){
+	document.getElementById('vidViewer').src = link;
+	$viewer.show();
+	$title.hide();
+}
+
 </script>
-</head>
-
-<center><h3>Video.js</h3>
-<video id="example_video_1" class="video-js vjs-default-skin"
-  controls preload="auto" width="640" height="264"
-  poster="http://video-js.zencoder.com/oceans-clip.png"
-  data-setup='{"example_option":true}'>
- <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-</video>
-</center><br>
-
-<center>
-<h3>Youtube tutorials</h3>
-<iframe width="420" height="345"
-src="http://www.youtube.com/embed/XGSy3_Czz8k">
-</iframe>
-</center>
-
-
-  <h1>A Java applet example</h1>
-  <p>Here it is: <applet code="HelloWorld.class" height="140" width="200">
-    This is where HelloWorld.class runs.
-  </applet></p>
-
 
 
 {% endblock %}

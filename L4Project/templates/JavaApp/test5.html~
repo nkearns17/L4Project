@@ -77,15 +77,7 @@ var ansList = [];
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>
 			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
-		</form><br>
-		<!-- Previous and Next buttons to nav between questions -->
-		<button type="button" id='{{question.id}}prev' class="btn btn-default btn-lg">
-		  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
-		</button>
-
-		<button type="button" id='{{question.id}}next' class="btn btn-default btn-lg">
-		  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-		</button>
+		</form>
 	</div><br>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -102,11 +94,25 @@ var ansList = [];
 	//check which words in the question match the java keyword and add to a list.
 	var matches = [];
 	for (var i=0; i < size; i++){
+		//var text1 = labelText.indexOf(/\bint\b/);
 		var text = labelText.indexOf(jwords[i].trim());
 		if (text != -1){
 			matches.push(jwords[i]);
+		}	
+		var wrd = 'int';
+		var regex = new RegExp('\\b' + wrd + '\\b');
+		if (labelText.search(regex) != -1 && matches.indexOf('int') == -1){
+			matches.push("int");
+		}
+		var wrd2 = 'class';
+		var regex1 = new RegExp('\\b' + wrd2 + '\\b');
+		if (labelText.search(regex1) != -1 && matches.indexOf('class') == -1){
+			matches.push("class");
 		}
 	}
+	document.write(matches+"\n");
+
+ 	//var regex = new RegExp('\\b' + 'int' + '\\b');
 
 	//Generate random keyword.
 	var keyword = matches[Math.floor(Math.random()*matches.length)];
@@ -115,7 +121,13 @@ var ansList = [];
 	// replace word for space 
 	var rslt = labelText.indexOf(keyword.trim());
 	//document.write(keyword.trim() + " " + rslt + "<br>");
-	if (rslt != -1){
+	if (rslt != -1 && keyword.trim() == 'class'){
+		labelText = labelText.replace(regex1, "_______");
+	}
+	else if (rslt != -1 && keyword.trim() == 'int'){
+		labelText = labelText.replace(regex, "_______");
+	}
+	else if (rslt != -1){
 		labelText = labelText.replace(keyword.trim(), "_______");		
 	}
 	
@@ -140,74 +152,19 @@ var ansList = [];
 			}
 		});
 	});
-
-	// when next button clicked, go to next question.
-	$('#{{question.id}}next').click(function(){
-	    $($questions.get(currentQuestion)).fadeOut(function(){
-		currentQuestion = currentQuestion + 1;
-		if(currentQuestion == totalQuestions){
-		        result();
-			$qNoArea.hide();
-			document.getElementById("{{question.id}}next").disabled=true;
-		}else{
-			var t = document.getElementById('{{question.id}}submit').innerHTML
-			if(t == "Check answers"){
-				if (answer === keywordList[currentQuestion].trim()){
-				score = score + 10;
-				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
-				$('#{{question.id}}submit').css("background-color","lime");
-				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
-				document.getElementById("resultArea").innerHTML=res;
-				}
-				else{
-					$('#{{question.id}}submit').css("background-color","red");
-					var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
-				}
-
-			}else{
-				$($questions.get(currentQuestion)).fadeIn();
-				questionNumber = questionNumber + 1;
-				var qNum = "Question " + questionNumber;
-				document.getElementById("questionNum").innerHTML=qNum;
-				document.getElementById("{{question.id}}prev").disabled=false;
-			}
-		}
-	    });
-	});
-
-	// when previous button clicked, go back a question.
-	$('#{{question.id}}prev').click(function(){
-	    $($questions.get(currentQuestion)).fadeOut(function(){
-		if(currentQuestion > 0){
-			currentQuestion = currentQuestion-1;
-			questionNumber = questionNumber - 1;
-			var qNum = "Question " + questionNumber;
-			document.getElementById("questionNum").innerHTML=qNum;
-			$($questions.get(currentQuestion)).fadeIn();
-			document.getElementById("{{question.id}}next").disabled=false;
-		}
-	    });
-
-	});
-
-	// function to display the results with appropriate message depending on score
-	function result(){
-		var total = totalQuestions*10;
-		if ((score/total)*100 <= 50 )
-			var msg = "Looks like you need to revise some more";
-		if ((score/total)*100 >= 51)
-			msg = "Well Done, you're on the right track!";
-		if (score == total)
-			msg = "Well Done, full marks!";
-		var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
-		document.getElementById("result").innerHTML=res;
-		$tryAgainButton.show();
-		$aboutMessage.hide();
-	}
 	</script>
 
 
 {% endfor %}
+
+<!-- Previous and Next buttons to nav between questions -->
+<button type="button" id='prev' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+</button>
+
+<button type="button" id='next' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+</button>
 
 <script>
 $(document).ready(function() {
@@ -299,6 +256,54 @@ var qNum = "Question " + questionNumber;
 // display the results
 var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
+
+// when next button clicked, go to next question.
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+		document.getElementById("next").disabled=true;
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		document.getElementById("prev").disabled=false;
+        }
+    });
+});
+
+// when previous button clicked, go back a question.
+$('#prev').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        if(currentQuestion > 0){
+		currentQuestion = currentQuestion-1;
+		questionNumber = questionNumber - 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		$($questions.get(currentQuestion)).fadeIn();
+		document.getElementById("next").disabled=false;
+        }
+    });
+
+});
+
+// function to display the results with appropriate message depending on score
+function result(){
+	var total = totalQuestions*10;
+	if ((score/total)*100 <= 50 )
+		var msg = "Looks like you need to revise some more";
+	if ((score/total)*100 >= 51)
+		msg = "Well Done, you're on the right track!";
+	if (score == total)
+		msg = "Well Done, full marks!";
+	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+	document.getElementById("result").innerHTML=res;
+	$tryAgainButton.show();
+	$aboutMessage.hide();
+}
 
 document.getElementById("questionNum").innerHTML=qNum;
 </script>

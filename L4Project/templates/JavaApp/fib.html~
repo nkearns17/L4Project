@@ -98,6 +98,16 @@ var ansList = [];
 		if (text != -1){
 			matches.push(jwords[i]);
 		}
+		var wrd = 'int';
+		var regex = new RegExp('\\b' + wrd + '\\b');
+		if (labelText.search(regex) != -1 && matches.indexOf('int') == -1){
+			matches.push("int");
+		}
+		var wrd2 = 'class';
+		var regex1 = new RegExp('\\b' + wrd2 + '\\b');
+		if (labelText.search(regex1) != -1 && matches.indexOf('class') == -1){
+			matches.push("class");
+		}
 	}
 
 	//Generate random keyword.
@@ -107,7 +117,13 @@ var ansList = [];
 	// replace word for space 
 	var rslt = labelText.indexOf(keyword.trim());
 	//document.write(keyword.trim() + " " + rslt + "<br>");
-	if (rslt != -1){
+	if (rslt != -1 && keyword.trim() == 'class'){
+		labelText = labelText.replace(regex1, "_______");
+	}
+	else if (rslt != -1 && keyword.trim() == 'int'){
+		labelText = labelText.replace(regex, "_______");
+	}
+	else if (rslt != -1){
 		labelText = labelText.replace(keyword.trim(), "_______");		
 	}
 	

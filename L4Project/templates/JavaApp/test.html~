@@ -4,58 +4,263 @@
 {% extends 'JavaApp/base-bootstrap.html' %}
 
 {% block topbar %}
-<center><h1>Can You Find The Errors?</h1></center>
+<h1><center> Multiple Choice</center></h1>
 {% endblock %}
 
 {% block content %}
 
-	<meta charset="utf-8">
-	<style>
-	#editor{
-		position:absolute;
-		left:300px;
-	}
-	</style>
+<center>
+<div class="container">
+	<div class="alert alert-info" id="QMsg" style="width:600px">
+      	There are {{questions|length}} questions available. Please select how many you want to complete.
+    	</div>
+<!-- Choose which size of quiz -->
+	<div class="row">
+		<div class="col-md-4">
+			<h3>Small Quiz</h3>
+			<p>Contains 5 multiple choice questions.</p>
+			<button type="button" id="small" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Select Your Own Number of Questions</h3>
+			<p>Decide how many questions you wish to complete. Simply enter the number below:</p>
+			<input type="text" name="questions" id="UserQuestionNum"><br>
+			<button type="button" id="submit" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Large Quiz</h3>
+			<p>Contains 20 multiple choice questions.</p>
+			<button type="button" id="large" class="btn btn-info">Go</button>
+		</div>
+	</div>
+	<br>
+	<div class="alert alert-danger" id="erMsg" style="width:400px">
+      		<h4>Not enough questions!</h4>
+      		Your too keen There is only {{questions|length}} questions available. Please select another number.
+    	</div>
+</div>
+</center><br>
 
+<div id="noOfQs" class="ques">{{questions|length}}</div>
+<h3><p id="resultArea" align="right"></p></h3>
+<h3><p id="questionNum"></p></h3>
 
-	<p id="editor" style="width:600px;height:550px">
-		public class HelloWorld { 
-   			public static void main(String[] args) { 
-      				System.out.println("Hello, World");
-   			}
-		}
-	</p>
+{% for question in questions %}
+	<div class="well">
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+		<pre class="prettyprint">
+		<p id="q{{question.id}}">{{question|linebreaks|safe}}</p><br>
+		</pre>
+		<!-- List the answers-->
+		<input type="radio" value="A" name="ans">A. {{question.posAns1}}<br>
+		<input type="radio" value="B" name="ans">B. {{question.posAns2}}<br>
+		<input type="radio" value="C" name="ans">C. {{question.posAns3}}<br>
+		<input type="radio" value="D" name="ans">D. {{question.posAns4}}<br><br>
+	<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answer</button><br><br>
+	<!-- Previous and Next buttons to nav between questions-->
 
+	<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg">
+	  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+	</button>
 
-	<div id="container">
-		<form id="myForm" method="post" action="/JavaApp/run_program/"+1 target="results">
-			{% csrf_token %}
-			<div id="box1">
-			<p id="editor" type="text" value="This is a TextBox" class="input-block-level" style="width:512px;height:256px"></p>
-			<br/><br/>	
-			<input id="submit" value="Run it !" name="submit" type="submit"/></div>	
-		</form>
+	<button type="button" id='next{{question.id}}' class="btn btn-default btn-lg">
+	  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+	</button> 
+	</div>
+	<center><h3><p id="result"></p></h3></center>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-		<div id="box2">
-		<h3> Results </h3>
-		<iframe id="box2" class="frame" name="results" width="512px" height="100px">
-		<p>Your browser does not support iframes.</p>
-		</iframe> </div>
-	</div> 
-	 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-	  <script src="/resources/demos/external/jquery.mousewheel.js"></script>
-	  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-	<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script>
-		var editor = ace.edit("editor");
-		editor.setTheme("ace/theme/monokai");
-		editor.getSession().setMode("ace/mode/java");
+	$(document).ready(function() {
+                $('#{{question.id}}ans').click(function(){
+			// send the answer to get checked
+			$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
+				$('#{{question.id}}ans').html(data);
+				var i = document.getElementById('{{question.id}}ans').innerHTML;
+				// if answer correct change background to green
+				if (i=="Your answer is correct!"){
+					$('#{{question.id}}ans').css("background-color","lime");
+					score = score + 10;
+					var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+					document.getElementById("resultArea").innerHTML=res;
+                               	}
+				// if answer incorrect change background to red
+                              	if (i=="Your answer is incorrect! Please try again."){
+                                        $('#{{question.id}}ans').css("background-color","red");
+					$('#{{question.id}}ans').css("color","white");
 
-		var test = editor.getSession().getValue();
-		alert(test);
+                                }			
+			});	
+		});
+	});	
 	</script>
+
+<script>
+$(document).ready(function() {
+	var questionsAvail = document.getElementById('noOfQs').innerHTML;
+	var textbox = document.getElementById('UserQuestionNum');
+	// set up quiz with number of questions the user wants.
+	$('#submit').click(function(){
+		var answer = textbox.value;
+		totalQuestions = answer;
+		//alert(totalQuestions);
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+		}else{
+			$erMessage.show();
+		}
+	});
+	// set up quiz with 5 questions.
+	$('#small').click(function(){
+		totalQuestions = 5;
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+		}else{
+			$erMessage.show();
+		}
+	});
+	//set up quiz with 20 questions.
+	$('#large').click(function(){
+		totalQuestions = 20;
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+		}else{
+			$erMessage.show();
+		}
+	});
+});
+
+</script>
+
+<script>
+$erMessage = $('#erMsg');
+$erMessage.hide();
+$qMsg = $('#QMsg');
+$quizSelector = $('.container');
+$qNoArea = $('#questionNum').hide();
+$prev = $('prev{{question.id}}').hide();
+$next = $('next{{question.id}}').hide();
+$totalQs = $('.ques');
+$totalQs.hide();
+var score = 0;
+var MaxQuestions = document.getElementById("noOfQs").textContent;
+var totalQuestions = 0;
+var currentQuestion = 0;
+$questions = $('.well');
+$questions.hide();
+//$($questions.get(currentQuestion)).fadeIn();
+
+var questionNumber = currentQuestion+1;
+var qNum = "Question " + questionNumber;
+
+// display the results
+var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+document.getElementById("resultArea").innerHTML=res;
+
+// when next button clicked, go to next question.
+$('#next{{question.id}}').click(function(){
+	var t = document.getElementById('{{question.id}}ans').innerHTML;
+	if (t == "Check answer"){
+		$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
+			$('#{{question.id}}ans').html(data);
+			var i = document.getElementById('{{question.id}}ans').innerHTML;
+			// if answer correct change background to green
+			if (i=="Your answer is correct!"){
+				$('#{{question.id}}ans').css("background-color","lime");
+				score = score + 10;
+				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+				document.getElementById("resultArea").innerHTML=res;
+                        }
+			// if answer incorrect change background to red
+                        if (i=="Your answer is incorrect! Please try again."){
+				$('#{{question.id}}ans').css("background-color","red");
+				$('#{{question.id}}ans').css("color","white");
+
+			}			
+		});
+	}
+   	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
+		//var t = document.getElementById(currentQuestion+'ans').innerHTML;
+		currentQuestion = currentQuestion + 1;
+		if(currentQuestion == totalQuestions){
+		        result();
+			$qNoArea.hide();
+			document.getElementById("next{{question.id}}").disabled=true;
+		}else{
+			$($questions.get(currentQuestion)).fadeIn();
+			questionNumber = questionNumber + 1;
+			var qNum = "Question " + questionNumber;
+			document.getElementById("questionNum").innerHTML=qNum;
+			document.getElementById("prev{{question.id}}").disabled=false;
+		}
+	});
+});
+
+// when previous button clicked, go back a question.
+$('#prev{{question.id}}').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        if(currentQuestion > 0){
+		currentQuestion = currentQuestion - 1;
+		questionNumber = questionNumber - 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		$($questions.get(currentQuestion)).fadeIn();
+		document.getElementById("next{{question.id}}").disabled=false;
+        }
+    });
+
+});
+
+// function to display the results with appropriate message depending on score
+function result(){
+	var total = totalQuestions*10;
+	if ((score/total)*100 <= 50 )
+		var msg = "Looks like you need to revise some more";
+	if ((score/total)*100 >= 51)
+		msg = "Well Done, you're on the right track!";
+	if (score == total)
+		msg = "Well Done, full marks!";
+	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+	document.getElementById("result").innerHTML=res;
+	$tryAgainButton.show();
+	
+}
+
+document.getElementById("questionNum").innerHTML=qNum;
+</script>
+	
+{% endfor %}
+
+<center><a href="/JavaApp/multChoice2" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
+
+<script>
+$tryAgainButton = $('#tryAgain');
+$tryAgainButton.hide();
+</script>
 
 {% endblock %}
 

@@ -42,7 +42,7 @@
 </center><br>
 
 <div id="noOfQs" class="ques">{{questions|length}}</div>
-<h3><p id="resultArea" align="right">Your score is: 0/0</p></h3>
+<h3><p id="resultArea" align="right"></p></h3>
 <h3><p id="questionNum"></p></h3>
 
 {% for question in questions %}

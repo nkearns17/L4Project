@@ -142,7 +142,6 @@ var ansList = [];
 	document.getElementById("{{question.id}}statement").innerHTML=labelText;
 
 	$(document).ready(function() {
-		document.getElementById("{{question.id}}prev").disabled=false;
 		$('#{{question.id}}submit').click(function(){
 			var answer = "";
 			var textbox = document.getElementById('answerbox{{question.id}}');
@@ -286,8 +285,8 @@ $('#{{question.id}}next').click(function(){
 			questionNumber = questionNumber + 1;
 			var qNum = "Question " + questionNumber;
 			document.getElementById("questionNum").innerHTML=qNum;
+			$("[id^=prev]").removeAttr('disabled');
 		}
-		//document.getElementById('{{question.id}}prev').disabled=false;
 	});
 });
 

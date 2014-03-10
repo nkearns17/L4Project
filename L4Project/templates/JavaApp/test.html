@@ -59,7 +59,7 @@
 	<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answer</button><br><br>
 	<!-- Previous and Next buttons to nav between questions-->
 
-	<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg">
+	<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg" disabled>
 	  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
 	</button>
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			//document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -130,7 +130,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			//document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -147,7 +147,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			//document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -215,7 +215,8 @@ $('#next{{question.id}}').click(function(){
 			questionNumber = questionNumber + 1;
 			var qNum = "Question " + questionNumber;
 			document.getElementById("questionNum").innerHTML=qNum;
-			document.getElementById("prev{{question.id}}").disabled=false;
+			//document.getElementById("prev{{question.id}}").disabled=false;
+			$("[id^=prev]").removeAttr('disabled');
 		}
 	});
 });

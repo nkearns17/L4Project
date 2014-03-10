@@ -52,11 +52,11 @@
 		<p id="q{{question.id}}">{{question|linebreaks|safe}}</p><br>
 		</pre>
 		<!-- List the answers-->
-		<input type="radio" value="A" name="ans">{{question.posAns1}}<br>
-		<input type="radio" value="B" name="ans">{{question.posAns2}}<br>
-		<input type="radio" value="C" name="ans">{{question.posAns3}}<br>
-		<input type="radio" value="D" name="ans">{{question.posAns4}}<br>
-	<a id="{{question.id}}ans" class="btn btn-inverse btn-small">Submit Answer</a><br>
+		<input type="radio" value="A" name="ans">A. {{question.posAns1}}<br>
+		<input type="radio" value="B" name="ans">B. {{question.posAns2}}<br>
+		<input type="radio" value="C" name="ans">C. {{question.posAns3}}<br>
+		<input type="radio" value="D" name="ans">D. {{question.posAns4}}<br><br>
+	<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answers</button>
 	</div>
 	<center><h3><p id="result"></p></h3></center>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -108,7 +108,7 @@ $(document).ready(function() {
 		var answer = textbox.value;
 		totalQuestions = answer;
 		//alert(totalQuestions);
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -117,6 +117,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -124,7 +125,7 @@ $(document).ready(function() {
 	// set up quiz with 5 questions.
 	$('#small').click(function(){
 		totalQuestions = 5;
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -133,6 +134,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -140,7 +142,7 @@ $(document).ready(function() {
 	//set up quiz with 20 questions.
 	$('#large').click(function(){
 		totalQuestions = 20;
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -149,6 +151,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -192,11 +195,13 @@ $('#next').click(function(){
         if(currentQuestion == totalQuestions){
                 result();
 		$qNoArea.hide();
+		document.getElementById("next").disabled=true;
         }else{
         	$($questions.get(currentQuestion)).fadeIn();
 		questionNumber = questionNumber + 1;
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
+		document.getElementById("prev").disabled=false;
         }
     });
 });
@@ -210,6 +215,7 @@ $('#prev').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
+		document.getElementById("next").disabled=false;
         }
     });
 
@@ -221,7 +227,7 @@ function result(){
 	if ((score/total)*100 <= 50 )
 		var msg = "Looks like you need to revise some more";
 	if ((score/total)*100 >= 51)
-		msg = "Well Done, your on the right track!";
+		msg = "Well Done, you're on the right track!";
 	if (score == total)
 		msg = "Well Done, full marks!";
 	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;

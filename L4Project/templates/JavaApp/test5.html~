@@ -11,7 +11,7 @@
 <div id="noOfQs" class="ques">{{questions|length}}</div>
 
 <!-- List of java words -->
-<div id="wordList">
+<div id="wordList" >
 <label> {{javaWords}} </label>
 </div>
 
@@ -20,17 +20,50 @@ var keywordList = [];
 var ansList = [];
 </script>
 
+<center>
+<div class="container">
+	<div class="alert alert-info" id="QMsg" style="width:600px">
+      	There are {{questions|length}} questions available. Please select how many you want to complete.
+    	</div>
+<!-- Choose which size of quiz -->
+	<div class="row">
+		<div class="col-md-4">
+			<h3>Small Quiz</h3>
+			<p>Contains 5 multiple choice questions.</p>
+			<button type="button" id="small" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Select Your Own Number of Questions</h3>
+			<p>Decide how many questions you wish to complete. Simply enter the number below:</p>
+			<input type="text" name="questions" id="UserQuestionNum"><br>
+			<button type="button" id="submit" class="btn btn-info">Go</button>
+		</div>
+		<div class="col-md-4">
+			<h3>Large Quiz</h3>
+			<p>Contains 20 multiple choice questions.</p>
+			<button type="button" id="large" class="btn btn-info">Go</button>
+		</div>
+	</div>
+	<br>
+	<div class="alert alert-danger" id="erMsg" style="width:400px">
+      		<h4>Not enough questions!</h4>
+      		Your too keen There is only {{questions|length}} questions available. Please select another number.
+    	</div>
+</div>
+</center><br>
+
+<center><div class="alert alert-warning alert-dismissable" id="aboutMsg" style="width:800px">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <h4>Type the missing Java keyword into the textbox below.</h4>
+</div></center>
+
 <h3><p id="resultArea" align="right"></p></h3>
 <h3><p id="questionNum"></p></h3>
 
-<style>
-label{
-	border-style:none;
-}
-</style>
-
 <!-- to display results of test-->
 <center><h3><p id="result"></p></h3></center>
+
+<center><a href="/JavaApp/fib" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
 
 {% for question in questions %}
 
@@ -38,13 +71,21 @@ label{
 		<!-- Questions from database-->
 		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 		<pre class="prettyprint">
-		<label id="{{question.id}}statement">{{question|linebreaks}}</label>
+		<label id="{{question.id}}statement">{{question|safe}}</label>
 		</pre>
 		<!-- input box for answer.-->
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>
 			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
-		</form>
+		</form><br>
+		<!-- Previous and Next buttons to nav between questions -->
+		<button type="button" id='{{question.id}}prev' class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+		</button>
+
+		<button type="button" id='{{question.id}}next' class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+		</button>
 	</div><br>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -52,7 +93,6 @@ label{
 	<script>
 	// Get the question from the html 
 	var labelText = $("#{{question.id}}statement").text();
-
 	
 	//add all java words to a lsit.
 	var jwl = document.getElementById("wordList").textContent;
@@ -89,47 +129,169 @@ label{
 			ansList.push(answer);
 			if (answer === keywordList[currentQuestion].trim()){
 				score = score + 10;
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
 				$('#{{question.id}}submit').css("background-color","lime");
 				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
 				document.getElementById("resultArea").innerHTML=res;
 			}
 			else{
 				$('#{{question.id}}submit').css("background-color","red");
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
 			}
 		});
 	});
+
+	// when next button clicked, go to next question.
+	$('#{{question.id}}next').click(function(){
+	    $($questions.get(currentQuestion)).fadeOut(function(){
+		currentQuestion = currentQuestion + 1;
+		if(currentQuestion == totalQuestions){
+		        result();
+			$qNoArea.hide();
+			document.getElementById("{{question.id}}next").disabled=true;
+		}else{
+			var t = document.getElementById('{{question.id}}submit').innerHTML
+			if(t == "Check answers"){
+				if (answer === keywordList[currentQuestion].trim()){
+				score = score + 10;
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
+				$('#{{question.id}}submit').css("background-color","lime");
+				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+				document.getElementById("resultArea").innerHTML=res;
+				}
+				else{
+					$('#{{question.id}}submit').css("background-color","red");
+					var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
+				}
+
+			}else{
+				$($questions.get(currentQuestion)).fadeIn();
+				questionNumber = questionNumber + 1;
+				var qNum = "Question " + questionNumber;
+				document.getElementById("questionNum").innerHTML=qNum;
+				document.getElementById("{{question.id}}prev").disabled=false;
+			}
+		}
+	    });
+	});
+
+	// when previous button clicked, go back a question.
+	$('#{{question.id}}prev').click(function(){
+	    $($questions.get(currentQuestion)).fadeOut(function(){
+		if(currentQuestion > 0){
+			currentQuestion = currentQuestion-1;
+			questionNumber = questionNumber - 1;
+			var qNum = "Question " + questionNumber;
+			document.getElementById("questionNum").innerHTML=qNum;
+			$($questions.get(currentQuestion)).fadeIn();
+			document.getElementById("{{question.id}}next").disabled=false;
+		}
+	    });
+
+	});
+
+	// function to display the results with appropriate message depending on score
+	function result(){
+		var total = totalQuestions*10;
+		if ((score/total)*100 <= 50 )
+			var msg = "Looks like you need to revise some more";
+		if ((score/total)*100 >= 51)
+			msg = "Well Done, you're on the right track!";
+		if (score == total)
+			msg = "Well Done, full marks!";
+		var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
+		document.getElementById("result").innerHTML=res;
+		$tryAgainButton.show();
+		$aboutMessage.hide();
+	}
 	</script>
 
 
 {% endfor %}
 
+<script>
+$(document).ready(function() {
+	var questionsAvail = document.getElementById('noOfQs').innerHTML;
+	var textbox = document.getElementById('UserQuestionNum');
+	// set up quiz with number of questions the user wants.
+	$('#submit').click(function(){
+		var answer = textbox.value;
+		totalQuestions = answer;
+		//alert(totalQuestions);
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
+		}else{
+			$erMessage.show();
+		}
+	});
+	// set up quiz with 5 questions.
+	$('#small').click(function(){
+		totalQuestions = 5;
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
+		}else{
+			$erMessage.show();
+		}
+	});
+	//set up quiz with 20 questions.
+	$('#large').click(function(){
+		totalQuestions = 20;
+		if (Number(totalQuestions) <= Number(questionsAvail)){
+			$($questions.get(currentQuestion)).fadeIn();
+			$qNoArea.show();
+			$prev.show();
+			$next.show();
+			var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
+			document.getElementById("resultArea").innerHTML=res;
+			$quizSelector.hide();
+			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
+		}else{
+			$erMessage.show();
+		}
+	});
+});
 
-<!-- Previous and Next buttons to nav between questions -->
-<button type="button" id='prev' class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
-</button>
+</script>
 
-<button type="button" id='next' class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-</button> 
-
-<!-- Previous and Next buttons to nav between questions
-<input type="button" id='prev' value="Previous">
-<input type="button" id='next' value="Next"> -->
 
 <script>
-
-$NoOfQ = $('.ques');
-$NoOfQ.hide();
-$wordList = $('#wordList');
-$wordList.hide();
+$quizSelector = $('.container');
+$prev = $('#prev').hide();
+$next = $('#next').hide();
+$erMessage = $('#erMsg').hide();
+$aboutMessage = $('#aboutMsg').hide();
+$qMsg = $('#QMsg');
+$NoOfQ = $('.ques').hide();
+$wordList = $('#wordList').hide();
+$qNoArea = $('#questionNum').hide();
+$tryAgainButton = $('#tryAgain').hide();
 var score = 0;
 var totalQuestions = document.getElementById("noOfQs").textContent;
 //var totalQuestions = 0;
 var currentQuestion = 0;
 $questions = $('.well');
 $questions.hide();
-$($questions.get(currentQuestion)).fadeIn();
+//$($questions.get(currentQuestion)).fadeIn();
 
 var questionNumber = 1;
 var qNum = "Question " + questionNumber;
@@ -137,49 +299,6 @@ var qNum = "Question " + questionNumber;
 // display the results
 var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
-
-// when next button clicked, go to next question.
-$('#next').click(function(){
-    $($questions.get(currentQuestion)).fadeOut(function(){
-        currentQuestion = currentQuestion + 1;
-        if(currentQuestion == totalQuestions){
-                result();
-		$qNoArea.hide();
-        }else{
-        	$($questions.get(currentQuestion)).fadeIn();
-		questionNumber = questionNumber + 1;
-		var qNum = "Question " + questionNumber;
-		document.getElementById("questionNum").innerHTML=qNum;
-        }
-    });
-});
-
-// when previous button clicked, go back a question.
-$('#prev').click(function(){
-    $($questions.get(currentQuestion)).fadeOut(function(){
-        if(currentQuestion > 0){
-		currentQuestion = currentQuestion-1;
-		questionNumber = questionNumber - 1;
-		var qNum = "Question " + questionNumber;
-		document.getElementById("questionNum").innerHTML=qNum;
-		$($questions.get(currentQuestion)).fadeIn();
-        }
-    });
-
-});
-
-// function to display the results with appropriate message depending on score
-function result(){
-	var total = totalQuestions*10;
-	if ((score/total)*100 <= 50 )
-		var msg = "Looks like you need to revise some more";
-	if ((score/total)*100 >= 51)
-		msg = "Well Done, your on the right track!";
-	if (score == total)
-		msg = "Well Done, full marks!";
-	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
-	document.getElementById("result").innerHTML=res;
-}
 
 document.getElementById("questionNum").innerHTML=qNum;
 </script>

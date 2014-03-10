@@ -29,7 +29,7 @@ def home(request):
 def fib(request):
         template = loader.get_template('JavaApp/fib.html')
 	questions = Questions.objects.filter(Qtype="FIB").order_by('?')
-	javaWords = "month,first,third,tenth,year,System,out,println,for"
+	javaWords = "continue, default, do, double, else, extends, false, final, finally, float, for, goto, if, implements, import, instanceof, int, interface, long, native, new, package, private, protected, public, return, short, static, super, switch, synchronized, this, throw, throws, transient, true, try, void, volatile, while, abstract, boolean, byte, case, catch, char, class, const, assert, break, enum, null, System, out, println, printf"
         context = RequestContext(request, {'questions':questions,'javaWords':javaWords})
         return HttpResponse(template.render(context))
 

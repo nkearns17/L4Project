@@ -52,11 +52,18 @@ var ansList = [];
 </div>
 </center><br>
 
+<center><div class="alert alert-warning alert-dismissable" id="aboutMsg" style="width:800px">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <h4>Type the missing Java keyword into the textbox below.</h4>
+</div></center>
+
 <h3><p id="resultArea" align="right"></p></h3>
 <h3><p id="questionNum"></p></h3>
 
 <!-- to display results of test-->
 <center><h3><p id="result"></p></h3></center>
+
+<center><a href="/JavaApp/fib" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
 
 {% for question in questions %}
 
@@ -78,7 +85,6 @@ var ansList = [];
 	<script>
 	// Get the question from the html 
 	var labelText = $("#{{question.id}}statement").text();
-
 	
 	//add all java words to a lsit.
 	var jwl = document.getElementById("wordList").textContent;
@@ -115,12 +121,14 @@ var ansList = [];
 			ansList.push(answer);
 			if (answer === keywordList[currentQuestion].trim()){
 				score = score + 10;
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
 				$('#{{question.id}}submit').css("background-color","lime");
 				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
 				document.getElementById("resultArea").innerHTML=res;
 			}
 			else{
 				$('#{{question.id}}submit').css("background-color","red");
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
 			}
 		});
 	});
@@ -128,8 +136,6 @@ var ansList = [];
 
 
 {% endfor %}
-
-<center><a href="/JavaApp/fib" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
 
 <!-- Previous and Next buttons to nav between questions -->
 <button type="button" id='prev' class="btn btn-default btn-lg">
@@ -149,7 +155,7 @@ $(document).ready(function() {
 		var answer = textbox.value;
 		totalQuestions = answer;
 		//alert(totalQuestions);
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -158,6 +164,8 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
 		}else{
 			$erMessage.show();
 		}
@@ -165,7 +173,7 @@ $(document).ready(function() {
 	// set up quiz with 5 questions.
 	$('#small').click(function(){
 		totalQuestions = 5;
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -174,6 +182,8 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
 		}else{
 			$erMessage.show();
 		}
@@ -181,7 +191,7 @@ $(document).ready(function() {
 	//set up quiz with 20 questions.
 	$('#large').click(function(){
 		totalQuestions = 20;
-		if (Number(totalQuestions) < Number(questionsAvail)){
+		if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -190,6 +200,8 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
+			document.getElementById("prev").disabled=true;
+			$aboutMessage.show();
 		}else{
 			$erMessage.show();
 		}
@@ -204,6 +216,7 @@ $quizSelector = $('.container');
 $prev = $('#prev').hide();
 $next = $('#next').hide();
 $erMessage = $('#erMsg').hide();
+$aboutMessage = $('#aboutMsg').hide();
 $qMsg = $('#QMsg');
 $NoOfQ = $('.ques').hide();
 $wordList = $('#wordList').hide();
@@ -231,11 +244,13 @@ $('#next').click(function(){
         if(currentQuestion == totalQuestions){
                 result();
 		$qNoArea.hide();
+		document.getElementById("next").disabled=true;
         }else{
         	$($questions.get(currentQuestion)).fadeIn();
 		questionNumber = questionNumber + 1;
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
+		document.getElementById("prev").disabled=false;
         }
     });
 });
@@ -249,6 +264,7 @@ $('#prev').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
+		document.getElementById("next").disabled=false;
         }
     });
 
@@ -260,12 +276,13 @@ function result(){
 	if ((score/total)*100 <= 50 )
 		var msg = "Looks like you need to revise some more";
 	if ((score/total)*100 >= 51)
-		msg = "Well Done, your on the right track!";
+		msg = "Well Done, you're on the right track!";
 	if (score == total)
 		msg = "Well Done, full marks!";
 	var res = "Your final score is: " + score + "/" + total + "<br>" + msg;
 	document.getElementById("result").innerHTML=res;
 	$tryAgainButton.show();
+	$aboutMessage.hide();
 }
 
 document.getElementById("questionNum").innerHTML=qNum;

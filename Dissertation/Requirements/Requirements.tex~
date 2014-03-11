@@ -93,22 +93,15 @@ A few suggestions were given for tools and facilities which they would like to b
 
 \subsection{Functional Requirements}
 
-From the information and suggestions provided by both the Level 2 and Level 4 Computing Science students, I produced the following list of requirements for the application which I think would be most benefitial to the students:
-
-\begin{itemize}
-\item Provide the students with multiple activities which will allow them to practice and learn Java.
-\item Provide the students with tutorials which go through the basic syntax and Java concepts.
-\item Provide video tutorial to allow the students to revise and learn.
-\item Allow lecturer/admin to add and update content - questions and quizzes
-\end{itemize}
-
-The activities which the client and I thought would be most benefitial to the students for learning and practicing Java code are:\\
+From the information and suggestions provided by both the Level 2 and Level 4 Computing Science students, my client and I came up with the following activities which we think would be most benefitial to the students when learning and revising Java programming:
 
 \begin{itemize}
 \item \textbf{Multiple Choice Questions} in which the user is provided with questions about Java syntax and snippets of code in which they must predict the output. This allows the user to improve their ability to read lines of code and understand it's behaviour.
 \item \textbf{Fill in the Blanks Questions} which provide the user with a small sample of code which a Java keyword removed and the user must enter the keyword which will complete the line of code.
 \item \textbf{Find the Errors.} This provides students with a piece of code, which contains errors and the user must identify where in the code the errors lie. This will enhance the users ability to read code, predict it behaviour and identify where the errors occur.
 \item \textbf{Code your Own}, a section which provides the user with a question or scenario in which the user must write the own code in order to complete the task.
+\item \textbf{Video Tutorials}, to provide the students with guided help of the basic Java concepts and syntax.
+\item \textbf{Tutorials}, to allow the students to read over the basic concepts and syntax for Java programming.
 \end{itemize}
 
 \subsubsection{Requirements Table}
@@ -131,12 +124,11 @@ SR5 & \multicolumn{1}{m{4cm}}{Write Java code and execute it for Code Your Own} 
 SR6 & \multicolumn{1}{m{4cm}}{Edit the provided Java code and execute it for Find the Errors} & \multicolumn{1}{m{8cm}}{The user must be able to edit Java code provided to correct the errors and then execute the code, receiving the results within the application as to whether or not it was successfully compiled. } & Must Have \\
 \hline 
 \end{tabular}\\
-
 \newline
 \newline
 \textbf{\underline{Lecturer Requirements}}\\
 \newline
-
+\newline
 \begin{tabular}{cccc}
 \hline \textbf{Id} & \textbf{Requirement} & \textbf{Description} & \textbf{Priority}\\
 \hline

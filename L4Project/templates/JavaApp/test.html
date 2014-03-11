@@ -56,16 +56,7 @@
 		<input type="radio" value="B" name="ans">B. {{question.posAns2}}<br>
 		<input type="radio" value="C" name="ans">C. {{question.posAns3}}<br>
 		<input type="radio" value="D" name="ans">D. {{question.posAns4}}<br><br>
-	<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answer</button><br><br>
-	<!-- Previous and Next buttons to nav between questions-->
-
-	<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg" disabled>
-	  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
-	</button>
-
-	<button type="button" id='next{{question.id}}' class="btn btn-default btn-lg">
-	  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-	</button> 
+	<button class="btn btn-default" id="{{question.id}}ans" type="button">Check answer</button>
 	</div>
 	<center><h3><p id="result"></p></h3></center>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -94,6 +85,19 @@
 		});
 	});	
 	</script>
+	
+{% endfor %}
+<center><a href="/JavaApp/multChoice2" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
+
+<!-- Previous and Next buttons to nav between questions-->
+
+<button type="button" id='prev' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+</button>
+
+<button type="button" id='next' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+</button> 
 
 <script>
 $(document).ready(function() {
@@ -113,7 +117,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			//document.getElementById("prev").disabled=true;
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -130,7 +134,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			//document.getElementById("prev").disabled=true;
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -147,7 +151,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			//document.getElementById("prev").disabled=true;
+			document.getElementById("prev").disabled=true;
 		}else{
 			$erMessage.show();
 		}
@@ -161,9 +165,11 @@ $erMessage = $('#erMsg');
 $erMessage.hide();
 $qMsg = $('#QMsg');
 $quizSelector = $('.container');
+$tryAgainButton = $('#tryAgain');
+$tryAgainButton.hide();
 $qNoArea = $('#questionNum').hide();
-$prev = $('prev{{question.id}}').hide();
-$next = $('next{{question.id}}').hide();
+$prev = $('#prev').hide();
+$next = $('#next').hide();
 $totalQs = $('.ques');
 $totalQs.hide();
 var score = 0;
@@ -182,47 +188,26 @@ var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
 
 // when next button clicked, go to next question.
-$('#next{{question.id}}').click(function(){
-	var t = document.getElementById('{{question.id}}ans').innerHTML;
-	if (t == "Check answer"){
-		$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
-			$('#{{question.id}}ans').html(data);
-			var i = document.getElementById('{{question.id}}ans').innerHTML;
-			// if answer correct change background to green
-			if (i=="Your answer is correct!"){
-				$('#{{question.id}}ans').css("background-color","lime");
-				score = score + 10;
-				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
-				document.getElementById("resultArea").innerHTML=res;
-                        }
-			// if answer incorrect change background to red
-                        if (i=="Your answer is incorrect! Please try again."){
-				$('#{{question.id}}ans').css("background-color","red");
-				$('#{{question.id}}ans').css("color","white");
-
-			}			
-		});
-	}
-   	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
-		//var t = document.getElementById(currentQuestion+'ans').innerHTML;
-		currentQuestion = currentQuestion + 1;
-		if(currentQuestion == totalQuestions){
-		        result();
-			$qNoArea.hide();
-			document.getElementById("next{{question.id}}").disabled=true;
-		}else{
-			$($questions.get(currentQuestion)).fadeIn();
-			questionNumber = questionNumber + 1;
-			var qNum = "Question " + questionNumber;
-			document.getElementById("questionNum").innerHTML=qNum;
-			//document.getElementById("prev{{question.id}}").disabled=false;
-			$("[id^=prev]").removeAttr('disabled');
-		}
-	});
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+	//var t = document.getElementById(currentQuestion+'ans').innerHTML;
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+		document.getElementById("next").disabled=true;
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		document.getElementById("prev").disabled=false;
+        }
+    });
 });
 
 // when previous button clicked, go back a question.
-$('#prev{{question.id}}').click(function(){
+$('#prev').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         if(currentQuestion > 0){
 		currentQuestion = currentQuestion - 1;
@@ -230,7 +215,7 @@ $('#prev{{question.id}}').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
-		document.getElementById("next{{question.id}}").disabled=false;
+		document.getElementById("next").disabled=false;
         }
     });
 
@@ -252,15 +237,6 @@ function result(){
 }
 
 document.getElementById("questionNum").innerHTML=qNum;
-</script>
-	
-{% endfor %}
-
-<center><a href="/JavaApp/multChoice2" class="btn btn-success btn-large" id="tryAgain"><i class="icon-white icon-repeat"></i> Take another quiz</a></center>
-
-<script>
-$tryAgainButton = $('#tryAgain');
-$tryAgainButton.hide();
 </script>
 
 {% endblock %}

@@ -10,7 +10,7 @@
 {% block content %}
 
 <center><div class="alert alert-danger" id="QMsg" style="width:700px">
-      	You must click <b>'Run It !'</b> twice for the results to show.<br> The first time, even if you code is correct, it will give you an error.
+      	You may have to click <b>'Run It !'</b> twice for the results to show.
     	</div></center>
 
 {% for question in questions %}
@@ -37,6 +37,10 @@
 {% endfor %}
 
 {% endblock %}
+
+{% if not questions %}
+    There are currently no questions for this activity.
+{% endif %}
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>

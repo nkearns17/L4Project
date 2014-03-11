@@ -73,7 +73,7 @@ def tutorials(request):
 
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	questions = cyoQuestions.objects.filter(qType="CYO")
+	questions = cyoQuestions.objects.filter(qType="CYO").order_by('?')[:1]
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 

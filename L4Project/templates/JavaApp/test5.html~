@@ -79,11 +79,11 @@ var ansList = [];
 			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
 		</form><br>
 		<!-- Previous and Next buttons to nav between questions -->
-		<button type="button" id='{{question.id}}prev' class="btn btn-default btn-lg">
+		<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg">
 		  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
 		</button>
 
-		<button type="button" id='{{question.id}}next' class="btn btn-default btn-lg">
+		<button type="button" id='next{{question.id}}' class="btn btn-default btn-lg">
 		  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
 		</button>
 	</div>
@@ -180,7 +180,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("{{question.id}}prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -198,7 +198,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("{{question.id}}prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -216,7 +216,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("{{question.id}}prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -227,8 +227,8 @@ $(document).ready(function() {
 
 <script>
 $quizSelector = $('.container');
-$prev = $('{{question.id}}prev').hide();
-$next = $('{{question.id}}next').hide();
+$prev = $('prev{{question.id}}').hide();
+$next = $('next{{question.id}}next').hide();
 $erMessage = $('#erMsg').hide();
 $aboutMessage = $('#aboutMsg').hide();
 $qMsg = $('#QMsg');
@@ -254,7 +254,7 @@ document.getElementById("resultArea").innerHTML=res;
 
 
 // when next button clicked, go to next question.
-$('#{{question.id}}next').click(function(){
+$('#next{{question.id}}').click(function(){
 	var ansArea = document.getElementById('{{question.id}}submit').innerHTML;
 	if (ansArea == "Check answers"){
 			var answer = "";
@@ -291,7 +291,7 @@ $('#{{question.id}}next').click(function(){
 });
 
 // when previous button clicked, go back a question.
-$('#{{question.id}}prev').click(function(){
+$('#prev{{question.id}}').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         if(currentQuestion > 0){
 		currentQuestion = currentQuestion-1;
@@ -299,7 +299,9 @@ $('#{{question.id}}prev').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
-		//document.getElementById("{{question.id}}next").disabled=false;
+		if (currentQuestion == 0){
+			$("[id^=prev]").attr('disabled','disabled');
+		}
         }
     });
 

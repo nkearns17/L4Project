@@ -77,8 +77,16 @@ var ansList = [];
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>
 			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
-		</form>
-	</div><br>
+		</form><br>
+		<!-- Previous and Next buttons to nav between questions -->
+		<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+		</button>
+
+		<button type="button" id='next{{question.id}}' class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+		</button>
+	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
@@ -94,10 +102,11 @@ var ansList = [];
 	//check which words in the question match the java keyword and add to a list.
 	var matches = [];
 	for (var i=0; i < size; i++){
+		//var text1 = labelText.indexOf(/\bint\b/);
 		var text = labelText.indexOf(jwords[i].trim());
 		if (text != -1){
 			matches.push(jwords[i]);
-		}
+		}	
 		var wrd = 'int';
 		var regex = new RegExp('\\b' + wrd + '\\b');
 		if (labelText.search(regex) != -1 && matches.indexOf('int') == -1){
@@ -109,6 +118,9 @@ var ansList = [];
 			matches.push("class");
 		}
 	}
+	//document.write(matches+"\n");
+
+ 	//var regex = new RegExp('\\b' + 'int' + '\\b');
 
 	//Generate random keyword.
 	var keyword = matches[Math.floor(Math.random()*matches.length)];
@@ -136,6 +148,7 @@ var ansList = [];
 			answer = textbox.value;
 			ansList.push(answer);
 			if (answer === keywordList[currentQuestion].trim()){
+				document.getElementById("{{question.id}}submit").disabled=true;
 				score = score + 10;
 				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
 				$('#{{question.id}}submit').css("background-color","lime");
@@ -148,19 +161,7 @@ var ansList = [];
 			}
 		});
 	});
-	</script>
-
-
-{% endfor %}
-
-<!-- Previous and Next buttons to nav between questions -->
-<button type="button" id='prev' class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
-</button>
-
-<button type="button" id='next' class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-</button>
+</script>
 
 <script>
 $(document).ready(function() {
@@ -170,8 +171,10 @@ $(document).ready(function() {
 	$('#submit').click(function(){
 		var answer = textbox.value;
 		totalQuestions = answer;
-		//alert(totalQuestions);
-		if (Number(totalQuestions) <= Number(questionsAvail)){
+		if (answer.trim() == ""){
+			$erMessage.show();
+		}
+		else if (Number(totalQuestions) <= Number(questionsAvail)){
 			$($questions.get(currentQuestion)).fadeIn();
 			$qNoArea.show();
 			$prev.show();
@@ -180,7 +183,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -198,7 +201,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -216,21 +219,19 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev").disabled=true;
+			document.getElementById("prev{{question.id}}").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
 		}
 	});
 });
-
 </script>
-
 
 <script>
 $quizSelector = $('.container');
-$prev = $('#prev').hide();
-$next = $('#next').hide();
+$prev = $('prev{{question.id}}').hide();
+$next = $('next{{question.id}}next').hide();
 $erMessage = $('#erMsg').hide();
 $aboutMessage = $('#aboutMsg').hide();
 $qMsg = $('#QMsg');
@@ -253,26 +254,51 @@ var qNum = "Question " + questionNumber;
 var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
 
+
+
 // when next button clicked, go to next question.
-$('#next').click(function(){
-    $($questions.get(currentQuestion)).fadeOut(function(){
-        currentQuestion = currentQuestion + 1;
-        if(currentQuestion == totalQuestions){
-                result();
-		$qNoArea.hide();
-		document.getElementById("next").disabled=true;
-        }else{
-        	$($questions.get(currentQuestion)).fadeIn();
-		questionNumber = questionNumber + 1;
-		var qNum = "Question " + questionNumber;
-		document.getElementById("questionNum").innerHTML=qNum;
-		document.getElementById("prev").disabled=false;
-        }
-    });
+$('#next{{question.id}}').click(function(){
+	var ansArea = document.getElementById('{{question.id}}submit').innerHTML;
+	var answer = "";
+	var textbox = document.getElementById('answerbox{{question.id}}');
+	answer = textbox.value;
+	if (ansArea == "Check answers" && answer != ""){
+			//var answer = "";
+			//var textbox = document.getElementById('answerbox{{question.id}}');
+			//answer = textbox.value;
+			ansList.push(answer);
+			if (answer === keywordList[currentQuestion].trim()){
+				document.getElementById("{{question.id}}submit").disabled=true;
+				score = score + 10;
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
+				$('#{{question.id}}submit').css("background-color","lime");
+				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
+				document.getElementById("resultArea").innerHTML=res;
+			}
+			else{
+				$('#{{question.id}}submit').css("background-color","red");
+				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
+			}
+	}
+	
+	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
+        	currentQuestion = currentQuestion + 1;
+		if(currentQuestion == totalQuestions){
+		        result();
+			$qNoArea.hide();
+			//document.getElementById("{{question.id}}next").disabled=true;
+		}else{
+		 	$($questions.get(currentQuestion)).fadeIn();
+			questionNumber = questionNumber + 1;
+			var qNum = "Question " + questionNumber;
+			document.getElementById("questionNum").innerHTML=qNum;
+			$("[id^=prev]").removeAttr('disabled');
+		}
+	});
 });
 
 // when previous button clicked, go back a question.
-$('#prev').click(function(){
+$('#prev{{question.id}}').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         if(currentQuestion > 0){
 		currentQuestion = currentQuestion-1;
@@ -280,7 +306,9 @@ $('#prev').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
-		document.getElementById("next").disabled=false;
+		if (currentQuestion == 0){
+			$("[id^=prev]").attr('disabled','disabled');
+		}
         }
     });
 
@@ -302,7 +330,11 @@ function result(){
 }
 
 document.getElementById("questionNum").innerHTML=qNum;
+
+
 </script>
+
+{% endfor %}
 
 {% endblock %}
 

@@ -230,8 +230,10 @@ $('#prev{{question.id}}').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
-		document.getElementById("next{{question.id}}").disabled=false;
-        }
+		if (currentQuestion == 0){
+			$("[id^=prev]").attr('disabled','disabled');
+		}
+	}
     });
 
 });

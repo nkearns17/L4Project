@@ -76,17 +76,9 @@ var ansList = [];
 		<!-- input box for answer.-->
 		<form>
 			<br>Answer: <input type="text" name="answer" id="answerbox{{question.id}}"><br><br>
-			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answers</button>
-		</form><br>
-		<!-- Previous and Next buttons to nav between questions -->
-		<button type="button" id='prev{{question.id}}' class="btn btn-default btn-lg">
-		  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
-		</button>
-
-		<button type="button" id='next{{question.id}}' class="btn btn-default btn-lg">
-		  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
-		</button>
-	</div>
+			<button class="btn btn-default" id="{{question.id}}submit" type="button">Check answer</button>
+		</form>
+	</div><br>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
@@ -102,11 +94,10 @@ var ansList = [];
 	//check which words in the question match the java keyword and add to a list.
 	var matches = [];
 	for (var i=0; i < size; i++){
-		//var text1 = labelText.indexOf(/\bint\b/);
 		var text = labelText.indexOf(jwords[i].trim());
 		if (text != -1){
 			matches.push(jwords[i]);
-		}	
+		}
 		var wrd = 'int';
 		var regex = new RegExp('\\b' + wrd + '\\b');
 		if (labelText.search(regex) != -1 && matches.indexOf('int') == -1){
@@ -118,9 +109,6 @@ var ansList = [];
 			matches.push("class");
 		}
 	}
-	//document.write(matches+"\n");
-
- 	//var regex = new RegExp('\\b' + 'int' + '\\b');
 
 	//Generate random keyword.
 	var keyword = matches[Math.floor(Math.random()*matches.length)];
@@ -160,7 +148,19 @@ var ansList = [];
 			}
 		});
 	});
-</script>
+	</script>
+
+
+{% endfor %}
+
+<!-- Previous and Next buttons to nav between questions -->
+<button type="button" id='prev' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-left"></span> Previous
+</button>
+
+<button type="button" id='next' class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+</button>
 
 <script>
 $(document).ready(function() {
@@ -180,7 +180,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev{{question.id}}").disabled=true;
+			document.getElementById("prev").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -198,7 +198,7 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev{{question.id}}").disabled=true;
+			document.getElementById("prev").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
@@ -216,19 +216,21 @@ $(document).ready(function() {
 			document.getElementById("resultArea").innerHTML=res;
 			$quizSelector.hide();
 			$qMsg.hide();
-			document.getElementById("prev{{question.id}}").disabled=true;
+			document.getElementById("prev").disabled=true;
 			$aboutMessage.show();
 		}else{
 			$erMessage.show();
 		}
 	});
 });
+
 </script>
+
 
 <script>
 $quizSelector = $('.container');
-$prev = $('prev{{question.id}}').hide();
-$next = $('next{{question.id}}next').hide();
+$prev = $('#prev').hide();
+$next = $('#next').hide();
 $erMessage = $('#erMsg').hide();
 $aboutMessage = $('#aboutMsg').hide();
 $qMsg = $('#QMsg');
@@ -251,47 +253,26 @@ var qNum = "Question " + questionNumber;
 var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
 
-
-
 // when next button clicked, go to next question.
-$('#next{{question.id}}').click(function(){
-	var ansArea = document.getElementById('{{question.id}}submit').innerHTML;
-	if (ansArea == "Check answers"){
-			var answer = "";
-			var textbox = document.getElementById('answerbox{{question.id}}');
-			answer = textbox.value;
-			ansList.push(answer);
-			if (answer === keywordList[currentQuestion].trim()){
-				score = score + 10;
-				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is correct!";
-				$('#{{question.id}}submit').css("background-color","lime");
-				var res = "Your score is: " + score + "/" + totalQuestions*10 + " <br>";
-				document.getElementById("resultArea").innerHTML=res;
-			}
-			else{
-				$('#{{question.id}}submit').css("background-color","red");
-				var i = document.getElementById('{{question.id}}submit').innerHTML="Your answer is incorrect! Please try again.";
-			}
-	}
-	
-	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
-        	currentQuestion = currentQuestion + 1;
-		if(currentQuestion == totalQuestions){
-		        result();
-			$qNoArea.hide();
-			//document.getElementById("{{question.id}}next").disabled=true;
-		}else{
-		 	$($questions.get(currentQuestion)).fadeIn();
-			questionNumber = questionNumber + 1;
-			var qNum = "Question " + questionNumber;
-			document.getElementById("questionNum").innerHTML=qNum;
-			$("[id^=prev]").removeAttr('disabled');
-		}
-	});
+$('#next').click(function(){
+    $($questions.get(currentQuestion)).fadeOut(function(){
+        currentQuestion = currentQuestion + 1;
+        if(currentQuestion == totalQuestions){
+                result();
+		$qNoArea.hide();
+		document.getElementById("next").disabled=true;
+        }else{
+        	$($questions.get(currentQuestion)).fadeIn();
+		questionNumber = questionNumber + 1;
+		var qNum = "Question " + questionNumber;
+		document.getElementById("questionNum").innerHTML=qNum;
+		document.getElementById("prev").disabled=false;
+        }
+    });
 });
 
 // when previous button clicked, go back a question.
-$('#prev{{question.id}}').click(function(){
+$('#prev').click(function(){
     $($questions.get(currentQuestion)).fadeOut(function(){
         if(currentQuestion > 0){
 		currentQuestion = currentQuestion-1;
@@ -299,7 +280,7 @@ $('#prev{{question.id}}').click(function(){
 		var qNum = "Question " + questionNumber;
 		document.getElementById("questionNum").innerHTML=qNum;
 		$($questions.get(currentQuestion)).fadeIn();
-		//document.getElementById("{{question.id}}next").disabled=false;
+		document.getElementById("next").disabled=false;
         }
     });
 
@@ -321,11 +302,7 @@ function result(){
 }
 
 document.getElementById("questionNum").innerHTML=qNum;
-
-
 </script>
-
-{% endfor %}
 
 {% endblock %}
 

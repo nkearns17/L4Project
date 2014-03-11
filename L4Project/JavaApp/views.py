@@ -73,13 +73,13 @@ def tutorials(request):
 
 def CYOtest(request):
         template = loader.get_template('JavaApp/CYOtest.html')
-	questions = cyoQuestions.objects.filter(qType="CYO")
+	questions = cyoQuestions.objects.filter(qType="CYO").order_by('?')[:1]
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
 def Fbc(request):
         template = loader.get_template('JavaApp/Fbc.html')
-	questions = cyoQuestions.objects.filter(qType="FBC")
+	questions = cyoQuestions.objects.filter(qType="FBC").order_by('?')[:1]
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 

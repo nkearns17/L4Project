@@ -185,14 +185,18 @@ var qNum = "Question " + questionNumber;
 var res = "Your score is: " + score + "/" + totalQuestions*10 + "<br>";
 document.getElementById("resultArea").innerHTML=res;
 
-var clicked = $('input[name=ans]:checked').length;
+var checkAns = "";
 
 // when next button clicked, go to next question.
 $('#next{{question.id}}').click(function(){
-	//clicked = $('input[name=ans]:checked').length;
-	alert(clicked);
+	checkAns = $('input[name=ans]:checked').val();
+	//alert(checkAns);
+	if (checkAns == undefined && currentQuestion == 0){
+		checkAns = "";
+	}
 	var t = document.getElementById('{{question.id}}ans').innerHTML;
-	if (t == "Check answer" && Number(clicked) != 0){
+	if (t == "Check answer" && checkAns.trim() != ""){
+		checkAns = $('input[name=ans]:checked').val();
 		$.get('validate_answer/{{question.id}}/'+$('input[name=ans]:checked').val(), function(data){
 			$('#{{question.id}}ans').html(data);
 			var i = document.getElementById('{{question.id}}ans').innerHTML;
@@ -211,7 +215,6 @@ $('#next{{question.id}}').click(function(){
 			}			
 		});
 	}
-	clicked = 0;
    	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
 		//var t = document.getElementById(currentQuestion+'ans').innerHTML;
 		currentQuestion = currentQuestion + 1;
@@ -228,6 +231,7 @@ $('#next{{question.id}}').click(function(){
 			$("[id^=prev]").removeAttr('disabled');
 		}
 	});
+	$('input[name=ans]:checked').val('');
 });
 
 // when previous button clicked, go back a question.

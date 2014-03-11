@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.9.19)  5 FEB 2014 10:33
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.9.19)  11 MAR 2014 11:59
 entering extended mode
  %&-line parsing enabled.
 **Requirements.tex
@@ -53,32 +53,51 @@ File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
+(/usr/share/texmf/tex/latex/tools/tabularx.sty
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+
+(/usr/share/texmf/tex/latex/tools/array.sty
+Package: array 2005/08/23 v2.4b Tabular extension package (FMi)
+\col@sep=\dimen105
+\extrarowheight=\dimen106
+\NC@list=\toks15
+\extratabsurround=\skip43
+\backup@length=\skip44
+)
+\TX@col@width=\dimen107
+\TX@old@table=\dimen108
+\TX@old@col=\dimen109
+\TX@target=\dimen110
+\TX@delta=\dimen111
+\TX@cols=\count88
+\TX@ftn=\toks16
+)
 (/usr/share/texmf/tex/latex/caption/caption.sty
 Package: caption 2007/01/07 v3.0k Customising captions (AR)
 
 (/usr/share/texmf/tex/latex/caption/caption3.sty
 Package: caption3 2007/01/07 v3.0k caption3 kernel (AR)
-\captionmargin=\dimen105
-\captionmarginx=\dimen106
-\captionwidth=\dimen107
-\captionindent=\dimen108
-\captionparindent=\dimen109
-\captionhangindent=\dimen110
+\captionmargin=\dimen112
+\captionmarginx=\dimen113
+\captionwidth=\dimen114
+\captionindent=\dimen115
+\captionparindent=\dimen116
+\captionhangindent=\dimen117
 )) (./Requirements.aux)
 \openout1 = `Requirements.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
 
 (/usr/share/texmf/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2003/03/25 v2.04 ragged2e Package (MS)
@@ -87,27 +106,27 @@ Package: ragged2e 2003/03/25 v2.04 ragged2e Package (MS)
 Package: everysel 1999/06/08 v1.03 EverySelectfont Package (MS)
 LaTeX Info: Redefining \selectfont on input line 125.
 )
-\CenteringLeftskip=\skip43
-\RaggedLeftLeftskip=\skip44
-\RaggedRightLeftskip=\skip45
-\CenteringRightskip=\skip46
-\RaggedLeftRightskip=\skip47
-\RaggedRightRightskip=\skip48
-\CenteringParfillskip=\skip49
-\RaggedLeftParfillskip=\skip50
-\RaggedRightParfillskip=\skip51
-\JustifyingParfillskip=\skip52
-\CenteringParindent=\skip53
-\RaggedLeftParindent=\skip54
-\RaggedRightParindent=\skip55
-\JustifyingParindent=\skip56
+\CenteringLeftskip=\skip45
+\RaggedLeftLeftskip=\skip46
+\RaggedRightLeftskip=\skip47
+\CenteringRightskip=\skip48
+\RaggedLeftRightskip=\skip49
+\RaggedRightRightskip=\skip50
+\CenteringParfillskip=\skip51
+\RaggedLeftParfillskip=\skip52
+\RaggedRightParfillskip=\skip53
+\JustifyingParfillskip=\skip54
+\CenteringParindent=\skip55
+\RaggedLeftParindent=\skip56
+\RaggedRightParindent=\skip57
+\JustifyingParindent=\skip58
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 7.
+(Font)              <12> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 7.
+(Font)              <8> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 7.
+(Font)              <6> on input line 8.
  (./Requirements.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 2.
@@ -121,27 +140,27 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/usr/share/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 30--31
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 38--39
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
 
  []
 
@@ -153,7 +172,7 @@ File: /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements
 
 <use /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/
 Q1Pie.png> [3]
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
@@ -165,7 +184,7 @@ File: /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements
 
 <use /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/
 Q2Pie.png>
-Underfull \hbox (badness 10000) in paragraph at lines 68--69
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
@@ -184,42 +203,82 @@ File: /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements
 
 <use /users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/
 Q4Bar.png>
-Overfull \hbox (69.00421pt too wide) in paragraph at lines 71--77
+Overfull \hbox (69.00421pt too wide) in paragraph at lines 72--78
 []$[]$ $[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 85.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 86.
 (/usr/share/texmf/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 85.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 86.
  [4 </users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/
 Q1Pie.png> </users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requir
-ements/Q2Pie.png>] [5 </users/level4/0902059k/Level4/Project/L4Project/Disserta
-tion/Requirements/Q3Bar.png> </users/level4/0902059k/Level4/Project/L4Project/D
-issertation/Requirements/Q4Bar.png>] (./Requirements.aux) ) 
+ements/Q2Pie.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+
+ []
+
+[5 </users/level4/0902059k/Level4/Project/L4Project/Dissertation/Requirements/Q
+3Bar.png> </users/level4/0902059k/Level4/Project/L4Project/Dissertation/Require
+ments/Q4Bar.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 115--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/m/n/10 Answer Ques-tions for
+ []
+
+
+Underfull \hbox (badness 1968) in paragraph at lines 132--132
+[]|\OT1/cmr/m/n/10 Edit the pro-vided Java
+ []
+
+
+Overfull \hbox (109.90541pt too wide) in paragraph at lines 123--135
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+
+ []
+
+[6] [7] (./Requirements.aux) ) 
 Here is how much of TeX's memory you used:
- 1104 strings out of 256216
- 17544 string characters out of 1917072
- 70522 words of memory out of 1500000
- 4416 multiletter control sequences out of 10000+200000
+ 1192 strings out of 256216
+ 18547 string characters out of 1917072
+ 73148 words of memory out of 1500000
+ 4498 multiletter control sequences out of 10000+200000
  7895 words of font info for 28 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 35i,7n,38p,724b,243s stack positions out of 5000i,500n,6000p,200000b,15000s
-</usr/share/texmf/fo
-nts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx12
-.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts
-/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb>
-</usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb>
-Output written on Requirements.pdf (5 pages, 193701 bytes).
+ 35i,9n,38p,724b,243s stack positions out of 5000i,500n,6000p,200000b,15000s
+</usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.p
+fb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/
+type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr12.pfb><
+/usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf/fonts/type1
+/bluesky/cm/cmsy10.pfb>
+Output written on Requirements.pdf (7 pages, 201886 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
+ 58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

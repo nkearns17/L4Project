@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage{caption}
 \begin{document}
 \title{Java Programming Revision Tool}
@@ -99,5 +100,58 @@ From the information and suggestions provided by both the Level 2 and Level 4 Co
 \item Provide video tutorial to allow the students to revise and learn.
 \item Allow lecturer/admin to add and update content - questions and quizzes
 \end{itemize}
+
+The activities which the client and I thought would be most benefitial to the students for learning and practicing Java code are:\\
+
+\begin{itemize}
+\item \textbf{Multiple Choice Questions} in which the user is provided with questions about Java syntax and snippets of code in which they must predict the output. This allows the user to improve their ability to read lines of code and understand it's behaviour.
+\item \textbf{Fill in the Blanks Questions} which provide the user with a small sample of code which a Java keyword removed and the user must enter the keyword which will complete the line of code.
+\item \textbf{Find the Errors.} This provides students with a piece of code, which contains errors and the user must identify where in the code the errors lie. This will enhance the users ability to read code, predict it behaviour and identify where the errors occur.
+\item \textbf{Code your Own}, a section which provides the user with a question or scenario in which the user must write the own code in order to complete the task.
+\end{itemize}
+
+\subsubsection{Requirements Table}
+
+\textbf{Student - } Uses the application to learn and revise Java using the activities provided; answering the multiple choice questions, completing the Fill in the Blank questions, identifying the errors within the broken code provided and writing their own code. Also through browsing the tutorials and video tutorials which will go over the basic Java syntax and concepts.\\
+\\
+\textbf{Lecturer - } Responsible for adding content to the application such as the questions for all relevant activities, the tutorials and video tutorials.\\
+
+
+\textbf{Student Requirements}\\
+
+\begin{center}
+\begin{tabular}{l*{3}{c}r}
+\hline
+\textbf{Id} & \textbf{Requirement} & \textbf{Description} & \textbf{Priority}\\
+\hline
+SR1 & \multicolumn{1}{m{4cm}}{View Tutorials} & \multicolumn{1}{m{8cm}}{Responsible for adding content to the application such as the questions for all relevant activities, the tutorials and video tutorials.} & Must Have\\
+SR2 & \multicolumn{1}{m{4cm}}{View Video Tutorials} & & Must Have\\
+SR3 & \multicolumn{1}{m{4cm}}{View Questions} & & Must Have\\
+SR4 & \multicolumn{1}{m{4cm}}{Answer Questions for Multiple Choice and Fill in the Blanks} & & Must Have\\
+SR5 & \multicolumn{1}{m{4cm}}{Write Java code and execute it for Code Your Own} & & Must Have \\
+SR6 & \multicolumn{1}{m{4cm}}{Edit the provided Java code and execute it for Find the Errors} & & Must Have \\
+\hline 
+\end{tabular}
+\end{center}
+
+\textbf{Lecturer Requirements}\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline \textbf{Id} & \textbf{Requirement} & \textbf{Description} & \textbf{Priority}\\
+\hline LR1 & Add Tutorials & & Must Have\\
+\hline LR2 & Edit Tutorials & & Should Have\\
+\hline LR3 & Delete Tutorials & & Must Have\\
+\hline LR4 & Add Video Tutorials & & Must Have\\
+\hline LR5 & Edit Video Tutorials & & Should Have\\
+\hline LR6 & Delete Video Tutorials & & Must Have\\
+\hline LR7 & Add Questions & & Must Have\\
+\hline LR8 & Edit Questions & & Should Have\\
+\hline LR9 & Delete Questions & & Must Have\\
+\hline 
+\end{tabular}
+\end{center}
+
+
 
 \end{document}

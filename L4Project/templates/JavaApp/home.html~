@@ -6,17 +6,14 @@
 	{% block topbar %}
         <center><h1>Hello, Java Programmers!</h1>
         <p>This application provides simple activities to allow you to learn and practice Java programming.</p>
-        <p><a href='about/' class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p></center>
+        <p><a href='about/' class="btn btn-primary btn-lg" role="button">Read this first &raquo;</a></p></center>
 	<br>
-	<center><div class="alert alert-danger" id="QMsg" style="width:800px">
-      	<h4>Please click <b>Learn more</b> and read the <b>Evaluation Aim</b> before continuing further.</h4>
-    	</div></center>
 	{% endblock %}
 
 
 	
 	{% block content %}
-    <div class="container" style="body {background-color:#b0c4de;}">
+    <div class="container">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
@@ -27,7 +24,7 @@
         <div class="col-md-4">
           <h2>Multiple Choice</h2>
           <p>Given a small snippet of code, predict the behaviour and/or output of the code correctly.</p>
-          <p><a class="btn btn-default" href="multChoice2" role="button">Go &raquo;</a></p>
+          <p><a class="btn btn-default" href="multChoice/" role="button">Go &raquo;</a></p>
        </div>
         <div class="col-md-4">
           <h2>Code your Own</h2>

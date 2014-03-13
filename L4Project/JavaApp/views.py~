@@ -79,7 +79,7 @@ def CYOtest(request):
 
 def Fbc(request):
         template = loader.get_template('JavaApp/Fbc.html')
-	questions = cyoQuestions.objects.filter(qType="FBC")
+	questions = cyoQuestions.objects.filter(qType="FBC").order_by('?')[:1]
 	context = RequestContext(request, {'questions':questions})
 	return HttpResponse(template.render(context))
 
@@ -116,13 +116,7 @@ def runProg(request, question):
 	os.chdir('../../')
 	return HttpResponse(ans)
 
-#def multChoice(request):
-#	template=loader.get_template('JavaApp/multChoice.html')
-#	questions = Questions.objects.filter(Qtype="MC")
-#	context = RequestContext(request, {'questions':questions})
-#	return HttpResponse(template.render(context))
-
-def multChoice2(request):
+def multChoice(request):
 	template=loader.get_template('JavaApp/multChoice2.html')
 	questions = Questions.objects.filter(Qtype="MC").order_by('?')
 	context = RequestContext(request, {'questions':questions})

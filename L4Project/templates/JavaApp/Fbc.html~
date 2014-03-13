@@ -15,7 +15,7 @@
 
 {% for question in questions %}
 	<div id="container" align="center" class="well" style="border-style:solid;border-width:1px;margin-left:auto;margin-right:auto;width:80%;">
-	<h4><b>Question {{question.id}}:<b> {{question}} </h4>
+	<h4><b>Question 1:<b> {{question}} </h4>
 		<form id="myForm" method="post" action="/JavaApp/run_program/{{question.id}}" target="results{{question.id}}">
 			{% csrf_token %}
 			<div id="box1">
@@ -37,10 +37,6 @@
 {% endfor %}
 
 {% endblock %}
-
-{% if not questions %}
-    There are currently no questions for this activity.
-{% endif %}
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>

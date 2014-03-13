@@ -215,7 +215,7 @@ $('#next{{question.id}}').click(function(){
 			}			
 		});
 	}
-   	$($questions.get(currentQuestion)).delay(1000).fadeOut(function(){
+   	$($questions.get(currentQuestion)).delay(200).fadeOut(function(){
 		//var t = document.getElementById(currentQuestion+'ans').innerHTML;
 		currentQuestion = currentQuestion + 1;
 		if(currentQuestion == totalQuestions){

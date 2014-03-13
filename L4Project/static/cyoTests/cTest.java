@@ -1,28 +1,12 @@
-public class cTest 
-{
-	
-   private String name = "";
+public class cTest {
 
-   public String getName() 
-   {
-      return name;
-   }
-
-   public String getMessage() 
-   {
-      if (name == "") 
-      {
-         return "Hello!";
-      }
-      else 
-      {
-         return "Hello " + name + "!";
-      }
-   }
-
-   public void setName(String name) 
-   {
-      this.name = name;
-   }
-		
+  /**
+   * @return true if input number is prime
+   * @arg number to check for primality
+   */
+  public static boolean isPrime(int number) {
+    // put your code in here!
+    //
+    return false;
+  }
 }

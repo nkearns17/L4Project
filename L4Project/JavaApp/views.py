@@ -71,7 +71,7 @@ def tutorials(request):
         context = RequestContext(request, {'tuts':tuts, 'nameList':nameList})
         return HttpResponse(template.render(context))
 
-def CYOtest(request):
+def CYO(request):
         template = loader.get_template('JavaApp/CYOtest.html')
 	questions = cyoQuestions.objects.filter(qType="CYO").order_by('?')[:1]
 	context = RequestContext(request, {'questions':questions})
@@ -116,13 +116,7 @@ def runProg(request, question):
 	os.chdir('../../')
 	return HttpResponse(ans)
 
-#def multChoice(request):
-#	template=loader.get_template('JavaApp/multChoice.html')
-#	questions = Questions.objects.filter(Qtype="MC")
-#	context = RequestContext(request, {'questions':questions})
-#	return HttpResponse(template.render(context))
-
-def multChoice2(request):
+def multChoice(request):
 	template=loader.get_template('JavaApp/multChoice2.html')
 	questions = Questions.objects.filter(Qtype="MC").order_by('?')
 	context = RequestContext(request, {'questions':questions})

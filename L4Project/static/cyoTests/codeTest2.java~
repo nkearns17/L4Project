@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 /**
  * Test the isPrime function
  */
-public class codeTest2 {
+public class Test2Test {
     
   @Before
   public void setup() {
@@ -19,14 +19,14 @@ public class codeTest2 {
   @Test
   public void testProduct() {
     for (int i=2; i<10; i++) {
-      boolean b = cTest.isPrime(i*i);
+      boolean b = Test2.isPrime(i*i);
       assertTrue("incorrect result (square num is not prime)", b==false);
     }
   }
 
   @Test
   public void testTwo() {
-    boolean b = cTest.isPrime(2);
+    boolean b = Test2.isPrime(2);
     assertTrue("incorrect result (2 is prime)", b==true);
   }
 
@@ -34,7 +34,7 @@ public class codeTest2 {
   public void testPrimes() {
     int [] primes = {3, 5, 7, 11, 13, 17, 19, 23};
     for (int prime : primes) {
-      boolean b = cTest.isPrime(prime);
+      boolean b = Test2.isPrime(prime);
       assertTrue("incorrect result (number is prime)", b==true);
     }
   }
